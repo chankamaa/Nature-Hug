@@ -1,0 +1,117 @@
+.footer-container {
+    background-color: #224229;
+    color: #F5F5DC;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    width: 120px; 
+    height: auto;
+}
+
+.footer-company, .footer-support, .footer-plant-questions {
+    flex: 1;
+    margin-left: 20px;
+    margin-bottom: 20px; /* Added margin-bottom for better spacing on small screens */
+}
+
+.footer-company h4, .footer-support h4, .footer-plant-questions h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.footer-company ul, .footer-support ul, .footer-plant-questions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-company li, .footer-support li, .footer-plant-questions li {
+    margin-bottom: 5px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px; /* Added margin-top for better spacing */
+}
+
+.footer-terms a {
+    margin-right: 15px;
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.footer-social img {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.footer-container hr {
+    border: 1px solid #F5F5DC;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Media Queries for smaller screens */
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-company, .footer-support, .footer-plant-questions {
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+
+    .footer-logo img {
+        margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-terms {
+        margin-bottom: 10px;
+    }
+
+    .footer-social img {
+        width: 20px;
+        margin-right: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-container {
+        padding: 15px;
+    }
+
+    .footer-company h4, .footer-support h4, .footer-plant-questions h4 {
+        font-size: 14px;
+    }
+
+    .footer-company li, .footer-support li, .footer-plant-questions li {
+        font-size: 14px;
+    }
+
+    .footer-social img {
+        width: 18px;
+        margin-right: 5px;
+    }
+}
