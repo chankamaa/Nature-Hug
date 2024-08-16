@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { connectDB } from './config/db.js';
+import employeeRoutes from './routes/employeeRoutes.js';
 
 
 
@@ -18,6 +19,10 @@ app.use(cors())
 //db connection
 connectDB();
 
+
+
+//api routes
+app.use('/api', employeeRoutes);
 
 
 
