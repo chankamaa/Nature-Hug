@@ -1,0 +1,123 @@
+/* BillingForm.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf7e6; /* Light background color */
+  }
+  
+  .min-h-screen {
+    min-height: 100vh; /* Minimum height to cover the full screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .step-info {
+    text-align: right;
+  }
+  .flex {
+    display: flex;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .py-16 {
+    padding-top: 4rem; /* 64px padding on top */
+    padding-bottom: 4rem; /* 64px padding on bottom */
+  }
+  
+  .px-8 {
+    padding-left: 2rem; /* 32px padding on left */
+    padding-right: 2rem; /* 32px padding on right */
+  }
+  
+  .text-2xl {
+    font-size: 1.875rem; /* Font size equivalent to 30px */
+  }
+  
+  .font-bold {
+    font-weight: 700;
+  }
+  
+  .text-gray-800 {
+    color: #556B2F; /* Dark gray color */
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem; /* 16px margin on bottom */
+  }
+  
+  .text-gray-700 {
+    color: #556B2F; /* Darker gray color */
+  }
+  
+ 
+  .grid {
+    display: grid;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+  }
+  
+  .gap-4 {
+    gap: 1rem; /* 16px gap between grid items */
+  }
+  
+  .mt-1 {
+    margin-top: 0.25rem; /* 4px margin on top */
+  }
+  
+  .p-2 {
+    padding: 0.5rem; /* 8px padding */
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+  
+  .border {
+    border-width: 1px;
+  }
+  
+  .border-gray-300 {
+    border-color: #e2e8f0;
+  }
+  
+  .rounded-md {
+    border-radius: 0.375rem; /* 6px rounded corners */
+  }
+  
+  .bg-green-700 {
+    background-color: #556B2F; /* Green background for button */
+  }
+  
+  .text-white {
+    color: #fff; /* White text color */
+  }
+  
+  .py-2 {
+    padding-top: 0.5rem; /* 8px padding on top */
+    padding-bottom: 0.5rem; /* 8px padding on bottom */
+  }
+  
+  .px-6 {
+    padding-left: 1.5rem; /* 24px padding on left */
+    padding-right: 1.5rem; /* 24px padding on right */
+  }
+  
+  .rounded-lg {
+    border-radius: 0.5rem; /* 8px rounded corners */
+  }
+  

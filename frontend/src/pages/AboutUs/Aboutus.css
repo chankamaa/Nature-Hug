@@ -1,0 +1,61 @@
+.about-us-container {
+  width: 70%;
+  margin: 0 auto;
+  background-color: #f7f6e7;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+}
+
+.header-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.mission-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.mission-section h2 {
+  font-size: 32px;
+  color: #617b2d;
+  margin-bottom: 10px;
+}
+
+.mission-section p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.section img {
+  width: 40%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.section h3 {
+  font-size: 24px;
+  color: #617b2d;
+  margin-bottom: 10px;
+}
+
+.section p {
+  font-size: 16px;
+  color: #333;
+}
