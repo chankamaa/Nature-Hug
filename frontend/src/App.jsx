@@ -13,8 +13,6 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
 
 
-
-
 const App=() =>{
   return (
 
@@ -38,3 +36,5 @@ const App=() =>{
   )
 
 } 
+
+export default  App
