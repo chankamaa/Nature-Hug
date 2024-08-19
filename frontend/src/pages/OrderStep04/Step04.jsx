@@ -1,5 +1,6 @@
 import React from 'react';
 import './Step04.css';
+import { assets } from '../../assets/assets'
 
 function Step04() {
   return (
@@ -25,7 +26,7 @@ function Step04() {
               <li>Order <strong>#3911690705825</strong></li>
             </ul>
             <div className="barcode mt-4">
-              <img src="barcode.png" alt="Order Barcode" />
+            <img src={assets.QRcode} alt="QRcode" />
             </div>
           </div>
           <div>
