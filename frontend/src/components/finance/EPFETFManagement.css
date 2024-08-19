@@ -1,0 +1,25 @@
+.epf-etf-management {
+    padding: 20px;
+  }
+  
+  .contribution-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .contribution-table th,
+  .contribution-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .contribution-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .contribution-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  

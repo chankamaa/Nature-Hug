@@ -22,3 +22,37 @@ export const getEmployees = async (req, res) => {
     res.status(500).json({ message: 'Error fetching employees', error });
   }
 };
+
+
+// Controller to get salary data for all employees
+
+export const getSalaries = async (req, res) => {
+  try {
+    const employees = await Employee.find({}, 'fullName position department basicSalary allowances');  // Adjust fields as necessary
+    const employeeData = employees.map(employee => {
+      return {
+        ...employee._doc,
+        totalSalary: employee.basicSalary + employee.allowances
+      };
+    });
+    res.status(200).json(employeeData);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching salary data', error });
+  }
+};
+
+export const getEPFETFContributions = async (req, res) => {
+  try {
+    const employees = await Employee.find({}, 'fullName department epf etf');  // Adjust fields as necessary
+    const contributions = employees.map(employee => {
+      return {
+        ...employee._doc,
+        totalContribution: employee.epf + employee.etf
+      };
+    });
+    res.status(200).json(contributions);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching EPF/ETF data', error });
+  }
+};
+
