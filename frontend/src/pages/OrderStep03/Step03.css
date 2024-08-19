@@ -1,0 +1,101 @@
+/* OrderSummary.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f1e7; /* Light background color */
+  }
+  
+  .p {
+    text-align: right;
+  }
+
+  .min-h-screen {
+    min-height: 100vh; /* Minimum height to cover the full screen */
+    padding: 2rem;
+  }
+  
+  .order-summary {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .order-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 8px;
+  }
+  
+  .order-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .quantity-control button {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .order-price {
+    font-weight: bold;
+    margin-left: 1rem;
+  }
+  
+  .order-totals {
+    margin-top: 2rem;
+    text-align: right;
+  }
+  
+  .billing-info {
+    margin-top: 3rem;
+  }
+  
+  .billing-details p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .edit-button {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .place-order-button {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .place-order-button:hover {
+    background-color: #6B8E23; /* Darker olive green on hover */
+  }
+  
