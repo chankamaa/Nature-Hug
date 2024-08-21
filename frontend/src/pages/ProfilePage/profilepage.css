@@ -1,0 +1,75 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9e7; /* Light yellowish background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Card Styling */
+
+
+/* Card Body Styling */
+.card-body {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Profile Picture Styling */
+.card-body img {
+    border-radius: 50%; /* Circular profile picture */
+    width: 50px;
+    margin-bottom: 15px;
+    border: 2px solid #007bff; /* Border around the profile picture */
+    padding: 5px; /* Padding between the image and its border */
+}
+
+/* Headings Styling */
+h5 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #6c757d; /* Light grey color for muted text */
+    margin-bottom: 5px;
+}
+
+/* Row Divider */
+hr {
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+/* Button Styling */
+.btn {
+    width: 48%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-danger {
+    background-color: #2e7d57; /* Red color for logout and update buttons */
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+
+/* Align the Buttons Side by Side */
+.card-body div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-body div:last-child {
+    margin-top: 20px;
+}
