@@ -28,6 +28,14 @@ h2 {
   margin-right: 20px;
 }
 
+.p {
+  text-align: left;
+  color: #000000;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+
 .item-details {
   flex: 1;
   display: flex;

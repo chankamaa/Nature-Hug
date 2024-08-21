@@ -5,7 +5,7 @@ import { assets } from '../../assets/assets'
 function Step04() {
   return (
     <div className="min-h-screen bg-[#f2f1e7] p-8 flex flex-col justify-between">
-      <p className="text-gray-700 mt-2 step-info">Step 4/4</p>
+      <a className="text-gray-700 mt-2 step-info">Step 4/4</a>
       {/* Checkout Header */}
       <header className="mb-8">
         <h1 className="text-2xl font-bold text-green-900">Checkout</h1>
