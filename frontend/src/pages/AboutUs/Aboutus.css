@@ -9,7 +9,7 @@
 
 .header-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 8px;
   margin-bottom: 20px;
 }
@@ -21,8 +21,9 @@
 
 .mission-section h2 {
   font-size: 32px;
-  color: #617b2d;
+  color: #000000;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .mission-section p {
@@ -44,9 +45,11 @@
 }
 
 .section img {
-  width: 40%;
+  width: 50%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 10px;
+  
+ 
 }
 
 .section h3 {
