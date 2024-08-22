@@ -1,10 +1,11 @@
 import React from 'react';
 import './Step04.css';
+import { assets } from '../../assets/assets'
 
 function Step04() {
   return (
     <div className="min-h-screen bg-[#f2f1e7] p-8 flex flex-col justify-between">
-      <p className="text-gray-700 mt-2 step-info">Step 4/4</p>
+      <a className="text-gray-700 mt-2 step-info">Step 4/4</a>
       {/* Checkout Header */}
       <header className="mb-8">
         <h1 className="text-2xl font-bold text-green-900">Checkout</h1>
@@ -25,7 +26,7 @@ function Step04() {
               <li>Order <strong>#3911690705825</strong></li>
             </ul>
             <div className="barcode mt-4">
-              <img src="barcode.png" alt="Order Barcode" />
+            <img src={assets.QRcode} alt="QRcode" />
             </div>
           </div>
           <div>
