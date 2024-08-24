@@ -1,0 +1,227 @@
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+
+import config from "./chatbot/config";
+import MessageParser from "./chatbot/MessageParser";
+import ActionProvider from "./chatbot/ActionProvider";
+
+const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+
+  const [isChatbotVisible, setChatbotVisible] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/contact",
+        formData
+      );
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Your message has been sent successfully!",
+        });
+
+        // Clear the form
+        setFormData({ fullName: "", phone: "", email: "", message: "" });
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "There was an error sending your message. Please try again.",
+      });
+    }
+  };
+
+  const handleChatbotToggle = () => {
+    setChatbotVisible(!isChatbotVisible);
+  };
+
+  return (
+    <Container className="my-5">
+      {/* Top Right Button */}
+      <div className="text-end mb-4">
+        <Button
+          variant="primary"
+          className="bg-green"
+          onClick={handleChatbotToggle}
+        >
+          Talk with Sales Team
+        </Button>
+      </div>
+
+      {/* Heading */}
+      <div className="d-flex justify-content-center align-items-center text-center my-4">
+        <h2 className="text-green">
+          Don't be a stranger, <br />
+          just say hello!
+        </h2>
+      </div>
+
+      <p className="text-center mt-3">
+        Thank you for your interest in our service. Please fill out the form
+        below or <br />
+        email us at hello@gmail.com
+      </p>
+
+      {/* Contact Form and Info */}
+      <div className="d-flex justify-content-center align-items-center mt-5">
+        <div
+          className="dialog-menu border p-4 rounded shadow-lg"
+          style={{ maxWidth: "80%", width: "100%" }}
+        >
+          <Row>
+            <Col
+              md={4}
+              className="text-center border-end d-flex flex-column justify-content-center align-items-center"
+            >
+              {/* Profile Image */}
+              <img
+                src="src/assets/customer1.png"
+                alt="Profile"
+                className="img-fluid rounded-circle mb-3"
+              />
+              {/* Address, Phone, Gmail */}
+              <p className="mb-2">
+                <i className="fas fa-map-marker-alt text-green me-2"></i>
+                123 Street, City, Country
+              </p>
+              <p className="mb-2">
+                <i className="fas fa-phone-alt text-green me-2"></i>
+                +123 456 7890
+              </p>
+              <p className="mb-2">
+                <i className="fas fa-envelope text-green me-2"></i>
+                contact@example.com
+              </p>
+            </Col>
+            <Col md={8}>
+              {/* Contact Form */}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formFullName">
+                  <Form.Label>Full Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your full name"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    className="bg-light-gray"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formPhone">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="bg-light-gray"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="bg-light-gray"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formMessage">
+                  <Form.Label>Message</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Your message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="bg-light-gray"
+                    required
+                  />
+                </Form.Group>
+
+                <div className="text-center">
+                  <Button variant="primary" type="submit" className="bg-green">
+                    Submit
+                  </Button>
+                </div>
+              </Form>
+            </Col>
+          </Row>
+        </div>
+      </div>
+
+      {/* Chatbot */}
+      {isChatbotVisible && (
+        <div className="chatbot-container">
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </div>
+      )}
+    </Container>
+  );
+};
+
+// Custom CSS for overriding default colors and styling
+const style = document.createElement("style");
+style.innerHTML = `
+  .bg-green {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+  }
+  .text-green {
+    color: #28a745 !important;
+  }
+  .bg-light-gray {
+    background-color: #f8f9fa !important;
+  }
+  p {
+    line-height: 1.6;
+  }
+  .chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 0px;
+    max-width: 300px;
+    width: 100%;
+    z-index: 1000;
+  }
+`;
+
+document.head.appendChild(style);
+
+export default ContactUs;
