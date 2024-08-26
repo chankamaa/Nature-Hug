@@ -11,6 +11,7 @@ const EPFETFManagement = () => {
     const fetchContributions = async () => {
       try {
         const response = await axios.get(`${url}/api/employees/epf-etf`);
+        console.log('Fetched contributions:', response.data);
         setContributions(response.data);
       } catch (error) {
         console.error('Error fetching EPF/ETF data:', error);
@@ -28,8 +29,9 @@ const EPFETFManagement = () => {
           <tr>
             <th>Employee Name</th>
             <th>Department</th>
-            <th>EPF Contribution</th>
-            <th>ETF Contribution</th>
+            <th>EPF (Employee Paid - 8%)</th>
+            <th>EPF (Company Paid - 12%)</th>
+            <th>ETF (Company Paid - 3%)</th>
             <th>Total Contribution</th>
           </tr>
         </thead>
@@ -38,9 +40,10 @@ const EPFETFManagement = () => {
             <tr key={contribution._id}>
               <td>{contribution.fullName}</td>
               <td>{contribution.department}</td>
-              <td>{contribution.epf}</td>
-              <td>{contribution.etf}</td>
-              <td>{contribution.totalContribution}</td>
+              <td>{(contribution.epfEmployee || 0).toFixed(2)}</td>
+              <td>{(contribution.epfCompany || 0).toFixed(2)}</td>
+              <td>{(contribution.etf || 0).toFixed(2)}</td>
+              <td>{((contribution.epfEmployee || 0) + (contribution.epfCompany || 0) + (contribution.etf || 0)).toFixed(2)}</td>
             </tr>
           ))}
         </tbody>

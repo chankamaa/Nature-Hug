@@ -1,11 +1,14 @@
-import React, { useState, useContext } from 'react';
-import './EmployeeAddForm.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { StoreContext } from '../../context/StoreContext';  // Import the context
+import { StoreContext } from '../../context/StoreContext';
+import './EmployeeEditForm.css';
 
-const EmployeeAddForm = () => {
-  const { url } = useContext(StoreContext);  // Access the backend URL from context
-
+const EmployeeEditForm = () => {
+  const { id } = useParams(); // Get the employee ID from the URL
+  const navigate = useNavigate(); // Replaced useHistory with useNavigate
+  const { url } = useContext(StoreContext);
+  
   const [employee, setEmployee] = useState({
     fullName: '',
     email: '',
@@ -21,6 +24,20 @@ const EmployeeAddForm = () => {
     email: '',
     phoneNumber: ''
   });
+
+  useEffect(() => {
+    // Fetch the existing employee details when the component loads
+    const fetchEmployee = async () => {
+      try {
+        const response = await axios.get(`${url}/api/employees/${id}`);
+        setEmployee(response.data);
+      } catch (error) {
+        console.error('Error fetching employee details:', error);
+      }
+    };
+
+    fetchEmployee();
+  }, [id, url]);
 
   const validateFullName = (name) => {
     const regex = /^[a-zA-Z\s]*$/;
@@ -81,33 +98,22 @@ const EmployeeAddForm = () => {
     }
 
     try {
-      // Use axios to make the POST request to the backend API
-      const response = await axios.post(`${url}/api/employees`, employee, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const response = await axios.put(`${url}/api/employees/${id}`, employee);
 
-      if (response.status === 201) {
-        alert('Employee added successfully!');
-        setEmployee({
-          fullName: '',
-          email: '',
-          phoneNumber: '',
-          position: '',
-          department: '',
-          basicSalary: '',
-          joiningDate: ''
-        });
+      if (response.status === 200) {
+        alert('Employee updated successfully!');
+        navigate('/employees'); // Redirect to the employee list page
       } else {
-        alert('Failed to add employee.');
+        alert('Failed to update employee.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error updating employee:', error);
     }
   };
 
   return (
-    <form id="employee-add-form" className="employee-add-form" onSubmit={handleSubmit}>
-      <h2 className="form-title">Add New Employee</h2>
+    <form id="employee-edit-form" className="employee-edit-form" onSubmit={handleSubmit}>
+      <h2>Edit Employee Details</h2>
 
       <label htmlFor="fullName" className="form-label">
         Full Name:
@@ -184,7 +190,6 @@ const EmployeeAddForm = () => {
         </select>
       </label>
 
-
       <label htmlFor="basicSalary" className="form-label">
         Basic Salary:
         <input
@@ -211,9 +216,9 @@ const EmployeeAddForm = () => {
         />
       </label>
 
-      <button type="submit" id="submit-btn" className="submit-btn">Add Employee</button>
+      <button type="submit" id="submit-btn" className="submit-btn">Update Employee</button>
     </form>
   );
 };
 
-export default EmployeeAddForm;
+export default EmployeeEditForm;

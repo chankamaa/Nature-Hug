@@ -24,7 +24,7 @@ connectDB();
 
 //api routes
 app.use('/api', employeeRoutes);
-app.use(financeRoutes);
+app.use('/api',financeRoutes);
 
 
 

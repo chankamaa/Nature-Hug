@@ -8,6 +8,8 @@ import FinanceDashboard from './pages/FinanceDashboard'
 import SalaryDashboard from './components/finance/SalaryDashboard'
 import EPFETFManagement from './components/finance/EPFETFManagement'
 import EmployeeAddForm from './components/finance/EmployeeAddForm'
+import EmployeeEditForm from './components/finance/EmployeeEditForm';
+import EmployeeList from './components/finance/EmployeeList'
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
         <Route path='/finance/add-employee' element={<EmployeeAddForm />} />
         <Route path='/finance/salary-dashboard' element={<SalaryDashboard />} />
         <Route path='/finance/epf-etf-management' element={<EPFETFManagement />} />
+        <Route path="/employees/edit/:id" element={<EmployeeEditForm />} />
+        <Route path="/employees" element={<EmployeeList />} />
       </Routes>
       
     </div>

@@ -10,6 +10,7 @@ import whatsapp from './whatsapp_icon.png'
 import handcr from './handcr.png'
 
 
+
 export const assets = {
     profile_icon,
     cart_icon,
