@@ -31,6 +31,14 @@ const FinanceSidebar = () => {
             EPF & ETF Management
           </NavLink>
         </li>
+        <li>
+          <NavLink 
+            to="/employees" 
+            className={({ isActive }) => (isActive ? 'active-link' : '')}
+          >
+            Employee List
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

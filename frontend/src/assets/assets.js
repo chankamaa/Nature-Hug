@@ -22,6 +22,7 @@ import outdoor from './o3.png'
 import pet from './o4.png'
 
 
+
 export const assets = {
     profile_icon,
     cart_icon,

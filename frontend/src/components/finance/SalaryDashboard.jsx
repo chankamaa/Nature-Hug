@@ -20,6 +20,7 @@ const SalaryDashboard = () => {
     fetchSalaries();  // Fetch salary data on component mount
   }, [url]);
 
+
   return (
     <div className="salary-dashboard">
       <h2>Salary Dashboard</h2>
