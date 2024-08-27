@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import './Step03.css';
 
 const Step03 = ({ userId }) => {
@@ -17,10 +18,10 @@ const Step03 = ({ userId }) => {
                 product: {
                     _id: '2',
                     name: 'Spider Plant',
-                    price: 1400,
+                    price: 2800,
                     image: '/images/spiderplant.jpg'
                 },
-                quantity: 1
+                quantity: 2
             },
             {
                 product: {
@@ -32,7 +33,7 @@ const Step03 = ({ userId }) => {
                 quantity: 1
             }
         ],
-        totalPrice: 3725
+        totalPrice: 5125
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -45,7 +46,7 @@ const Step03 = ({ userId }) => {
         telephone: '0123456888'
     });
 
-   
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
     const handleBillingInfoChange = (e) => {
         const { name, value } = e.target;
@@ -60,18 +61,18 @@ const Step03 = ({ userId }) => {
 
     const handlePlaceOrder = () => {
         alert("Order placed successfully!");
+        navigate('/Step04'); // Navigate to Step04 page
     };
 
     return (
         <div className="order-summary">
-           <br></br>
-                <br></br>
-                <br></br>
-                 <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <h2>Order Summary</h2>
             <p>Step 3/4</p>
             <div className="cart-items">
-                
                 <div className='cart-items-title'>
                     <p>Items</p>
                     <p>Title</p>
@@ -178,12 +179,10 @@ const Step03 = ({ userId }) => {
                             />
                         </div>
                         <button type="submit" className="save-button">Save</button>
-                        
                     </form>
                 )}
             </div>
             <button onClick={handlePlaceOrder} className="place-order-button">Place Order</button>
-            
         </div>
     );
 };

@@ -36,6 +36,7 @@ const Order = () => {
                 </div>
                 <input type="text" placeholder="Phone number" />
             </div>
+            
             <div className='place-order-right'>
                 <div className="cart-bottom">
                     <div className="cart-total">
