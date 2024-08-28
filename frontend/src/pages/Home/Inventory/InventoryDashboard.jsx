@@ -3,13 +3,13 @@
 import React from 'react'
 import './InventoryDashboard.css'
 import Dashboard from '../../../components/Inventory/Dashboard';
-import { Link } from 'react-router-dom';
 
 
 const  InventoryDashboard = () => {
     return (
-      <div> <Dashboard/> 
-o      <div className="inventory-container">
+      <div> 
+        <Dashboard></Dashboard>
+     <div className="inventory-container">
   
       
       <main className="inventory1">

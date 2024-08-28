@@ -9,6 +9,7 @@ const Instocks = () => {
   
       <div>
         <Dashboard></Dashboard>
+        HGRYGFTY
       </div>
     )
   
