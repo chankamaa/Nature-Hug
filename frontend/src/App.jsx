@@ -15,8 +15,12 @@ import FinanceDashboard from './pages/FinanceDashboard'
 import SalaryDashboard from './components/finance/SalaryDashboard'
 import EPFETFManagement from './components/finance/EPFETFManagement'
 import EmployeeAddForm from './components/finance/EmployeeAddForm'
+
+import Product from './pages/Product/product'
+import AdminDashboard from './pages/AdminDashboard';
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
 import EmployeeList from './components/finance/EmployeeList'
+
 
 
 const App=() =>{
@@ -41,6 +45,9 @@ const App=() =>{
         <Route path="/Step03" element={<Step03 />} />
         <Route path="/Step04" element={<Step04 />} />
         <Route path="/Aboutus" element={<Aboutus />} />
+
+        <Route path='/product'element={<Product />} />
+        <Route path='/admin' element={<AdminDashboard />} />
 
       </Routes>
       
