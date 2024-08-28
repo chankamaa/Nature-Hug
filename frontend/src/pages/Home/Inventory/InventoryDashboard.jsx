@@ -1,28 +1,19 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+
 import React from 'react'
 import './InventoryDashboard.css'
-
-
-
+import Dashboard from '../../../components/Inventory/Dashboard';
 import { Link } from 'react-router-dom';
+
 
 const  InventoryDashboard = () => {
     return (
-      <div className="inventory-container">
-      <aside className="sidebar">
-        <h2>Inventory</h2>
-
-        
-        <Link to='/'><button className="nav-button">Dashboard</button></Link>
-        <button className="nav-button">Stock</button>
-        <button className="nav-button">Suppliers</button>
-        <button className="nav-button">Invoice</button>
-        <button className="nav-button">Reports</button>
-        <button className="nav-button">Support</button>
-      </aside>
+      <div> <Dashboard/> 
+o      <div className="inventory-container">
+  
       
-      <main className="main-content">
-        <header className="header">
+      <main className="inventory1">
+               <header className="header1">
           <h1>Inventory</h1>
           <input type="search" placeholder="Search..." className="search-bar" />
         </header>
@@ -57,6 +48,7 @@ const  InventoryDashboard = () => {
           </div>
         </section>
       </main>
+    </div>
     </div>
   );
 };
