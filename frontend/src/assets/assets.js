@@ -41,6 +41,7 @@ import pot from './o1.png'
 import indoor from './o2.png'
 import outdoor from './o3.png'
 import pet from './o4.png'
+import parsal from './parsal.png'
 
 
 
@@ -84,6 +85,7 @@ export const assets = {
     indoor,
     outdoor,
     pet,
+    parsal,
 
 
 }

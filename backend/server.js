@@ -7,6 +7,7 @@ import plantRoutes from './routes/plantRoute.js';
 
 
 
+
 //app config
 const app = express();
 const port = 4000;
@@ -24,10 +25,12 @@ connectDB();
 
 
 //api routes
+
 app.use('/api', employeeRoutes);
 app.use("/api/plant",plantRoutes);
 app.use("/images", express.static("uploads"));
 app.use('/api',financeRoutes);
+
 
 
 
@@ -39,6 +42,3 @@ app.get("/",(req, res) =>{
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
-
-
-
