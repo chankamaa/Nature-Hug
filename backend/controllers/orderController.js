@@ -60,9 +60,23 @@ const placeOrder = async (req, res) => {
     
 
     } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "Error" })
 
     }
 
+
+    //user orders for frontend
+    const userOrders = async (req,res) =>{
+        try{
+            const orders = await orderModel.find({userID:req.body.userID});
+            res.json({ success: true, orders });
+        }catch(error){
+            console.log(error);
+            res.json({ success: false, message: "Error" });
+
+        }
+}
 
 }
 

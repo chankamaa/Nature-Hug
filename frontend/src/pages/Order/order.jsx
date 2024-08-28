@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './order.css';
 import { useNavigate } from 'react-router-dom'; // Ensure you import useNavigate if needed
 
@@ -10,6 +10,26 @@ const Order = () => {
         return 0; // Example total value
     };
 
+    const [data, setData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        street: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: '',
+        phone: ''
+    })
+
+    const onhandleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setData({ ...data, [name]: value });
+    }
+
+
+
     return (
         <form className='place-order'>
             <div className='place-order-left'>
@@ -18,13 +38,13 @@ const Order = () => {
                 <br></br>
                 <br></br>
                 <p>Step 2/4</p>
-                <p className="title">Delivery Information</p>
+                <p className="title">Delivery Information</p >
               
                 <div className="multi-fields">
                     <input type="text" placeholder="First name" />
                     <input type="text" placeholder="Last name" />
                 </div>
-                <input type="text" placeholder="Email" />
+                <input type="email" placeholder="Email" />
                 <input type="text" placeholder="Street" />
                 <div className="multi-fields">
                     <input type="text" placeholder="City" />

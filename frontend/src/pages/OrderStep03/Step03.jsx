@@ -102,7 +102,7 @@ const Step03 = ({ userId }) => {
                 <p className="total">Order Total: <span className="amount">Rs {cart.totalPrice + 350}</span></p>
             </div>
             <div className="billing-info">
-                <h3>Billing Information</h3>
+                <h3>Delivery Information</h3>
                 {!isEditing ? (
                     <>
                         <p><strong>Name:</strong> {billingInfo.fullName}</p>

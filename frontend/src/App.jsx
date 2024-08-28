@@ -5,6 +5,7 @@ import Step01 from './pages/OrderStep01/Step01';
 import Step03 from './pages/OrderStep03/Step03';
 import Step04 from './pages/OrderStep04/Step04';
 import Order from './pages/Order/order';
+import Myorders from './pages/Myorders/Myorders';
 import Aboutus from './pages/AboutUs/Aboutus';
 import './App.css'
 import Navbar from './components/navbar/navbar'
@@ -27,6 +28,7 @@ const App=() =>{
         <Route path="/Step03" element={<Step03 />} />
         <Route path="/Step04" element={<Step04 />} />
         <Route path="/Aboutus" element={<Aboutus />} />
+        <Route path="/myorders" element={<Myorders />} />
       </Routes>
       
     </div>
