@@ -2,7 +2,7 @@
 
 import React from 'react'
 import './InventoryDashboard.css'
-import Dashboard from '../../../components/Inventory/Dashboard';
+import Dashboard from '../../components/Dash/Dashboard';
 
 
 const  InventoryDashboard = () => {

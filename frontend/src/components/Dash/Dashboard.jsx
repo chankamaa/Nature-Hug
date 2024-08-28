@@ -17,7 +17,7 @@ const Dashboard = () => {
         <Link to='/'><button className="nav-button">Dashboard</button></Link>
         <Link to='/Instocks'> <button className="nav-button">Stock</button></Link>
        <Link to='/Suppliers'> <button className="nav-button">Suppliers</button></Link>
-        <button className="nav-button">Invoice</button>
+       <Link to= '/Das'> <button className="nav-button">Invoice</button></Link>
         <button className="nav-button">Reports</button>
         <button className="nav-button">Support</button>
       </aside>

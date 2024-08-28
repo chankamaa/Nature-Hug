@@ -5,9 +5,10 @@ import Navbar from './components/navbar/navbar'
 import {Route, Routes} from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
-import InventoryDashboard from './pages/Home/Inventory/InventoryDashboard'
-import Suppliers from './pages/Home/Inventory/Suppliers'
-import Instocks from './pages/Home/Inventory/Instocks'
+import InventoryDashboard from './pages/Inventory/InventoryDashboard'
+import Suppliers from './pages/Inventory/Suppliers'
+import Instocks from './pages/Inventory/Instocks'
+import Das from './pages/Inventory/Das'
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
         <Route path='/Suppliers' element={<Suppliers/>} />
         <Route path='/Instocks' element={<Instocks/>} />
-
+        <Route path='/Das' element={<Das/>} />
       </Routes>
       
     </div>

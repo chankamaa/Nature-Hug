@@ -1,0 +1,13 @@
+
+.milan{
+
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    background-color: #f9f9f9;
+    margin-bottom: 1em;
+}
