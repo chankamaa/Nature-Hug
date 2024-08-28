@@ -1,6 +1,11 @@
 import express from 'express'
 import cors from 'cors'
-import { connectDB } from './config/db.js';    
+import { connectDB } from './config/db.js';
+import employeeRoutes from './routes/employeeRoutes.js';
+import financeRoutes from './routes/financeRoutes.js';
+import plantRoutes from './routes/plantRoute.js';
+
+
 
 
 //app config
@@ -21,6 +26,10 @@ connectDB();
 
 //api routes
 
+app.use('/api', employeeRoutes);
+app.use("/api/plant",plantRoutes);
+app.use("/images", express.static("uploads"));
+app.use('/api',financeRoutes);
 
 
 
