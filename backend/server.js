@@ -25,9 +25,10 @@ connectDB();
 
 //api routes
 app.use('/api', employeeRoutes);
-app.use(financeRoutes);
 app.use("/api/plant",plantRoutes);
 app.use("/images", express.static("uploads"));
+app.use('/api',financeRoutes);
+
 
 
 

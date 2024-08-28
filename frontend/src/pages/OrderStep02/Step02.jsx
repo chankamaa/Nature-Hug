@@ -1,134 +1,189 @@
-import React from 'react';
-import './Step02.css';
+import React, { useState } from "react";
+import './Step02.css'
 
-function Step02() {
+const Step02 = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    streetAddress: "",
+    city: "",
+    country: "",
+    zipCode: "",
+    telephone: "",
+    cardNumber: "",
+    securityCode: "",
+    expMonth: "",
+    expYear: "",
+    cardName: ""
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validateForm = () => {
+    let tempErrors = {};
+
+    // Basic validation
+    if (!formData.firstName) tempErrors.firstName = "First Name is required";
+    if (!formData.lastName) tempErrors.lastName = "Last Name is required";
+    if (!formData.streetAddress) tempErrors.streetAddress = "Address is required";
+    if (!formData.city) tempErrors.city = "City is required";
+    if (!formData.country) tempErrors.country = "Country is required";
+    if (!formData.zipCode) tempErrors.zipCode = "Zip Code is required";
+    if (!formData.telephone) tempErrors.telephone = "Telephone is required";
+    
+    // Card information validation
+    const cardNumberRegex = /^[0-9]{16}$/;
+    if (!cardNumberRegex.test(formData.cardNumber)) tempErrors.cardNumber = "Invalid card number";
+
+    const securityCodeRegex = /^[0-9]{3,4}$/;
+    if (!securityCodeRegex.test(formData.securityCode)) tempErrors.securityCode = "Invalid security code";
+
+    if (!formData.expMonth || !formData.expYear) {
+      tempErrors.expDate = "Expiration date is required";
+    } else {
+      const currentDate = new Date();
+      const expDate = new Date(`${formData.expYear}-${formData.expMonth}`);
+      if (expDate < currentDate) tempErrors.expDate = "Card has expired";
+    }
+
+    if (!formData.cardName) tempErrors.cardName = "Cardholder name is required";
+
+    setErrors(tempErrors);
+
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+      console.log("Form submitted:", formData);
+    } else {
+      console.log("Form has errors.");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#fdf7e6] flex flex-col justify-between px-8 py-16">
-      {/* Billing Address Section */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Billing Address</h2>
-        <p className="text-gray-700 mt-2 step-info">Step 2/4</p>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="firstName" className="block text-gray-700">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName" className="block text-gray-700">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="streetAddress" className="block text-gray-700">Street Address</label>
-          <input
-            type="text"
-            id="streetAddress"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="city" className="block text-gray-700">City</label>
-            <input
-              type="text"
-              id="city"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label htmlFor="country" className="block text-gray-700">Country</label>
-            <input
-              type="text"
-              id="country"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="zipCode" className="block text-gray-700">Zip Code</label>
-            <input
-              type="text"
-              id="zipCode"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label htmlFor="telephone" className="block text-gray-700">Telephone</label>
-            <input
-              type="text"
-              id="telephone"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-      </section>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <h3>Billing Address</h3>
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          value={formData.firstName}
+          onChange={handleInputChange}
+        />
+        {errors.firstName && <p>{errors.firstName}</p>}
+        
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={formData.lastName}
+          onChange={handleInputChange}
+        />
+        {errors.lastName && <p>{errors.lastName}</p>}
 
-      {/* Billing Information Section */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Billing Information</h2>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="cardNumber" className="block text-gray-700">Card Number</label>
-            <input
-              type="text"
-              id="cardNumber"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label htmlFor="securityCode" className="block text-gray-700">Security Code</label>
-            <input
-              type="text"
-              id="securityCode"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="expMonth" className="block text-gray-700">Exp Month</label>
-            <input
-              type="text"
-              id="expMonth"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label htmlFor="expYear" className="block text-gray-700">Exp Year</label>
-            <input
-              type="text"
-              id="expYear"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="cardName" className="block text-gray-700">Card on Name</label>
-          <input
-            type="text"
-            id="cardName"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
-      </section>
+        <input
+          type="text"
+          name="streetAddress"
+          placeholder="Street Address"
+          value={formData.streetAddress}
+          onChange={handleInputChange}
+        />
+        {errors.streetAddress && <p>{errors.streetAddress}</p>}
 
-      {/* Continue Button */}
-      <div className="flex justify-center">
-        <button className="bg-green-700 text-white py-2 px-6 rounded-lg">
-          Continue
-        </button>
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleInputChange}
+        />
+        {errors.city && <p>{errors.city}</p>}
+
+        <input
+          type="text"
+          name="country"
+          placeholder="Country"
+          value={formData.country}
+          onChange={handleInputChange}
+        />
+        {errors.country && <p>{errors.country}</p>}
+
+        <input
+          type="text"
+          name="zipCode"
+          placeholder="Zip Code"
+          value={formData.zipCode}
+          onChange={handleInputChange}
+        />
+        {errors.zipCode && <p>{errors.zipCode}</p>}
+
+        <input
+          type="text"
+          name="telephone"
+          placeholder="Telephone"
+          value={formData.telephone}
+          onChange={handleInputChange}
+        />
+        {errors.telephone && <p>{errors.telephone}</p>}
       </div>
-    </div>
+
+      <div>
+        <h3>Billing Information</h3>
+        <input
+          type="text"
+          name="cardNumber"
+          placeholder="Card Number"
+          value={formData.cardNumber}
+          onChange={handleInputChange}
+        />
+        {errors.cardNumber && <p>{errors.cardNumber}</p>}
+
+        <input
+          type="text"
+          name="securityCode"
+          placeholder="Security Code"
+          value={formData.securityCode}
+          onChange={handleInputChange}
+        />
+        {errors.securityCode && <p>{errors.securityCode}</p>}
+
+        <input
+          type="text"
+          name="expMonth"
+          placeholder="Exp Month"
+          value={formData.expMonth}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="expYear"
+          placeholder="Exp Year"
+          value={formData.expYear}
+          onChange={handleInputChange}
+        />
+        {errors.expDate && <p>{errors.expDate}</p>}
+
+        <input
+          type="text"
+          name="cardName"
+          placeholder="Card on Name"
+          value={formData.cardName}
+          onChange={handleInputChange}
+        />
+        {errors.cardName && <p>{errors.cardName}</p>}
+      </div>
+
+      <button type="submit">Continue</button>
+    </form>
   );
-}
+};
 
 export default Step02;

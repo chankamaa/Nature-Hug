@@ -15,8 +15,11 @@ import FinanceDashboard from './pages/FinanceDashboard'
 import SalaryDashboard from './components/finance/SalaryDashboard'
 import EPFETFManagement from './components/finance/EPFETFManagement'
 import EmployeeAddForm from './components/finance/EmployeeAddForm'
+
 import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
+import EmployeeEditForm from './components/finance/EmployeeEditForm';
+import EmployeeList from './components/finance/EmployeeList'
 
 
 
@@ -32,6 +35,9 @@ const App=() =>{
         <Route path='/finance/add-employee' element={<EmployeeAddForm />} />
         <Route path='/finance/salary-dashboard' element={<SalaryDashboard />} />
         <Route path='/finance/epf-etf-management' element={<EPFETFManagement />} />
+
+        <Route path="/employees/edit/:id" element={<EmployeeEditForm />} />
+        <Route path="/employees" element={<EmployeeList />} />
         <Route path="/EmptyCart" element={<EmptyCart />} />
         <Route path="/FullCart" element={<FullCart />} />
         <Route path="/Step01" element={<Step01 />} />
@@ -39,10 +45,10 @@ const App=() =>{
         <Route path="/Step03" element={<Step03 />} />
         <Route path="/Step04" element={<Step04 />} />
         <Route path="/Aboutus" element={<Aboutus />} />
+
         <Route path='/product'element={<Product />} />
         <Route path='/admin' element={<AdminDashboard />} />
 
-        
       </Routes>
       
     </div>

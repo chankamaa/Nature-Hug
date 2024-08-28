@@ -8,6 +8,7 @@ import insta from './instagram_logo.png'
 import tiktok from './tiktok_icon.png'
 import whatsapp from './whatsapp_icon.png'
 import handcr from './handcr.png'
+
 import Bamboo_plant from './Bamboo_plant.png'
 import Snake_plant from './Snake_plant.png'
 import Money_plant from './money-plant.png'
@@ -28,6 +29,20 @@ import Moon_valley_plant from './Moon_valley_plant.png'
 
 
 
+import aboutus from './1.png'
+import flower from './2.png'
+import man from './3.png'
+import water from './4.png'
+import QRcode from './d3.png'
+import Cactus from './5.png'
+import Spider from './6.png'
+import Jade from './7.png'
+import pot from './o1.png'
+import indoor from './o2.png'
+import outdoor from './o3.png'
+import pet from './o4.png'
+
+
 
 
 export const assets = {
@@ -41,6 +56,7 @@ export const assets = {
     tiktok,
     whatsapp,
     handcr,
+
     Bamboo_plant,
     Snake_plant,
     Money_plant,
@@ -55,7 +71,21 @@ export const assets = {
     Caladium_plant,
     Philodendron_plant,
     ZZ_plant,
-    Moon_valley_plant
+    Moon_valley_plant,
+    aboutus,
+    flower,
+    man,
+    water,
+    QRcode,
+    Cactus,
+    Spider,
+    Jade,
+    pot,
+    indoor,
+    outdoor,
+    pet,
+
+
 }
 
 
