@@ -24,3 +24,9 @@ Product:{
     required: true, //validate
 }
 })  
+const Supplier = mongoose.Model(
+    
+    'SupplierModel',//file name
+    SupplierSchema //function name
+    );
+    export default SupplierModel ;
