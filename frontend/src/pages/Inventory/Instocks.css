@@ -1,13 +1,98 @@
-
-.milan{
-
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 1em;
-    background-color: #f9f9f9;
-    margin-bottom: 1em;
+.dashbard-container {
+  display: flex;
+  min-height: 100vh;
 }
+
+input[type=text], select {
+  
+    width: 98%;
+    padding: 12px 20px;
+    margin: 8px 0;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .type1{
+
+    margin-left: 100px;
+    margin-top: 150px;
+  }
+  .button1 {
+   
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .button1:hover {background-color: #3e8e41}
+  
+  .button1:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    
+  }
+ 
+
+
+    .button2 {
+   
+      margin-left: 100px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      justify-content: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color:#04AA6D;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+    }
+    
+    .button2:hover {background-color: #92000c}
+    
+    .button2:active {
+      background-color: #962a2e;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      
+    }
+  
+    
+  
+ 
+ 
+  
+ 
+    
+    
+    .updateButtonStyle1:active {
+      background-color: #962a2e;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);}
+
+      .removeButtonStyle1:active{
+
+        background-color: #962a2e;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+   

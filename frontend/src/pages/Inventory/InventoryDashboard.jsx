@@ -7,49 +7,54 @@ import Dashboard from '../../components/Dash/Dashboard';
 
 const  InventoryDashboard = () => {
     return (
-      <div> 
+      <div className="dashboard-container"> 
+
         <Dashboard></Dashboard>
-     <div className="inventory-container">
-  
-      
-      <main className="inventory1">
-               <header className="header1">
-          <h1>Inventory</h1>
-          <input type="search" placeholder="Search..." className="search-bar" />
-        </header>
-        
-        <section className="stock-summary">
-          <div className="stock-card">
-            <img src="in-stock-icon.png" alt="In Stock" />
-            <p>In-Stock</p>
-            <h2>70</h2>
-          </div>
-          <div className="stock-card">
-            <img src="all-stock-icon.png" alt="All Stock" />
-            <p>All Stock</p>
-            <h2>100</h2>
-          </div>
-          <div className="stock-card">
-            <img src="low-stock-icon.png" alt="Low Stock" />
-            <p>Low Stock</p>
-            <h2>20</h2>
-          </div>
-          <div className="stock-card">
-            <img src="out-stock-icon.png" alt="Out of Stock" />
-            <p>Out of Stock</p>
-            <h2>10</h2>
-          </div>
-        </section>
-        
-        <section className="chart-section">
-          <h2>Week stock level summary</h2>
-          <div className="chart-placeholder">
-            {/* The chart would be implemented here using a library like Chart.js */}
-          </div>
-        </section>
-      </main>
-    </div>
-    </div>
+        <main className="main-content">
+                {/* Search Bar */}
+                <div className="search-bar">
+                    <input type="text" placeholder="Search..." />
+                </div>
+
+                {/* Stock Summary Cards */}
+                <section className="stock-cards">
+                    <div className="card">
+                        <img src="in-stock-icon.png" alt="In Stock" />
+                        <h3>In-Stock</h3>
+                        <p>70</p>
+                    </div>
+                    <div className="card">
+                        <img src="all-stock-icon.png" alt="All Stock" />
+                        <h3>All Stock</h3>
+                        <p>100</p>
+                    </div>
+                    <div className="card">
+                        <img src="low-stock-icon.png" alt="Low Stock" />
+                        <h3>Low Stock</h3>
+                        <p>20</p>
+                    </div>
+                    <div className="card">
+                        <img src="out-stock-icon.png" alt="Out of Stock" />
+                        <h3>Out of Stock</h3>
+                        <p>10</p>
+                    </div>
+                </section>
+
+                {/* Stock Level Summary Chart */}
+                <section className="chart">
+                    <h2>Week stock level summary</h2>
+                    <div className="bar-chart">
+                        <div className="bar" style={{ height: '60%' }}>Mon</div>
+                        <div className="bar" style={{ height: '60%' }}>Tue</div>
+                        <div className="bar" style={{ height: '60%' }}>Wed</div>
+                        <div className="bar" style={{ height: '60%' }}>Thu</div>
+                        <div className="bar" style={{ height: '60%' }}>Fri</div>
+                        <div className="bar" style={{ height: '60%' }}>Sat</div>
+                        <div className="bar" style={{ height: '20%' }}>Sun</div>
+                    </div>
+                </section>
+            </main>
+     </div>
   );
 };
 
