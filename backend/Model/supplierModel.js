@@ -1,4 +1,4 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 const SupplierSchema = new mongoose.Schema({
 
@@ -29,4 +29,4 @@ const Supplier = mongoose.Model(
     'SupplierModel',//file name
     SupplierSchema //function name
     );
-    export default SupplierModel ;
+    export default Supplier;
