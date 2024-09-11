@@ -1,0 +1,57 @@
+/* Container for the entire dashboard */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Layout for the dashboard with sidebar and main content */
+  .dashboard-layout {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: 100vh; /* Make sidebar full height */
+    position: fixed; /* Fix sidebar in place */
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  /* Main content of the dashboard */
+  .dashboard-main-content {
+    flex: 1;
+    margin-left: 250px; /* Add left margin equal to sidebar width */
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh; /* Ensure it takes up the full height */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+  }
+  
+  /* Attendance search link styling */
+  .attendance-search-link {
+    margin-top: 20px;
+  }
+  
+  .attendance-search-link a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .attendance-search-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Adjust spacing and heading styles */
+  h1 {
+    margin-bottom: 20px;
+  }
+  
