@@ -3,7 +3,7 @@ import cors from 'cors'
 import { connectDB } from './config/db.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
-
+import attendanceRoutes from './routes/attendanceRoutes.js';
 
 
 //app config
@@ -25,7 +25,7 @@ connectDB();
 //api routes
 app.use('/api', employeeRoutes);
 app.use('/api',financeRoutes);
-
+app.use('/api', attendanceRoutes);
 
 
 app.get("/",(req, res) =>{

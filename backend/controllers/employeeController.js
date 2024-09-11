@@ -1,10 +1,13 @@
 import Employee from '../models/Employee.js';  // Assuming you have an Employee model
+import nodemailer from 'nodemailer';
 
 // Controller to add a new employee
 const addEmployee = async (req, res) => {
   try {
     const newEmployee = new Employee(req.body);
     await newEmployee.save();
+    // Send email after the employee is saved
+    await sendEmail(newEmployee.email, newEmployee.empId);
     res.status(201).json({ message: 'Employee added successfully!' });
   } catch (error) {
     console.error('Error adding employee:', error);
@@ -134,6 +137,34 @@ const updateEmployeeSalary = async (req, res) => {
     res.status(200).json(employee);
   } catch (error) {
     res.status(500).json({ message: 'Error updating salary', error });
+  }
+};
+
+//empid send to the email
+const sendEmail = async (email, empId) => {
+  try {
+    // Configure Nodemailer transport with Gmail
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'handamama.pvt@gmail.com',  // Replace with your Gmail address
+        pass: 'lhjhvwptabybkums',      // Generate an app password from Gmail
+      },
+    });
+
+    // Email content
+    const mailOptions = {
+      from: 'handamama.pvt@gmail.com',        // Sender address
+      to: email,                           // Employee's email
+      subject: 'Welcome to the Company',   // Subject line
+      text: `Dear Employee, \n\nWelcome to the company! Your employee ID is ${empId}.\n\nBest regards,\nCompany Team`
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
   }
 };
 
