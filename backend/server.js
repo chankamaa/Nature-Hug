@@ -3,6 +3,9 @@ import cors from 'cors'
 import { connectDB } from './config/db.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
+import attendanceRoutes from './routes/attendanceRoutes.js';
+import plantRoutes from './routes/plantRoute.js';
+
 
 
 
@@ -23,8 +26,13 @@ connectDB();
 
 
 //api routes
+
 app.use('/api', employeeRoutes);
-app.use(financeRoutes);
+app.use("/api/plant",plantRoutes);
+app.use("/images", express.static("uploads"));
+app.use('/api',financeRoutes);
+app.use('/api', attendanceRoutes);
+
 
 
 
@@ -35,6 +43,3 @@ app.get("/",(req, res) =>{
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
-
-
-

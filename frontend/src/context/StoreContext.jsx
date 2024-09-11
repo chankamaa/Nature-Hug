@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
     // Store the backend URL
     const url = "http://localhost:4000";
 
-    // Example states (similar to your other project)
+    // Example states
     const [token, setToken] = useState("");
     const [employees, setEmployees] = useState([]);
 
@@ -16,12 +16,11 @@ const StoreContextProvider = (props) => {
     const addEmployee = async (employeeData) => {
         try {
             const response = await axios.post(url + "/api/employees", employeeData, {
-                headers: { 'Content-Type': 'application/json', token }
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
             });
             if (response.status === 201) {
                 alert('Employee added successfully!');
-                // Optionally, you could refresh the employee list after adding a new one
-                fetchEmployees();
+                fetchEmployees(); // Refresh the employee list after adding a new one
             }
         } catch (error) {
             console.error('Error adding employee:', error);
@@ -29,21 +28,24 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    // Function to fetch all employees (if needed)
+    // Function to fetch all employees
     const fetchEmployees = async () => {
         try {
-            const response = await axios.get(url + "/api/employees", { headers: { token } });
+            const response = await axios.get(url + "/api/employees", { 
+                headers: { Authorization: `Bearer ${token}` } 
+            });
             setEmployees(response.data);
         } catch (error) {
             console.error('Error fetching employees:', error);
         }
     };
 
-    // Similar to loadCartData, you can load initial data here
+    // Function to load initial data when the app starts
     const loadInitialData = async () => {
-        if (localStorage.getItem("token")) {
-            setToken(localStorage.getItem("token"));
-            await fetchEmployees();  // Fetch employees if needed at startup
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+            await fetchEmployees();  // Fetch employees if a token exists at startup
         }
     };
 
@@ -67,4 +69,6 @@ const StoreContextProvider = (props) => {
     );
 };
 
+
 export default StoreContextProvider;
+

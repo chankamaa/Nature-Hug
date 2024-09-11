@@ -106,6 +106,7 @@ const EmployeeAddForm = () => {
   };
 
   return (
+    <div className="component">
     <form id="employee-add-form" className="employee-add-form" onSubmit={handleSubmit}>
       <h2 className="form-title">Add New Employee</h2>
 
@@ -184,6 +185,7 @@ const EmployeeAddForm = () => {
         </select>
       </label>
 
+
       <label htmlFor="basicSalary" className="form-label">
         Basic Salary:
         <input
@@ -210,8 +212,9 @@ const EmployeeAddForm = () => {
         />
       </label>
 
-      <button type="submit" id="submit-btn" className="submit-btn">Add Employee</button>
+      <button type="submit" id="submit-btn" className="submit-btnn">Add Employee</button>
     </form>
+    </div>
   );
 };
 
