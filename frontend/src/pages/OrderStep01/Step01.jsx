@@ -1,45 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Step01.css';
 
 const Step01 = () => {
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission
-        console.log('Email submitted:', email);
-    };
+  const validateEmail = () => {
+    let tempErrors = {};
 
-    return (
-        <div className="email-input-container">
-            <h2>Continue Shopping</h2>
-            <h3>Email Address</h3>
-            <p className="step-indicator">Step 1/4</p>
-            <div className="returning-customer-box">
-                <p>Returning Customer?</p>
-                <a href="/signin">Sign into your account to keep your orders in one place.</a>
-            </div>
-            <form onSubmit={handleSubmit} className="email-form">
-                <label htmlFor="email">Email Address</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    placeholder="Email Address"
-                    required
-                />
-                <p className="privacy-policy">
-                    By providing your email address, you agree to our <a href="/privacy-policy">privacy policy</a> and <a href="/terms">Terms and Conditions</a>.
-                </p>
-                <button type="submit" className="continue-button">Continue</button>
-            </form>
-        </div>
-    );
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      tempErrors.email = "Please enter a valid email address.";
+    }
+
+    setErrors(tempErrors);
+
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateEmail()) {
+      // Form is valid, proceed with submission
+      console.log("Email submitted:", email);
+      // Navigate to the order page
+      navigate("/order");
+    } else {
+      console.log("Form has errors.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="email-form">
+      <br></br><br></br>
+      <p>Step 1/4</p>
+      <br></br>
+      <br></br>
+      <h3>Email Address</h3>
+      <br></br>
+      <p>Returning Customer?</p>
+      <a>Sign into your account to keep your orders in one place.</a>
+      <br></br>
+      <br></br><br></br><br></br>
+      <input
+        type="text"
+        name="email"
+        placeholder="Email Address"
+        value={email}
+        onChange={handleInputChange}
+        className="email-input"
+      />
+      <br></br>
+      {errors.email && <p className="error-message">{errors.email}</p>}
+      <br></br>
+      
+      <button type="submit" className="submit-button">Continue</button>
+      <br></br><br></br><br></br><br></br>
+    </form>
+  );
 };
 
 export default Step01;
