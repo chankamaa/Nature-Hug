@@ -1,8 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { connectDB } from './config/db.js';
-
-
+import SupplierRouter from './Routers/supplierRoutes.js'
 
 //app config
 const app = express();
@@ -17,6 +16,10 @@ app.use(cors())
 
 //db connection
 connectDB();
+
+//api routes
+
+app.use('/ Supplier', SupplierRouter);
 
 
 
