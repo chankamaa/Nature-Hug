@@ -97,7 +97,6 @@ const deleteSupplier = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: 'Error deleting supplier', error });
   }
-
   // If no supplier is found
   if (!supplier) {
     return res.status(404).json({ message: 'Supplier not found' });
