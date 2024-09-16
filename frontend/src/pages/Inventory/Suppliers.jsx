@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import Dashboard from '../../components/Dash/Dashboard'
-import './Instocks.css'
-import { useState,useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { jsPDF } from 'jspdf'; // Import jsPDF for PDF generation
+import 'jspdf-autotable'; // Import jspdf-autotable for table support
+import Dashboard from '../../components/Dash/Dashboard';
+import './Instocks.css';
 
-const Suppliers = () =>  {
+const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
+  const [filteredSuppliers, setFilteredSuppliers] = useState([]); // For filtered suppliers based on search
   const [newSupplier, setNewSupplier] = useState({
     ID: '',
     Suppliername: '',
@@ -15,12 +17,14 @@ const Suppliers = () =>  {
     Product: '',
   });
   const [editSupplierId, setEditSupplierId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(''); // For search input
 
   // Fetch all suppliers
   const fetchSuppliers = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/suppliers/data');
       setSuppliers(response.data.suppliers);
+      setFilteredSuppliers(response.data.suppliers); // Initialize filtered suppliers
     } catch (error) {
       console.error('Error fetching suppliers', error);
     }
@@ -68,41 +72,81 @@ const Suppliers = () =>  {
       console.error('Error deleting supplier', error);
     }
   };
-  
+
+  // Search function to filter suppliers by name or any other field
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+
+    const filtered = suppliers.filter((supplier) =>
+      supplier.Suppliername.toLowerCase().includes(searchValue)
+    );
+
+    setFilteredSuppliers(filtered);
+  };
+
+  // Download suppliers data as PDF
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.text('Supplier Management Report', 14, 10);
+
+    const tableColumn = ['ID', 'Supplier Name', 'Description', 'Contact Info', 'Product'];
+    const tableRows = [];
+
+    filteredSuppliers.forEach((supplier) => {
+      const supplierData = [
+        supplier.ID,
+        supplier.Suppliername,
+        supplier.Description,
+        supplier.Contactinfor,
+        supplier.Product,
+      ];
+      tableRows.push(supplierData);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.save('suppliers_report.pdf');
+  };
+
   return (
-    <div className="dashbard-container">   
-      <Dashboard/>
+    <div>
+    <div className="dashbard-container">
+      <Dashboard />
       <main className="main-contet">
-      <section>
+        <section>
+         
 
-    <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>      
-      <div className='type1'>
-          <label>Supplier ID:</label>
-          <input type="text"name="ID" placeholder='Supplier ID' value={newSupplier.ID} onChange={handleChange} required/>
-          <label>Supplier Name:</label>
-          <input type="text"name="Suppliername" placeholder='Supplier Name' value={newSupplier.Suppliername} onChange={handleChange} required/>
-          <label>Description:</label>
-          <input type="text"name="Description" placeholder='Description' value={newSupplier.Description} onChange={handleChange} required/>
-          <label >Contact Infor:</label>
-          <input type="text"name="Contactinfor" placeholder='Contact Info' value={newSupplier.Contactinfor} onChange={handleChange} required/>
-          <label >Product:</label>
-          <input type="text"name="Product" placeholder='Product' value={newSupplier.Product} onChange={handleChange}required/>
+          <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
+            <div className="type1">
 
-          <button className='button1'>{editSupplierId ? 'Update Supplier' : 'Add Supplier'} ADD</button>
-          <button className='button2'> Remove</button>
-          
-  
-          </div>
+
+             <input type="text" placeholder="Search by Supplier Name"value={searchTerm}onChange={handleSearch} className="search-bar"/>
+
+              <label>Supplier ID:</label>
+              <input type="text"name="ID"placeholder="Supplier ID"value={newSupplier.ID}onChange={handleChange}required/>
+              <label>Supplier Name:</label>
+              <input type="text"name="Suppliername" placeholder="Supplier Name"value={newSupplier.Suppliername}onChange={handleChange}required/>
+              <label>Description:</label>
+              <input type="text"name="Description"placeholder="Description"value={newSupplier.Description}onChange={handleChange}required />
+              <label>Contact Infor:</label>
+              <input type="text"name="Contactinfor"placeholder="Contact Info"value={newSupplier.Contactinfor}onChange={handleChange}required/>
+              <label>Product:</label>
+              <input type="text"name="Product"placeholder="Product" value={newSupplier.Product}onChange={handleChange}required />
+
+              <button className="button1">
+                {editSupplierId ? 'Update Supplier' : 'Add Supplier'}
+              </button>
+            </div>
           </form>
-          </section>
+        </section></main></div>
 
-      <div style={{ padding: '20px', backgroundColor: '#f5f5dc' }}>   {/* Display the list of suppliers in a table */}
-      <h2>Supplier List</h2>
-      {suppliers.length === 0 ? (
-        <p>No suppliers available.</p>
-      ) : (
-        
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <h2 style={{textAlign:'center'}}>Supplier List</h2>
+
+      
+
+        {/* Supplier List */}
+        <table style={{ width: '100%' }} border="1">
           <thead>
             <tr>
               <th>ID</th>
@@ -114,7 +158,7 @@ const Suppliers = () =>  {
             </tr>
           </thead>
           <tbody>
-            {suppliers.map((supplier) => (
+            {filteredSuppliers.map((supplier) => (
               <tr key={supplier.ID}>
                 <td>{supplier.ID}</td>
                 <td>{supplier.Suppliername}</td>
@@ -122,21 +166,26 @@ const Suppliers = () =>  {
                 <td>{supplier.Contactinfor}</td>
                 <td>{supplier.Product}</td>
                 <td>
-                  <button onClick={() => {
-                    setEditSupplierId(supplier.ID);
-                    setNewSupplier(supplier);
-                  }}>Edit</button>
-                  <button onClick={() => deleteSupplier(supplier.ID)}>Delete</button>
+                  <button className='ed1' onClick={() => {
+                      setEditSupplierId(supplier.ID);
+                      setNewSupplier(supplier);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button className='de1' onClick={() => deleteSupplier(supplier.ID)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-     
-      )}  
-       </div>
-       </main>
-     </div>
-  )
-}
-export default Suppliers
+      
+      <div className='cont'>
+      <button className="button1" onClick={downloadPDF}>Download PDF</button>
+      </div>
+    
+    </div>
+  );
+};
+
+export default Suppliers;

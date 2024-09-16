@@ -7,7 +7,7 @@ import Home from './pages/Home/Home'
 
 import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
-
+import Footer from './components/Footer/Footer'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
 
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
     <div className='app'>
-      <Navbar />
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
@@ -23,9 +23,9 @@ const App = () => {
         <Route path='/ADDstocks' element={<ADDstocks/>} />
         <Route path='/Das' element={<Das/>} />
       </Routes>
-      
+       <Footer/>
     </div>
-   
+  
     </>
   )
 }

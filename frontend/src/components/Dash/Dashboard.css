@@ -4,7 +4,9 @@
 }
 
 .sidebar {
+ margin-top: 50px;
   width: 200px;
+  height:400px;
   background-color: #d3c4a2;
   padding: 20px;
 }
