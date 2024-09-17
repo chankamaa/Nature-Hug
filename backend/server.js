@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import { connectDB } from './config/db.js';
-import supplierRouter from './Routers/supplierRouter.js'
-import stockRouter from './Routers/stockRouter.js'
+import supplierRouter from './routes/supplierRouter.js'
+import stockRouter from './routes/stockRouter.js'
 import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
