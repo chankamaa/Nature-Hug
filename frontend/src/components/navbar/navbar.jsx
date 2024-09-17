@@ -2,7 +2,7 @@
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
-import { Link } from 'react-router-dom';
+
 const navbar = () => {
     return (
       <div className="navbar-container">
@@ -16,7 +16,6 @@ const navbar = () => {
           <div className="navbar-link">Services</div>
           <div className="navbar-link">Blog</div>
           <div className="navbar-link">Contact</div>
-         <Link to='/InventoryDashboard' > <div className="navbar-link">Admin</div></Link>
         </div>
         <div className="navbar-icons">
           <img className="cart-icon navi" src={assets.cart_icon} alt="icon1" />

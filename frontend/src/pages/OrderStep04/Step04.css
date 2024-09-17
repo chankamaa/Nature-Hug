@@ -1,0 +1,121 @@
+/* CheckoutConfirmation.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f1e7; /* Light background color */
+  }
+  
+  .min-h-screen {
+    min-height: 100vh; /* Minimum height to cover the full screen */
+    padding: 2rem;
+  }
+  .p {
+    text-align: right;
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .a {
+    text-align:left;
+    color: #000000;
+    font-size: 14px;
+    
+  }
+
+  
+  .text-green-900 {
+    color: #556B2F; /* Green text color */
+  }
+  
+  .text-xl {
+    font-size: 1.25rem; /* Font size equivalent to 20px */
+  }
+  
+  .font-bold {
+    font-weight: 700;
+  }
+  
+  .text-gray-800 {
+    color: #4a5568; /* Darker gray color */
+  }
+  
+  .bg-green-100 {
+    background-color: #edf2ec; /* Light green background for the confirmation box */
+  }
+  
+  .p-8 {
+    padding: 2rem; /* 32px padding */
+  }
+  
+  .rounded-lg {
+    border-radius: 8px; /* 8px rounded corners */
+  }
+  
+  .shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Large shadow */
+  }
+  
+  .order-confirmation {
+    background-color: #e7f5d8; /* Light green background color */
+    border-radius: 8px;
+    padding: 2rem;
+  }
+  
+  .order-info ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .barcode img {
+    width: 150px; /* Barcode image width */
+  }
+  
+  .order-status {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  .status-dot.bg-green-700 {
+    background-color: #556B2F; /* Green color for placed order status */
+  }
+  
+  .status-dot.bg-gray-300 {
+    background-color: #e2e8f0; /* Gray color for other statuses */
+  }
+  
+  .status-label {
+    font-size: 1rem;
+  }
+  
+  .mb-8 {
+    margin-bottom: 2rem; /* 32px margin on bottom */
+  }
+  
+  .underline {
+    text-decoration: underline;
+  }
+  
+  .continue-shopping-button {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 2rem;
+  }
+  
+  .continue-shopping-button:hover {
+    background-color: #6B8E23; /* Darker green on hover */
+  }
+  
