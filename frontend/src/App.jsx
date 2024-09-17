@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import EmptyCart from './pages/EmptyCart/EmptyCart';
-import FullCart from './pages/FullCart/FullCart';
 import Cart from './pages/Cart/cart';
 import Step01 from './pages/OrderStep01/Step01';
 import Step03 from './pages/OrderStep03/Step03';
@@ -48,8 +46,6 @@ const App = () => {
           <Route path='/finance/epf-etf-management' element={<EPFETFManagement />} />
           <Route path='/employees/edit/:id' element={<EmployeeEditForm />} />
           <Route path='/employees' element={<EmployeeList />} />
-          <Route path='/EmptyCart' element={<EmptyCart />} />
-          <Route path='/FullCart' element={<FullCart />} />
           <Route path='/Step01' element={<Step01 />} />
           <Route path='/Step03' element={<Step03 />} />
           <Route path='/Step04' element={<Step04 />} />
@@ -60,6 +56,7 @@ const App = () => {
           <Route path="/myorders" element={<Myorders />} />
           <Route path='/product'element={<Product />} />
           <Route path='/admin' element={<AdminDashboard />} />
+          <Route path='/cart' element={<Cart />} />
         </Routes>
 
         {/* Conditionally render Footer */}
