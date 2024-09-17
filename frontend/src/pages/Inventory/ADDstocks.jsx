@@ -199,7 +199,7 @@ function ADDstocks() {
 <label>Price:</label>
 <input type="text"name="Price"placeholder='Price' value={newStock.Price} onChange={handlePriceChange}required/>
 
-<label >qty:</label>
+<label >Stoks:</label>
 <input type="text" name="Qty"placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required/>
 
 <label >Total Amount:</label>

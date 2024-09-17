@@ -1,3 +1,4 @@
+import express from 'express';
 import Stoks from '../Model/Stock.js';
 
 // Get all stocks
@@ -62,6 +63,42 @@ export const deleteStock = async (req, res) => {
     if (!stock) return res.status(404).json({ message: 'Stock not found' });
 
     res.status(200).json({ message: 'Stock deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get stock levels summary
+export const getStockLevels = async (req, res) => {
+  try {
+    const stocks = await Stoks.find();
+
+    // Define thresholds for stock levels
+    const inStockThreshold = 50;
+    const lowStockThreshold = 1;
+
+    let inStockCount = 0;
+    let lowStockCount = 0;
+    let outOfStockCount = 0;
+
+    // Calculate stock levels
+    stocks.forEach(stock => {
+      if (stock.Qty >= inStockThreshold) {
+        inStockCount++;
+      } else if (stock.Qty >= lowStockThreshold && stock.Qty < inStockThreshold) {
+        lowStockCount++;
+      } else {
+        outOfStockCount++;
+      }
+    });
+
+    // Return stock levels summary
+    res.status(200).json({
+      inStock: inStockCount,
+      lowStock: lowStockCount,
+      outOfStock: outOfStockCount,
+      total: stocks.length
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

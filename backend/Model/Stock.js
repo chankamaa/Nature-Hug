@@ -21,6 +21,11 @@ const stockSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  Status: {
+    type: String,
+    enum: ['In Stock', 'Low Stock', 'Out of Stock'],
+    default: 'In Stock',
+  },
 });
 
 const Stock = mongoose.model('Stock', stockSchema);
