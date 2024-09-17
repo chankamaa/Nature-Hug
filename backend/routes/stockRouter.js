@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllStocks, addStock, updateStock, deleteStock,getStockLevels } from '../Controller/stockcontroller.js';
+import { getAllStocks, addStock, updateStock, deleteStock,getStockLevels } from '../controllers/stockcontroller.js';
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import SupplierModel from "../Model/supplierModel.js";
+import SupplierModel from "../models/supplierModel.js";
 
 // Get all suppliers 
 const getAllSuppliers = async (req, res, next) => {
@@ -40,7 +40,7 @@ const addSupplier = async (req, res, next) => {
   return res.status(201).json({ newSupplier });
 };
 
-import Supplier from "../Model/supplierModel.js";
+
 
 // Get supplier by ID
 const getSupplierById = async (req, res, next) => {

@@ -1,5 +1,5 @@
-import express from 'express';
-import Stoks from '../Model/Stock.js';
+
+import Stoks from '../models/Stock.js';
 
 // Get all stocks
 export const getAllStocks = async (req, res) => {
