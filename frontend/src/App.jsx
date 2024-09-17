@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart/cart';
@@ -24,6 +25,11 @@ import Dashboard from './pages/Employee/Dashboard';
 import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
 
+import InventoryDashboard from './pages/Inventory/InventoryDashboard'
+import Suppliers from './pages/Inventory/Suppliers'
+import Das from './pages/Inventory/Das'
+import ADDstocks from './pages/Inventory/ADDstocks'
+
 const App = () => {
   const location = useLocation();
 
@@ -33,7 +39,6 @@ const App = () => {
 
   return (
     <>
-
       <div className='app'>
         {/* Conditionally render Navbar */}
         {!noHeaderFooterPaths.includes(location.pathname) && <Navbar />}
@@ -57,6 +62,11 @@ const App = () => {
           <Route path='/product'element={<Product />} />
           <Route path='/admin' element={<AdminDashboard />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
+          <Route path='/Suppliers' element={<Suppliers/>} />
+          <Route path='/ADDstocks' element={<ADDstocks/>} />
+          <Route path='/Das' element={<Das/>} />
         </Routes>
 
         {/* Conditionally render Footer */}
