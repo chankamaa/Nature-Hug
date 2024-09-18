@@ -1,28 +1,28 @@
 /* UserProfile.css */
-.container {
+.P.container {
     padding-top: 5rem;
     padding-bottom: 5rem;
 }
 
-.card-body img {
+.P.card-body img {
     width: 150px;
 }
 
-.card-body .my-3 {
+.P.card-body .P.my-3 {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-.card-body .text-muted {
+.P.card-body .P.text-muted {
     margin-bottom: 1rem;
 }
 
-.btn {
+.P.btn {
     margin-top: 1rem;
     margin-right: 0.5rem;
 }
 
-.row hr {
+.P.row hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }

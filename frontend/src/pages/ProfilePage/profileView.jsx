@@ -50,14 +50,14 @@ const UserProfile = () => {
  
     return (
         <section>
-            <div className="container">
-                <div className="row">
+            <div className="P.container">
+                <div className="P.row">
                     <div className="col-lg-4 d-flex align-items-stretch">
                         <div className="card mb-4 w-100">
-                            <div className="card-body text-center">
+                            <div className="P.card-body text-center">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="rounded-circle img-fluid" />
-                                <h5 className="my-3">{user.firstName || 'User Name'}</h5>
-                                <p className="text-muted mb-4">{user.email || 'N/A'}</p>
+                                <h5 className="P.my-3">{user.firstName || 'User Name'}</h5>
+                                <p className="P.text-muted mb-4">{user.email || 'N/A'}</p>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@ const UserProfile = () => {
                     <div className="col-lg-8">
                         <div className="card mb-4">
                             <div className="card-body">
-                                <div className="row">
+                                <div className="P.row">
                                     <div className="col-sm-3">
                                         <p className="mb-0">Full Name</p>
                                     </div>
@@ -74,7 +74,7 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="row">
+                                <div className="P.row">
                                     <div className="col-sm-3">
                                         <p className="mb-0">Email</p>
                                     </div>
@@ -83,7 +83,7 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="row">
+                                <div className="P.row">
                                     <div className="col-sm-3">
                                         <p className="mb-0">Phone</p>
                                     </div>
@@ -93,7 +93,7 @@ const UserProfile = () => {
                                 </div>
                                 <hr />
                                 <div>
-                                    <button onClick={handleLogout} className="btn btn-danger">LogOut</button>
+                                    <button onClick={handleLogout} className="P.btn btn-danger">LogOut</button>
                                     <button className="btn btn-danger" onClick={() => navigate(`/update-user/${userId}`)}>Update</button>
                                 </div>
                             </div>
