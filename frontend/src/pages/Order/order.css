@@ -1,102 +1,93 @@
-/* Container */
+/* Container for the entire form */
 .place-order {
     display: flex;
-    justify-content: space-between;
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 1200px;
-    background-color: #fdf7e6;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Left Section */
-.place-order-left {
-    flex: 1;
-    padding-right: 20px;
-}
-
-.place-order-left .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-}
-
-.place-order-left .multi-fields {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.place-order-left input {
+    flex-direction: column;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+  }
+  
+  /* Left Section for Delivery Information */
+  .place-order-left {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-    box-sizing: border-box;
-}
-
-.place-order-left .multi-fields input {
-    width: 48%;
-}
-
-/* Right Section */
-.place-order-right {
-    flex: 0.4;
-    padding-left: 20px;
-    background-color: #fdf7e6;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-/* Cart Bottom Section */
-.cart-bottom {
-    margin-top: 20px;
-}
-
-.cart-total {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.cart-total-details {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.cart-total-details p {
-    margin: 0;
+  }
+  
+  .place-order-left p {
     font-size: 18px;
     color: #333;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    margin: 10px 0;
-}
-
-/* Button */
-button {
+  }
+  
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling for input fields */
+  input[type="text"],
+  input[type="email"] {
     width: 100%;
-    padding: 15px;
-    background-color: #556c24;
-    border: none;
-    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  /* Multi-fields for aligning input fields horizontally */
+  .multi-fields {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .multi-fields input {
+    width: 48%;
+  }
+  
+  /* Button Styling */
+  .place-order-button-container {
     margin-top: 20px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
+    width: 100%;
+    text-align: center;
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #025e02;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #038a03;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .place-order-left .multi-fields {
+      flex-direction: column;
+    }
+  
+    .multi-fields input {
+      width: 100%;
+    }
+  }
+  

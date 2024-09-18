@@ -1,120 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import './cart.css';
+import { StoreContext } from '../../context/StoreContext';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const Cart = () => {
-    const [cartItems, setCartItems] = useState([]);
-    const navigate = useNavigate();
+    const { cartItems, setCartItems, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
+    const navigate = useNavigate();  // Initialize useNavigate hook
+    const deliveryFee = 350;  // Set the delivery fee
 
-    useEffect(() => {
-        const items = [
-            {
-                _id: '1',
-                name: 'Cactus and Succulents',
-                price: 1150,
-                image: 'cactus-image-url',
-            },
-            {
-                _id: '2',
-                name: 'Spider Plant',
-                price: 1400,
-                image: 'spider-plant-image-url',
-            },
-            {
-                _id: '3',
-                name: 'Jade Plant',
-                price: 1175,
-                image: 'jade-plant-image-url',
-            }
-        ];
+    console.log(cartItems);
 
-        const itemQuantities = {
-            '1': 1,
-            '2': 2,
-            '3': 1,
-        };
-
-        setCartItems(items.map(item => ({ ...item, quantity: itemQuantities[item._id] })));
-    }, []);
-
-    const removeFromCart = (itemId) => {
-        setCartItems(cartItems.filter(item => item._id !== itemId));
+    const handlePlaceOrder = () => {
+        // Navigate to Step01 page on clicking Place Order
+        navigate('/step01', { state: { totalWithDelivery: getTotalCartAmount() + deliveryFee } });
     };
 
+    // Function to increase the quantity of an item
     const increaseQuantity = (itemId) => {
-        setCartItems(cartItems.map(item => 
-            item._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-        ));
+        setCartItems((prevItems) => {
+            const updatedItems = { ...prevItems };
+            updatedItems[itemId].quantity += 1;
+            return updatedItems;
+        });
     };
 
+    // Function to decrease the quantity of an item
     const decreaseQuantity = (itemId) => {
-        setCartItems(cartItems.map(item => 
-            item._id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-        ));
-    };
-
-    const getTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        setCartItems((prevItems) => {
+            const updatedItems = { ...prevItems };
+            if (updatedItems[itemId].quantity > 1) {
+                updatedItems[itemId].quantity -= 1;
+            } else {
+                // Optionally remove the item if the quantity goes to 0
+                removeFromCart(itemId);
+            }
+            return updatedItems;
+        });
     };
 
     return (
         <div className='cart'>
             <div className='cart-items'>
-    
                 <br></br>
                 <br></br>
                 <br></br>
-                 <br></br>
-                 <h2>My Cart</h2>
-                <div className='cart-items-title'>
-                    <p>Items</p>
-                    <p>Title</p>
-                    <p>Price</p>
-                    <p>Quantity</p>
-                    <p>Total</p>
-                    <p>Remove</p>
-                </div>
-                <br />
-                <hr />
-                {cartItems.map((item, index) => (
-                    <div key={item._id}>
-                        <div className='cart-items-title cart-items-item'>
-                            <img src={item.image} alt={item.name} />
-                            <p>{item.name}</p>
-                            <p>Rs {item.price}</p>
-                            <div className="quantity-controls">
-                                <button onClick={() => decreaseQuantity(item._id)}>-</button>
-                                <span>{item.quantity}</span>
-                                <button onClick={() => increaseQuantity(item._id)}>+</button>
-                            </div>
-                            <p>Rs {item.price * item.quantity}</p>
-                            <button onClick={() => removeFromCart(item._id)}>Remove</button>
+                <h2>My Cart</h2>
+
+                {Object.keys(cartItems).length === 0 ? (
+                    <p>Your cart is empty</p>
+                ) : (
+                    <div>
+                        <div className='cart-items-list'>
+                            <p>Items</p>
+                            <p>Title</p>
+                            <p>Price</p>
+                            <p>Quantity</p>
+                            <p>Total</p>
+                            <p>Remove</p>
                         </div>
                         <hr />
+                        {Object.keys(cartItems).map((itemId) => {
+                            const item = cartItems[itemId];
+                            return (
+                                <div key={itemId} className='cart-item'>
+                                    <img src={item.image} alt={item.name} className='cart-item-image' />
+                                    <p>{item.name}</p>
+                                    <p>Rs. {item.price}</p>
+                                    <div className="quantity-controls">
+                                        <button onClick={() => decreaseQuantity(itemId)}>-</button>
+                                        <p>{item.quantity}</p>
+                                        <button onClick={() => increaseQuantity(itemId)}>+</button>
+                                    </div>
+                                    <p>Rs. {item.price * item.quantity}</p>
+                                    <button className="remove-button" onClick={() => removeFromCart(itemId)}>
+                                        Remove
+                                    </button>
+                                </div>
+                            );
+                        })}
+                        <hr />
+                        <div className='cart-total'>
+                            <h3>Subtotal: Rs. {getTotalCartAmount()}</h3>
+                            <h3>Delivery Fee: Rs. {deliveryFee}</h3>
+                            <h3>Total: Rs. {getTotalCartAmount() + deliveryFee}</h3> {/* Add delivery fee to total */}
+                        </div>
+                        <div className='place-order'>
+                            {/* Button to navigate to Step01 */}
+                            <button className="place-order-button" onClick={handlePlaceOrder}>Place Order</button>
+                        </div>
                     </div>
-                ))}
+                )}
             </div>
-            <div className="cart-bottom">
-                <div className="cart-total">
-                    <h2>Cart Total</h2>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Subtotal</p>
-                    <p>Rs {getTotal()}</p>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Delivery Fee</p>
-                    <p>Rs 350</p>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Total</p>
-                    <p>Rs {getTotal() + 350}</p>
-                </div>
-            </div>
-            <button onClick={() => navigate('/Step01')}>Proceed to Checkout</button>
         </div>
     );
 };

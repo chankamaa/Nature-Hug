@@ -1,6 +1,7 @@
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
+import { Link } from 'react-router-dom';
 
 
 const navbar = () => {
@@ -18,7 +19,7 @@ const navbar = () => {
           <div className="navbar-link">Contact</div>
         </div>
         <div className="navbar-icons">
-          <img className="cart-icon navi" src={assets.cart_icon} alt="icon1" />
+          <Link to ='/cart'><img className="cart-icon navi" src={assets.cart_icon} alt="icon1" /></Link>
           <img className="profile-icon navi" src={assets.profile_icon} alt="profile" />
         </div>
       </div>
