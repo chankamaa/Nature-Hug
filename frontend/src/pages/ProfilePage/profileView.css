@@ -1,0 +1,32 @@
+/* UserProfile.css */
+.container {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.card-body img {
+    width: 150px;
+}
+
+.card-body .my-3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-body .text-muted {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+}
+
+.row hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.container p {
+    
+}
