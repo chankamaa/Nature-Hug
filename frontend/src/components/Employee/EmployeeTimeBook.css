@@ -1,79 +1,72 @@
 .employee-time-book-container {
-    margin-top: 50px;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .card-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .card {
-    width: 300px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background-color: #fff;
-  }
-  
-  .punch-in-card {
-    border-left: 5px solid orange;
-  }
-  
-  .punch-out-card {
-    border-left: 5px solid green;
-  }
-  
-  .input-box {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  .punch-in-button {
-    background-color: #FFA500;
-  }
-  
-  .punch-out-button {
-    background-color: #32CD32;
-  }
-  
-  .button:hover {
-    background-color: #45a049;
-  }
-  
-  .status-message {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  .employee-time-book-page {
-    display: flex;
-  }
-  
-  .employee-time-book-container {
-    margin-left: 270px;  /* Adjust margin to make space for the sidebar */
-    padding: 20px;
-  }
-  
-  .card-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-  }
+  margin-top: 80px;
+  margin-left: 200px; /* Adjusting margin to align with sidebar */
+  text-align: center;
+  padding: 40px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Increased space between cards */
+  margin-top: 50px;
+}
+
+.card {
+  width: 350px; /* Wider card size */
+  height: 300px; /* Increased height for cards */
+  padding: 40px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.punch-in-card {
+  border-left: 6px solid orange;
+}
+
+.punch-out-card {
+  border-left: 6px solid green;
+}
+
+.input-box {
+  width: 100%;
+  padding: 18px; /* Increased padding for larger input box */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 18px; /* Increased font size for better readability */
+}
+
+.button {
+  padding: 16px 30px;
+  font-size: 18px; /* Larger button font size */
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.punch-in-button {
+  background-color: #FFA500; /* Orange for Sign In */
+}
+
+.punch-out-button {
+  background-color: #32CD32; /* Green for Sign Out */
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.status-message {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 18px; /* Increased font size for status message */
+  color: #333;
+}

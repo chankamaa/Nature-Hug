@@ -1,5 +1,5 @@
 .today-attendance {
-    width: 80%;
+    width:80%;
     margin: 20px auto;
     text-align: center;
   }
@@ -28,3 +28,16 @@
     background-color: #f9f9f9;
   }
   
+  .download-icon{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0; /* Align to the right corner */
+    cursor: pointer;
+    color: black;
+    transition: color 0.3s ease;
+    margin-right: 39px;
+  }
+  .download-icon:hover {
+    color: #007bff; /* Change the color on hover */
+  }

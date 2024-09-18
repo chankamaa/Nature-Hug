@@ -1,0 +1,35 @@
+.dashboard-card {
+    width: 250px;
+    height: 100px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+  
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .card-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-count {
+    font-size: 2rem;
+    margin-right: 15px;
+  }
+  
+  .card-icon img {
+    width: 40px;
+    height: 40px;
+  }
+  

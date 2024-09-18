@@ -34,7 +34,7 @@ const App = () => {
   const location = useLocation();
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search'];
+  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard'];
 
 
   return (
