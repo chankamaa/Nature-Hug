@@ -110,7 +110,7 @@ const Suppliers = () => {
   };
 
   return (
-    <div>
+    <div className='mmm'>
     <div className="dashbard-container">
       <Dashboard />
       <main className="main-contet">
@@ -144,8 +144,7 @@ const Suppliers = () => {
         <h2 style={{textAlign:'center'}}>Supplier List</h2>
 
       
-
-        {/* Supplier List */}
+        <main  className="main-contet">
         <table style={{ width: '100%' }} border="1">
           <thead>
             <tr>
@@ -179,6 +178,7 @@ const Suppliers = () => {
             ))}
           </tbody>
         </table>
+        </main>
       
       <div className='cont'>
       <button className="button1" onClick={downloadPDF}>Download PDF</button>

@@ -178,7 +178,7 @@ function ADDstocks() {
   };
 
   return (
-    <div>
+    <div className='mmm'>
       <div className="dashbard-container">
      <Dashboard/>
 
@@ -212,6 +212,7 @@ function ADDstocks() {
  </div>
       </form></section></main></div>
       <h2 style={{textAlign:'center'}}>Stocks List</h2>
+      <main  className="main-contet">
       <table  style={{width:'100%'}}border="1">
         <thead>
           <tr>
@@ -238,7 +239,7 @@ function ADDstocks() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></main>
       <div className='cont'>
       <button className='button1' onClick={downloadPDF}>Download PDF</button>
     </div>

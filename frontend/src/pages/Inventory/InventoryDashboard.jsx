@@ -3,27 +3,42 @@
 import React from 'react'
 import './InventoryDashboard.css'
 import Dashboard from '../../components/Dash/Dashboard';
-
+import  { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const  InventoryDashboard = () => {
+    const [stockLevels, setStockLevels] = useState({
+        inStock: 0,
+        lowStock: 0,
+        outOfStock: 0,
+      });
+    
+      useEffect(() => {
+        
+        fetchStockLevels();
+      }, []);
+    
+     
+      const fetchStockLevels = async () => {
+        const response = await axios.get('http://localhost:4000/api/stocks/levels');
+        setStockLevels(response.data);
+      };
+    
     return (
       <div className="dashboard-container"> 
-
-        <Dashboard></Dashboard>
-        <main className="main-content">
-                {/* Search Bar */}
-                <div className="search-bar">
-                    <input type="text" placeholder="Search..." />
-                </div>
+<Dashboard/>
+       
+        <main className="maincontet">
+          
 
                 {/* Stock Summary Cards */}
                 <section className="stock-cards">
                     <div className="card">
                         <img src="in-stock-icon.png" alt="In Stock" />
                         <h3>In-Stock</h3>
-                        <p>70</p>
+                        <p>{stockLevels.inStock}</p>
                     </div>
-                    <div className="card">
+                   <div className="card">
                         <img src="all-stock-icon.png" alt="All Stock" />
                         <h3>All Stock</h3>
                         <p>100</p>
@@ -31,12 +46,12 @@ const  InventoryDashboard = () => {
                     <div className="card">
                         <img src="low-stock-icon.png" alt="Low Stock" />
                         <h3>Low Stock</h3>
-                        <p>20</p>
+                        <p>{stockLevels.lowStock}</p>
                     </div>
                     <div className="card">
                         <img src="out-stock-icon.png" alt="Out of Stock" />
                         <h3>Out of Stock</h3>
-                        <p>10</p>
+                        <p>{stockLevels.outOfStock}</p>
                     </div>
                 </section>
 
@@ -54,6 +69,8 @@ const  InventoryDashboard = () => {
                     </div>
                 </section>
             </main>
+
+            
      </div>
   );
 };

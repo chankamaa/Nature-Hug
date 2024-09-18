@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -34,7 +35,7 @@ const App = () => {
   const location = useLocation();
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search'];
+  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/Suppliers','/ADDstocks','/InventoryDashboard']
 
 
   return (
