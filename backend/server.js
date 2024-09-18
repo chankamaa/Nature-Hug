@@ -20,6 +20,15 @@ app.use(cors())
 //db connection
 connectDB();
 
+//routes
+import userRoutes from './routes/userRoutes.js';
+import allUserDoc from './routes/allUserDocRoutes.js';
+
+//route middlewares
+app.use(`/NatureHug/user`, userRoutes)
+app.use('/NatureHug/documents', allUserDoc)
+
+
 
 
 //api routes
