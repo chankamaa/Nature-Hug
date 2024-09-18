@@ -15,6 +15,12 @@ import FinanceDashboard from './pages/FinanceDashboard'
 import SalaryDashboard from './components/finance/SalaryDashboard'
 import EPFETFManagement from './components/finance/EPFETFManagement'
 import EmployeeAddForm from './components/finance/EmployeeAddForm'
+import Login from './pages/Login/login'
+import Signup from './pages/Signup/signup'
+import UserProfile from './pages/ProfilePage/profileView'
+import UpdateUser from './pages/UpdateUser/updateuser'
+import ForgotPassword from './pages/ForgotPassword/forgotpassword';
+import UserTable from './pages/UserTable/usertable';
 
 
 const App=() =>{
@@ -36,6 +42,12 @@ const App=() =>{
         <Route path="/Step03" element={<Step03 />} />
         <Route path="/Step04" element={<Step04 />} />
         <Route path="/Aboutus" element={<Aboutus />} />
+        <Route path="/login" element={<Login />}></Route> 
+        <Route path="/signup" element={<Signup />}></Route> 
+        <Route path="/user-profile" element={<UserProfile />}></Route> 
+        <Route path="/update-user/:id" element={<UpdateUser />}></Route> 
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/usertable" element={<UserTable />}></Route>
       </Routes>
       
     </div>
