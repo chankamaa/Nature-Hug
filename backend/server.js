@@ -31,7 +31,7 @@ app.use('/api',stockRouter);
 //api routes
 
 app.use('/api', employeeRoutes);
-app.use("/api/plant",plantRoutes);
+app.use("/api/plants",plantRoutes);
 app.use("/images", express.static("uploads"));
 app.use('/api',financeRoutes);
 app.use('/api', attendanceRoutes);
