@@ -20,8 +20,9 @@ import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
 import EmployeeList from './components/finance/EmployeeList'
-
-
+import ManagePromotions from './components/Sales/ManagePromotions'
+import PromoCodeList from './components/Sales/PromoCodeList';
+import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 
 
 const App=() =>{
@@ -53,6 +54,10 @@ const App=() =>{
         <Route path='/product'element={<Product />} />
         <Route path='/admin' element={<AdminDashboard />} />
 
+
+        <Route path='/add/promotions' element={<ManagePromotions />} />
+        <Route path='/add/promocode/list' element={<PromoCodeList/>} />
+        <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
       </Routes>
       
     </div>
