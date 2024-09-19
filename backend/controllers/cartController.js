@@ -1,60 +1,88 @@
-import userModel from '../models/userModel.js';
+import Cart from '../models/cartModels.js';
 
-//add items to user cart
-
-const addToCart = async (req, res) => {
+// Get cart by user ID
+export const getCart = async (req, res) => {
     try {
-        let userData = await userModel.findOne(req.body.userID);
-        let cartData = await userData.cartData;
-        if (!cartData[req.body.itemID]) {
-            cartData[req.body.itemID] = 1;
-        }
-        else {
-            cartData[req.body.itemID] += 1;
-        }
-        await userModel.findOneAndUpdate(req.body.userID, { cartData: cartData });
-        res.json({ success: true, message: "Added to Cart" });
-
+        const cart = await Cart.findOne({ userId: req.params.userId }).populate('items.productId');
+        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        res.status(200).json(cart);
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" })
-
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
-//remove items from user cart
-const removeFromCart = async (req, res) => {
+// Add item to cart
+export const addItemToCart = async (req, res) => {
+    const { userId, items } = req.body;
+
     try {
-        let userData = await userModel.findById(req.body.userID);
-        let cartData = await userData.cartData;
-        if (cartData[req.body.itemID]) {
-            cartData[req.body.itemID] -= 1;
+        let cart = await Cart.findOne({ userId });
 
+        if (cart) {
+            cart.items.push(...items);
+            cart.total = calculateTotal(cart.items);
+            await cart.save();
+            res.status(200).json(cart);
+        } else {
+            cart = new Cart({
+                userId,
+                items,
+                total: calculateTotal(items),
+            });
+            await cart.save();
+            res.status(201).json(cart);
         }
-        await userModel.findByIdAndUpdate(req.body.userID, { cartData: cartData });
-        res.json({ success: true, message: "Removed from Cart" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-    catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" })
+// Update cart item
+export const updateCartItem = async (req, res) => {
+    const { userId, productId, quantity } = req.body;
+
+    try {
+        let cart = await Cart.findOne({ userId });
+
+        if (cart) {
+            const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+            if (itemIndex > -1) {
+                cart.items[itemIndex].quantity = quantity;
+                cart.total = calculateTotal(cart.items);
+                await cart.save();
+                res.status(200).json(cart);
+            } else {
+                res.status(404).json({ message: 'Item not found in cart' });
+            }
+        } else {
+            res.status(404).json({ message: 'Cart not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
+// Delete item from cart
+export const removeItemFromCart = async (req, res) => {
+    const { userId, productId } = req.body;
 
+    try {
+        let cart = await Cart.findOne({ userId });
 
-//feth user cart data
-const fetchCart = async (req, res) => {
-    try{
-        let userData = await userModel.findById(req.body.userID);
-        let cartData = await userData.cartData;
-        res.json({success:true, cartData:cartData});
-    }catch(error){
-        console.log(error);
-        res.json({success:false, message:"Error"})
+        if (cart) {
+            cart.items = cart.items.filter((item) => item.productId.toString() !== productId);
+            cart.total = calculateTotal(cart.items);
+            await cart.save();
+            res.status(200).json(cart);
+        } else {
+            res.status(404).json({ message: 'Cart not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
-
-export { addToCart, removeFromCart, fetchCart }
-
+// Utility function to calculate total
+const calculateTotal = (items) => {
+    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+};
