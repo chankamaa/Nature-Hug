@@ -20,6 +20,7 @@ import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
 
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
+
 import EmployeeList from './components/finance/EmployeeList';
 import Dashboard from './pages/Employee/Dashboard';
 import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
@@ -29,9 +30,13 @@ import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
+import ManagePromotions from './components/Sales/ManagePromotions'
+import PromoCodeList from './components/Sales/PromoCodeList';
+import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 
 const App = () => {
   const location = useLocation();
+
 
   // Define paths where header and footer should be hidden
   const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard'];
@@ -67,6 +72,10 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+            
+          <Route path='/add/promotions' element={<ManagePromotions />} />
+          <Route path='/add/promocode/list' element={<PromoCodeList/>} />
+          <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
         </Routes>
 
         {/* Conditionally render Footer */}
