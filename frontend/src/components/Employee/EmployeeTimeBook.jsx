@@ -2,14 +2,14 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './EmployeeTimeBook.css';
 import Sidebar from './Sidebar'; 
-import { StoreContext } from '../../context/StoreContext';  // Correctly import StoreContext
+import DashboardNavbar from './DashboardNavbar'
+import { StoreContext } from '../../context/StoreContext';  
 
 const EmployeeTimeBook = () => {
   const [empId, setEmpId] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
 
-  // Use useContext to get the URL from StoreContext
   const { url } = useContext(StoreContext);  
 
   const handlePunchIn = async () => {
@@ -22,7 +22,6 @@ const EmployeeTimeBook = () => {
       const response = await axios.post(`${url}/api/attendance/punch-in`, { empId });
       setStatusMessage(`Employee ${empId} punched in successfully!`);
     } catch (error) {
-      // Use detailed error message for better feedback
       setStatusMessage(error.response?.data?.message || 'Error punching in.');
       console.error('Punch-in error:', error);
     } finally {
@@ -40,7 +39,6 @@ const EmployeeTimeBook = () => {
       const response = await axios.post(`${url}/api/attendance/punch-out`, { empId });
       setStatusMessage(`Employee ${empId} punched out successfully!`);
     } catch (error) {
-      // Use detailed error message for better feedback
       setStatusMessage(error.response?.data?.message || 'Error punching out.');
       console.error('Punch-out error:', error);
     } finally {
@@ -51,6 +49,7 @@ const EmployeeTimeBook = () => {
   return (
     <div className="employee-time-book-page">
       {/* Sidebar */}
+      <DashboardNavbar />
       <Sidebar />
 
       {/* Main Content */}
