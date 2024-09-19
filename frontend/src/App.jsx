@@ -29,6 +29,7 @@ import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
+import PlantDetail from './components/PlantDetail/PlantDetail'
 
 const App = () => {
   const location = useLocation();
@@ -67,6 +68,7 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+          <Route path='/plants/:id' element={<PlantDetail />} />
         </Routes>
 
         {/* Conditionally render Footer */}

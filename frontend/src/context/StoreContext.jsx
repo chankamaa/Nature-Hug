@@ -10,6 +10,7 @@ const StoreContextProvider = (props) => {
 
     // Example states
     const [token, setToken] = useState("");
+    const [plants, setPlants] = useState([]);
     const [employees, setEmployees] = useState([]);
 
     // Function to add a new employee
@@ -48,9 +49,20 @@ const StoreContextProvider = (props) => {
             await fetchEmployees();  // Fetch employees if a token exists at startup
         }
     };
+    const fetchplants = async () => {
+        const response = await axios.get(url + "/api/plants");
+        setPlants(response.data.data);
+    }
+
 
     useEffect(() => {
-        loadInitialData();
+        async function loadData(){
+            await fetchplants();
+            if(localStorage.getItem('token')){
+                setToken(localStorage.getItem('token'));
+            }
+        }
+        loadData();
     }, []);
 
     const contextValue = {
@@ -59,8 +71,11 @@ const StoreContextProvider = (props) => {
         setToken,
         employees,
         addEmployee,
-        fetchEmployees
+        fetchEmployees,
+        plants,
+        fetchplants
     };
+    
 
     return (
         <StoreContext.Provider value={contextValue}>

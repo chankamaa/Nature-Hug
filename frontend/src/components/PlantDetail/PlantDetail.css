@@ -1,0 +1,58 @@
+/* Container for plant details */
+.plant-detail {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Styling for plant name */
+  .plant-detail h2 {
+    color: #28a745;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  /* Image styling */
+  .plant-detail img {
+    width: 70%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    align-content: left;
+    
+  }
+  
+  /* Paragraph styling for plant details */
+  .plant-detail p {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  /* Strong tag for labels like 'Scientific Name', 'Price', etc. */
+  .plant-detail strong {
+    color: #555;
+    font-weight: bold;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .plant-detail {
+      padding: 15px;
+    }
+  
+    .plant-detail h2 {
+      font-size: 28px;
+    }
+  
+    .plant-detail p {
+      font-size: 16px;
+    }
+  }
+  
