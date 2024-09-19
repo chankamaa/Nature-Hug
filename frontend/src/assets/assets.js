@@ -8,6 +8,10 @@ import insta from './instagram_logo.png'
 import tiktok from './tiktok_icon.png'
 import whatsapp from './whatsapp_icon.png'
 import handcr from './handcr.png'
+import attendance from './attendance.png'
+import late from './late.png'
+import punctual from './puntual.png'
+import Download from './Download.png'
 
 import Bamboo_plant from './Bamboo_plant.png'
 import Snake_plant from './Snake_plant.png'
@@ -24,6 +28,7 @@ import Caladium_plant from './Caladium_plant.png'
 import Philodendron_plant from './Philodendron_plant.png'
 import ZZ_plant from './ZZ_plant.png'
 import Moon_valley_plant from './Moon_valley_plant.png'
+import search_icon from './search-icon.png'
 
 
 
@@ -86,6 +91,11 @@ export const assets = {
     outdoor,
     pet,
     parsal,
+    search_icon,
+    attendance,
+    late,
+    punctual,
+    Download
 
 
 }

@@ -4,6 +4,8 @@ import './FinanceDashboard.css';
 import axios from 'axios';
 import { StoreContext } from '../context/StoreContext';
 import SalaryChart from '../components/finance/SalaryChart';
+import DashboardNavbar from '../components/Employee/DashboardNavbar';
+
 
 const FinanceDashboard = () => {
   const { url } = useContext(StoreContext);
@@ -88,6 +90,8 @@ const FinanceDashboard = () => {
   return (
     <div className="finance-dashboard">
       <FinanceSidebar />
+      <DashboardNavbar />
+      
       <div className="dashboard-content">
         <h2>Finance Overview</h2>
 
@@ -109,8 +113,8 @@ const FinanceDashboard = () => {
             onChange={(e) => setEndDate(e.target.value)}
           />
 
-          <button onClick={fetchFilteredData}>Filter Data</button>
-          <button onClick={clearFilter} className="clear-filter-btn">Clear Filter</button>
+          <button className='btn btn-1' onClick={fetchFilteredData}>Filter Data</button>
+          <button onClick={clearFilter} className="btn clear-filter-btn btn-2">Clear Filter</button>
         </div>
 
 
@@ -128,15 +132,15 @@ const FinanceDashboard = () => {
 
 
         <div className="summary-cards">
-          <div className="card">
+          <div className="card-tot">
             <h3>Total Salaries</h3>
             <p>Rs.{totalSalaries}</p>
           </div>
-          <div className="card">
+          <div className="card-tot">
             <h3>EPF Contributions</h3>
             <p>Rs.{totalEPF}</p>
           </div>
-          <div className="card">
+          <div className="card-tot">
             <h3>ETF Contributions</h3>
             <p>Rs.{totalETF}</p>
           </div>

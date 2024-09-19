@@ -1,0 +1,61 @@
+/* Sidebar container */
+.sidebar-cso {
+  margin-top: 50px;
+  width: 200px;
+  background-color: #f8f9fa; /* Light gray for consistent background */
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+/* Sidebar heading */
+.sidebar-cso h3 {
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* List styling */
+.sidebar-cso ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* List item styling */
+.sidebar-cso ul li {
+  margin-bottom: 20px;
+}
+
+/* Sidebar link styling */
+.sidebar-cso ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Hover effect for links */
+.sidebar-cso ul li a:hover {
+  color: #007bff;
+  background-color: #e9ecef;
+}
+
+/* Active state for the current page link */
+.sidebar-cso ul li a.active {
+  color: #fff;
+  background-color: #007bff;
+}
+
+/* Make sure the body doesn't have a conflicting background color */
+body {
+  background-color: #f8f9fa; /* Match the sidebar background to avoid dual-tone */
+}
