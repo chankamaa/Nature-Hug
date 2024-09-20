@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './Step04.css';
+import './Step04.css'; // Ensure this contains the relevant styles for the PDF
 import { assets } from '../../assets/assets'; // Assuming you have assets imported correctly
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import jsPDF from 'jspdf';  // Import jsPDF
+import html2canvas from 'html2canvas';  // Import html2canvas for taking screenshots of DOM elements
 
 const Step04 = () => {
     const navigate = useNavigate();  // Initialize the navigate function
@@ -29,6 +31,33 @@ const Step04 = () => {
         navigate('/product');  // Replace '/products' with the actual route to your product page
     };
 
+    // Function to generate PDF report
+    const generateReport = () => {
+        const input = document.getElementById('report-content');  // Get the content to be converted to PDF
+        html2canvas(input, { scale: 2 }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4'); // Adjust PDF page size as necessary
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 295; // A4 height in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add the image data to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save("Order_Report.pdf");  // Save the PDF
+        });
+    };
+
     return (
         <div className="min-h-screen bg-[#f2f1e7] p-8 flex flex-col justify-between">
             {/* Checkout Header */}
@@ -41,7 +70,7 @@ const Step04 = () => {
             </header>
 
             {/* Order Confirmation Details */}
-            <section className="order-confirmation bg-green-100 p-8 rounded-lg shadow-lg mb-8">
+            <section className="order-confirmation bg-green-100 p-8 rounded-lg shadow-lg mb-8" id="report-content">
                 <p className="text-gray-700 mb-4">
                     <i>We’ll send you an email with tracking information when your item delivers.</i>
                 </p>
@@ -49,7 +78,7 @@ const Step04 = () => {
                     <div>
                         <ul className="text-gray-800">
                             <li>Order Placed</li>
-                            <li>Arrives by <strong>Tue, Sep 20</strong></li>
+                            <li>Arrives by <strong>Tue, Oct 20</strong></li>
                             <li>Sold by Nature Hug</li>
                             <li>Order <strong>#{Math.floor(Math.random() * 10000000000000)}</strong></li>
                         </ul>
@@ -69,27 +98,27 @@ const Step04 = () => {
 
                 {/* Order Status */}
                 <div className="order-status text-gray-700 flex items-center">
-                    <div className="status-dot bg-green-700"></div>
+                    <div className="status-dot green-dot"></div>  {/* This dot will be green */}
                     <span className="status-label ml-2">Order Placed</span>
-                    <div className="status-dot bg-gray-300 ml-8"></div>
+                    <div className="status-dot gray-dot ml-8"></div>
                     <span className="status-label ml-2">Processing</span>
-                    <div className="status-dot bg-gray-300 ml-8"></div>
+                    <div className="status-dot gray-dot ml-8"></div>
                     <span className="status-label ml-2">Delivered</span>
                 </div>
-            </section>
 
-            {/* Cart Items Summary */}
-            <section className="cart-items-summary bg-green-100 p-8 rounded-lg shadow-lg mb-8">
-                <h3 className="font-bold mb-4">Items Ordered</h3>
-                {Object.keys(cartItems).map((itemId) => {
-                    const item = cartItems[itemId];
-                    return (
-                        <div key={itemId} className="cart-item">
-                            <p>{item.name} x {item.quantity}</p>
-                            <p>Rs. {item.price * item.quantity}</p>
-                        </div>
-                    );
-                })}
+                {/* Cart Items Summary */}
+                <section className="cart-items-summary bg-green-100 p-8 rounded-lg shadow-lg mb-8">
+                    <h3 className="font-bold mb-4">Items Ordered</h3>
+                    {Object.keys(cartItems).map((itemId) => {
+                        const item = cartItems[itemId];
+                        return (
+                            <div key={itemId} className="cart-item">
+                                <p>{item.name} x {item.quantity}</p>
+                                <p>Rs. {item.price * item.quantity}</p>
+                            </div>
+                        );
+                    })}
+                </section>
             </section>
 
             {/* Help Section */}
@@ -101,6 +130,13 @@ const Step04 = () => {
             <div className="flex justify-center">
                 <button className="continue-shopping-button" onClick={handleContinueShopping}>
                     Continue Shopping
+                </button>
+            </div>
+
+            {/* Generate PDF Button */}
+            <div className="flex justify-center mt-4">
+                <button className="continue-shopping-button" onClick={generateReport}>
+                    Download Report as PDF
                 </button>
             </div>
         </div>

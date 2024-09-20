@@ -83,7 +83,7 @@ const Order = () => {
         if (validate()) {
             saveOrderData(data);  // Save the order data to the context and localStorage
             localStorage.setItem("orderData", JSON.stringify(data));  // Save order data in localStorage
-            navigate('/Step03');  // Navigate to Step03
+            navigate('/Step04');  // Navigate to Step04
         }
     };
 

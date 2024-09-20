@@ -47,7 +47,9 @@ const Cart = () => {
                 <h2>My Cart</h2>
 
                 {Object.keys(cartItems).length === 0 ? (
-                    <p>Your cart is empty</p>
+                    <div className="empty-cart-container">
+                        <p className="empty-cart-message">Your cart is empty</p>
+                    </div>
                 ) : (
                     <div>
                         <div className='cart-items-list'>

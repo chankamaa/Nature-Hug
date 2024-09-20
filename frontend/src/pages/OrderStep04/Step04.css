@@ -77,12 +77,12 @@ header p {
   border-radius: 50%;
 }
 
-.bg-green-700 {
-  background-color: #f2f1e7;
+.green-dot {
+  background-color: green;
 }
 
-.bg-gray-300 {
-  background-color: #d1d5db;
+.gray-dot {
+  background-color: lightgray;
 }
 
 .status-label {
@@ -160,3 +160,4 @@ footer a {
       font-size: 0.875rem;
   }
 }
+
