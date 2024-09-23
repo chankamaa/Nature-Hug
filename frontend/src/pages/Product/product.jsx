@@ -1,46 +1,17 @@
-import React from 'react'
-import './product.css'
-import { product_list } from '../../assets/assets'
+import React from 'react';
+import ProductList from '../../components/ProductList/ProductList'; // Adjust the path to match your file structure
 
-
-const Product = ({ category, setCategory }) => {
+const ProductPage = () => {
   return (
-    <div className='product-text'>  
-      <h1>Shop All Plant</h1>
-    <div className="product" id="product">
-      <button onClick={() => setCategory(item.category)}>OUTDOOR</button>
-      <button onClick={() => setCategory(item.category)}>INDOOR</button>
-      <button onClick={() => setCategory(item.category)}>PET FRIENDLY</button>
-      <button onClick={() => setCategory(item.category)}>OTHERS</button>
-
-      <div className="product-list">
-        {product_list.map((item, index) => {
-          return (
-            <div 
-              onClick={() => setCategory(prev => prev === item.category ? "all" : item.category)} 
-              key={index} 
-              className="product-list-item"
-            >
-              <img 
-                className={category === item.category ? "active" : ""} 
-                src={item.image} 
-                alt={item.name} 
-              />
-              
-        
-              <p>{item.name}</p>
-              <h3>Rs. {item.price}</h3>
-              <button onClick={() => setCategory(item.category)}>Add to Cart</button>
-              
-            </div>
-
-          )
-        })}
-      </div>
-      <hr />
+    <div className="product-page">
+      <h1>Our Plant Collection</h1>
+      <p>Explore our wide variety of plants and choose your favorite!</p>
+      
+      {/* Add the ProductList component here */}
+      <ProductList />
+      
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Product
+export default ProductPage;

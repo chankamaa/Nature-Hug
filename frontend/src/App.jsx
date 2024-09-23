@@ -33,6 +33,8 @@ import ADDstocks from './pages/Inventory/ADDstocks'
 import ManagePromotions from './components/Sales/ManagePromotions'
 import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
+import PlantDetail from './components/PlantDetail/PlantDetail'
+
 
 const App = () => {
   const location = useLocation();
@@ -71,11 +73,13 @@ const App = () => {
           <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
-          <Route path='/Das' element={<Das/>} /> 
-            
+          <Route path='/Das' element={<Das/>} />
+          <Route path='/plants/:id' element={<PlantDetail />} />
+          <Route path='/add/promotions' element={<ManagePromotions />} />
           <Route path='admin/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+
         </Routes>
 
         {/* Conditionally render Footer */}

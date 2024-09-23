@@ -28,15 +28,21 @@ connectDB();
 
 
 
-// API routes with unique paths
-app.use('/api/suppliers', supplierRouter);
-app.use('/api/stocks', stockRouter);
-app.use('/api/employees', employeeRoutes);
-app.use('/api/plants', plantRoutes);
-app.use('/api/finance', financeRoutes);
-app.use('/api/attendance', attendanceRoutes);
+
+//api routes
+
+app.use('/api',supplierRouter);
+app.use('/api',stockRouter);
+app.use('/api', employeeRoutes);
+app.use("/api/plants",plantRoutes);
+app.use("/images", express.static("uploads"));
+app.use('/api',financeRoutes);
+app.use('/api', attendanceRoutes);
+app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
+
+
 
 dotenv.config(); // Load .env variables
 

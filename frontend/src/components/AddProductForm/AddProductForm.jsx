@@ -34,7 +34,7 @@ const AddProductForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/api/plant/add', formData, {
+      const response = await axios.post('http://localhost:4000/api/plants/add', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
