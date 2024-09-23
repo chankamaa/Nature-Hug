@@ -1,0 +1,124 @@
+/* Container for the entire navbar */
+.dashboard-navbar-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 40px;
+}
+
+/* Left Section: Logo and menu button */
+.navbar-left-custom {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-custom {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.menu-icon-custom {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #333;
+}
+
+/* Center Section: Simple search bar */
+.navbar-search-custom {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 0 auto;
+  height: 25px;
+}
+
+.simple-search-input-custom {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 16px;
+  color: #333;
+  border-radius: 20px;
+  width: 250px;
+  height: 25px;
+}
+
+.search-btn-custom {
+  background: none;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+}
+
+.search-icon-custom {
+  width: 20px;
+  height: 20px;
+}
+
+/* Right Section: Notifications and Profile */
+.navbar-right-custom {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-notifications-custom {
+  position: relative;
+  margin-right: 20px;
+}
+
+.navbar-notifications-custom i {
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+}
+
+.notification-dot-custom {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.navbar-profile-custom {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic-custom {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.navbar-profile-custom span {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Padding for content below navbar */
+body {
+  padding-top: 80px;
+}

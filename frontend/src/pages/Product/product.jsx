@@ -1,43 +1,19 @@
-import React, { useContext } from 'react';
-import './product.css';
-import { product_list } from '../../assets/assets';
-import { StoreContext } from '../../context/StoreContext';
+import React from 'react';
+import ProductList from '../../components/ProductList/ProductList'; // Adjust the path to match your file structure
 
-const Product = ({ category, setCategory }) => {
-  const { cartItems, addToCart } = useContext(StoreContext);
-
+const ProductPage = () => {
   return (
-    <div className='product-text'>
-      <h1>Shop All Plants</h1>
-      <div className="product" id="product">
-        <button onClick={() => setCategory('OUTDOOR')}>OUTDOOR</button>
-        <button onClick={() => setCategory('INDOOR')}>INDOOR</button>
-        <button onClick={() => setCategory('PET FRIENDLY')}>PET FRIENDLY</button>
-        <button onClick={() => setCategory('OTHERS')}>OTHERS</button>
-
-        <div className="product-list">
-          {product_list.map((item, index) => (
-            <div 
-              key={index} 
-              className="product-list-item"
-            >
-              <img
-                className={category === item.category ? "active" : ""}
-                src={item.image}
-                alt={item.name}
-              />
-              <p>{item.name}</p>
-              <h3>Rs. {item.price}</h3>
-              {/* Check the quantity in cart */}
-              <button onClick={() => addToCart(item)}>Add to Cart</button>
-              
-            </div>
-          ))}
-        </div>
-        <hr />
-      </div>
+    <div className="product-page">
+      <h1>Our Plant Collection</h1>
+      <p>Explore our wide variety of plants and choose your favorite!</p>
+      
+      {/* Add the ProductList component here */}
+      <ProductList />
+      
     </div>
   );
 };
 
-export default Product;
+
+export default ProductPage;
+
