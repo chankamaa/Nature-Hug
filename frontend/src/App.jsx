@@ -25,12 +25,12 @@ import EmployeeList from './components/finance/EmployeeList';
 import Dashboard from './pages/Employee/Dashboard';
 import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
-
+import LowStock from './pages/Inventory/LowStock';
 import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
-
+import OutOfStocks from './pages/Inventory/outofstocks';
 const App = () => {
   const location = useLocation();
 
@@ -68,6 +68,8 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+          <Route path='/OutOfStocks' element={<OutOfStocks/>} />
+          <Route path='/LowStock' element={<LowStock/>} />
         </Routes>
 
         {/* Conditionally render Footer */}

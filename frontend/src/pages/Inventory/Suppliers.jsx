@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jsPDF } from 'jspdf'; // Import jsPDF for PDF generation
-import 'jspdf-autotable'; // Import jspdf-autotable for table support
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 import Dashboard from '../../components/Dash/Dashboard';
 import './Instocks.css';
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
-  const [filteredSuppliers, setFilteredSuppliers] = useState([]); // For filtered suppliers based on search
+  const [filteredSuppliers, setFilteredSuppliers] = useState([]); // search
   const [newSupplier, setNewSupplier] = useState({
     ID: '',
     Suppliername: '',
@@ -17,9 +17,9 @@ const Suppliers = () => {
     Product: '',
   });
   const [editSupplierId, setEditSupplierId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // For search input
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch all suppliers
+  //  all suppliers
   const fetchSuppliers = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/suppliers/data');
@@ -111,40 +111,40 @@ const Suppliers = () => {
 
   return (
     <div className='mmm'>
-    <div className="dashbard-container">
-      <Dashboard />
+      <div className="dashbard-container">
+        <Dashboard />
+        <main className="main-contet">
+          <section>
+
+
+            <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
+              <div className="type1">
+
+
+                <input type="text" placeholder="Search by Supplier Name" value={searchTerm} onChange={handleSearch} className="search-bar" />
+
+                <label>Supplier ID:</label>
+                <input type="text" name="ID" placeholder="Supplier ID" value={newSupplier.ID} onChange={handleChange} required />
+                <label>Supplier Name:</label>
+                <input type="text" name="Suppliername" placeholder="Supplier Name" value={newSupplier.Suppliername} onChange={handleChange} required />
+                <label>Description:</label>
+                <input type="text" name="Description" placeholder="Description" value={newSupplier.Description} onChange={handleChange} required />
+                <label>Contact Infor:</label>
+                <input type="text" name="Contactinfor" placeholder="Contact Info" value={newSupplier.Contactinfor} onChange={handleChange} required />
+                <label>Product:</label>
+                <input type="text" name="Product" placeholder="Product" value={newSupplier.Product} onChange={handleChange} required />
+
+                <button className="button1">
+                  {editSupplierId ? 'Update Supplier' : 'Add Supplier'}
+                </button>
+              </div>
+            </form>
+          </section></main></div>
+
+      <h2 style={{ textAlign: 'center' }}>Supplier List</h2>
+
+
       <main className="main-contet">
-        <section>
-         
-
-          <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
-            <div className="type1">
-
-
-             <input type="text" placeholder="Search by Supplier Name"value={searchTerm}onChange={handleSearch} className="search-bar"/>
-
-              <label>Supplier ID:</label>
-              <input type="text"name="ID"placeholder="Supplier ID"value={newSupplier.ID}onChange={handleChange}required/>
-              <label>Supplier Name:</label>
-              <input type="text"name="Suppliername" placeholder="Supplier Name"value={newSupplier.Suppliername}onChange={handleChange}required/>
-              <label>Description:</label>
-              <input type="text"name="Description"placeholder="Description"value={newSupplier.Description}onChange={handleChange}required />
-              <label>Contact Infor:</label>
-              <input type="text"name="Contactinfor"placeholder="Contact Info"value={newSupplier.Contactinfor}onChange={handleChange}required/>
-              <label>Product:</label>
-              <input type="text"name="Product"placeholder="Product" value={newSupplier.Product}onChange={handleChange}required />
-
-              <button className="button1">
-                {editSupplierId ? 'Update Supplier' : 'Add Supplier'}
-              </button>
-            </div>
-          </form>
-        </section></main></div>
-
-        <h2 style={{textAlign:'center'}}>Supplier List</h2>
-
-      
-        <main  className="main-contet">
         <table style={{ width: '100%' }} border="1">
           <thead>
             <tr>
@@ -166,9 +166,9 @@ const Suppliers = () => {
                 <td>{supplier.Product}</td>
                 <td>
                   <button className='ed1' onClick={() => {
-                      setEditSupplierId(supplier.ID);
-                      setNewSupplier(supplier);
-                    }}
+                    setEditSupplierId(supplier.ID);
+                    setNewSupplier(supplier);
+                  }}
                   >
                     Edit
                   </button>
@@ -178,12 +178,12 @@ const Suppliers = () => {
             ))}
           </tbody>
         </table>
-        </main>
-      
+      </main>
+
       <div className='cont'>
-      <button className="button1" onClick={downloadPDF}>Download PDF</button>
+        <button className="button1" onClick={downloadPDF}>Download PDF</button>
       </div>
-    
+
     </div>
   );
 };

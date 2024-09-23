@@ -6,11 +6,8 @@ import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
 
-const LOW_STOCK_THRESHOLD = 5; // Define your low stock threshold here
-
 const AllStocks = () => {
   const [stocks, setStocks] = useState([]);
-  const [lowStockItems, setLowStockItems] = useState([]);
 
   useEffect(() => {
     fetchStocks();
@@ -21,19 +18,8 @@ const AllStocks = () => {
     try {
       const response = await axios.get('http://localhost:4000/api/stocks');
       setStocks(response.data);
-      checkLowStock(response.data); // Check for low stock items
     } catch (error) {
       console.error('Error fetching stock data', error);
-    }
-  };
-
-  // Check for low-stock items and alert
-  const checkLowStock = (stockData) => {
-    const lowStock = stockData.filter(stock => stock.Qty > 0 && stock.Qty <= LOW_STOCK_THRESHOLD);
-
-    if (lowStock.length > 0) {
-      setLowStockItems(lowStock);
-      alert(`Warning: There are ${lowStock.length} items with low stock!`);
     }
   };
 
@@ -102,26 +88,10 @@ const AllStocks = () => {
         </section>
 
         {/* Download PDF Button */}
-        <section className="pdf-download">
-          <button className="download-btn" onClick={downloadAllStockPDF}>
-            Download All Stock List as PDF
+        <section className="cont">
+          <button className="button1" onClick={downloadAllStockPDF}>
+            Download PDF
           </button>
-        </section>
-
-        {/* Display Low-Stock Items */}
-        <section className="low-stock-alert">
-          {lowStockItems.length > 0 && (
-            <div className="alert alert-warning">
-              <h3>Low Stock Items</h3>
-              <ul>
-                {lowStockItems.map(stock => (
-                  <li key={stock._id}>
-                    {stock.Product_name} - Only {stock.Qty} left in stock!
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </section>
       </main>
     </div>

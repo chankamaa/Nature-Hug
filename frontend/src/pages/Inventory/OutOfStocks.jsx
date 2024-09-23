@@ -1,52 +1,41 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import jsPDF from 'jspdf'; // Import jsPDF for PDF generation
+import jsPDF from 'jspdf'; // Import jsPDF
 import 'jspdf-autotable'; // Import jspdf-autotable for table generation
 import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
+import './Instocks.css'
 
-const LOW_STOCK_THRESHOLD = 5; // Define your low stock threshold here
-
-const AllStocks = () => {
+const OutOfStocks = () => {
   const [stocks, setStocks] = useState([]);
-  const [lowStockItems, setLowStockItems] = useState([]);
 
   useEffect(() => {
     fetchStocks();
   }, []);
 
-  // Fetch all stock data
   const fetchStocks = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/stocks');
       setStocks(response.data);
-      checkLowStock(response.data); // Check for low stock items
     } catch (error) {
       console.error('Error fetching stock data', error);
     }
   };
 
-  // Check for low-stock items and alert
-  const checkLowStock = (stockData) => {
-    const lowStock = stockData.filter(stock => stock.Qty > 0 && stock.Qty <= LOW_STOCK_THRESHOLD);
+  // Filter out-of-stock items
+  const outOfStockItems = stocks.filter(stock => stock.Qty === 0);
 
-    if (lowStock.length > 0) {
-      setLowStockItems(lowStock);
-      alert(`Warning: There are ${lowStock.length} items with low stock!`);
-    }
-  };
-
-  // Function to download all stock items as a PDF
-  const downloadAllStockPDF = () => {
+  // Function to download the out-of-stock list as PDF
+  const downloadOutOfStockPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('All Stock Items', 14, 10);
+    doc.text('Out-Of-Stock Items', 14, 10);
 
     const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
     const tableRows = [];
 
-    stocks.forEach(stock => {
+    outOfStockItems.forEach(stock => {
       const stockData = [
         stock.Product_ID,
         stock.Product_name,
@@ -58,7 +47,7 @@ const AllStocks = () => {
     });
 
     doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.save('all_stock_items.pdf');
+    doc.save('out_of_stock_items.pdf');
   };
 
   return (
@@ -66,9 +55,9 @@ const AllStocks = () => {
       <Dashboard />
 
       <main className="main-contet">
-        {/* All Stock Items List View */}
-        <section className="all-stock-list">
-          <h2>All Stock Items List</h2>
+        {/* Out-Of-Stock Items List View */}
+        <section className="out-stock-list">
+          <h2>Out-Of-Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>
@@ -80,8 +69,8 @@ const AllStocks = () => {
               </tr>
             </thead>
             <tbody>
-              {stocks.length > 0 ? (
-                stocks.map(stock => (
+              {outOfStockItems.length > 0 ? (
+                outOfStockItems.map(stock => (
                   <tr key={stock._id}>
                     <td>{stock.Product_ID}</td>
                     <td>{stock.Product_name}</td>
@@ -93,7 +82,7 @@ const AllStocks = () => {
               ) : (
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center' }}>
-                    No stock items found
+                    No Out-Of-Stock items found
                   </td>
                 </tr>
               )}
@@ -102,30 +91,14 @@ const AllStocks = () => {
         </section>
 
         {/* Download PDF Button */}
-        <section className="pdf-download">
-          <button className="download-btn" onClick={downloadAllStockPDF}>
-            Download All Stock List as PDF
+        <section className="cont">
+          <button className="button1" onClick={downloadOutOfStockPDF}>
+            Download  PDF
           </button>
-        </section>
-
-        {/* Display Low-Stock Items */}
-        <section className="low-stock-alert">
-          {lowStockItems.length > 0 && (
-            <div className="alert alert-warning">
-              <h3>Low Stock Items</h3>
-              <ul>
-                {lowStockItems.map(stock => (
-                  <li key={stock._id}>
-                    {stock.Product_name} - Only {stock.Qty} left in stock!
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </section>
       </main>
     </div>
   );
 };
 
-export default AllStocks;
+export default OutOfStocks;

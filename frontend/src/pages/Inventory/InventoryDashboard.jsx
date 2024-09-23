@@ -1,80 +1,111 @@
 /* eslint-disable no-unused-vars */
-
-import React from 'react'
-import './InventoryDashboard.css'
+import React, { useState, useEffect } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
-import  { useState, useEffect } from 'react';
 import axios from 'axios';
+import { assets } from '../../assets/assets';
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const  InventoryDashboard = () => {
-    const [stockLevels, setStockLevels] = useState({
-        inStock: 0,
-        lowStock: 0,
-        outOfStock: 0,
-      });
-    
-      useEffect(() => {
-        
-        fetchStockLevels();
-      }, []);
-    
-     
-      const fetchStockLevels = async () => {
-        const response = await axios.get('http://localhost:4000/api/stocks/levels');
-        setStockLevels(response.data);
-      };
-    
-    return (
-      <div className="dashboard-container"> 
-<Dashboard/>
-       
-        <main className="maincontet">
+const InventoryDashboard = () => {
+  const [stockLevels, setStockLevels] = useState({
+    inStock: 0,
+    lowStock: 0,
+    outOfStock: 0,
+    allStock: 0,
+  });
+
+  useEffect(() => {
+    fetchStockLevels();
+  }, []);
+
+  const fetchStockLevels = async () => {
+    const response = await axios.get('http://localhost:4000/api/stocks/levels');
+    const { inStock, lowStock, outOfStock } = response.data;
+
+    //  all stock
+    const allStock = inStock + lowStock + outOfStock;
+
+    setStockLevels({
+      inStock,
+      lowStock,
+      outOfStock,
+      allStock,
+    });
+  };
+
+  // bar chart
+  const chartData = {
+    labels: ['In Stock', 'Low Stock', 'Out of Stock', 'All Stock'],
+    datasets: [
+      {
+        label: 'Stock Levels',
+        data: [stockLevels.inStock, stockLevels.lowStock, stockLevels.outOfStock, stockLevels.allStock],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 205, 86, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 205, 86, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Stock Levels Overview',
+      },
+    },
+  };
+
+  return (
+    <div className="dashboard-container">
+      <Dashboard />
+
+      <main className="main-contet">
+<h1 style={{textAlign:'center'}}>Inventory Dashboard</h1>
+        <section className="stock-cards">
+          <div className="card">
+            <img src={assets.Moon_valley_plant} alt="In Stock" />
+            <h3>In-Stock</h3>
+            <p>{stockLevels.inStock}</p>
+          </div>
+          <div className="card">
+            <img src={assets.Moon_valley_plant} alt="All Stock" />
           
+            <h3>All Stock</h3>
+            <p>{stockLevels.allStock}</p>
+          </div>
+          
+          <div className="card">
+            <img src={assets.Moon_valley_plant} alt="Out of Stock" />
+            <h3>Out of Stock</h3>
+            <p>{stockLevels.outOfStock}</p>
+          </div>
+        </section>
 
-                {/* Stock Summary Cards */}
-                <section className="stock-cards">
-                    <div className="card">
-                        <img src="in-stock-icon.png" alt="In Stock" />
-                        <h3>In-Stock</h3>
-                        <p>{stockLevels.inStock}</p>
-                    </div>
-                   <div className="card">
-                        <img src="all-stock-icon.png" alt="All Stock" />
-                        <h3>All Stock</h3>
-                        <p>100</p>
-                    </div>
-                    <div className="card">
-                        <img src="low-stock-icon.png" alt="Low Stock" />
-                        <h3>Low Stock</h3>
-                        <p>{stockLevels.lowStock}</p>
-                    </div>
-                    <div className="card">
-                        <img src="out-stock-icon.png" alt="Out of Stock" />
-                        <h3>Out of Stock</h3>
-                        <p>{stockLevels.outOfStock}</p>
-                    </div>
-                </section>
-
-                {/* Stock Level Summary Chart */}
-                <section className="chart">
-                    <h2>Week stock level summary</h2>
-                    <div className="bar-chart">
-                        <div className="bar" style={{ height: '60%' }}>Mon</div>
-                        <div className="bar" style={{ height: '60%' }}>Tue</div>
-                        <div className="bar" style={{ height: '60%' }}>Wed</div>
-                        <div className="bar" style={{ height: '60%' }}>Thu</div>
-                        <div className="bar" style={{ height: '60%' }}>Fri</div>
-                        <div className="bar" style={{ height: '60%' }}>Sat</div>
-                        <div className="bar" style={{ height: '20%' }}>Sun</div>
-                    </div>
-                </section>
-            </main>
-
-            
-     </div>
+        {/* Bar Chart */}
+        <section className="chart">
+          <h2>Stock Level Bar Chart</h2>
+          <Bar data={chartData} options={chartOptions} />
+        </section>
+      </main>
+    </div>
   );
 };
 
-export default  InventoryDashboard
- 
- 
+export default InventoryDashboard;

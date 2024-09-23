@@ -1,35 +1,22 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-ody {
-  font-family: Arial, sans-serif;
-  background-color: #fcfaf1;
-}
-
 .mmm {
   background-color: #f8f9fa;
-  padding:px;
+  padding: px;
 }
 
-
-/* Main content */
 .main-contet {
-  margin-left: 220px;
+  margin-left: 230px;
   padding: 20px;
   flex: 1;
 }
 
-/* Form Styling */
+
 .type1 {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .type1 label {
@@ -40,7 +27,7 @@ ody {
 }
 
 .type1 input {
-  width: 100%;
+  width: 99%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -71,7 +58,7 @@ ody {
 }
 
 table {
-  width:100%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 2px;
   background-color: white;
@@ -80,7 +67,8 @@ table {
 
 }
 
-table th, table td {
+table th,
+table td {
   padding: 12px 15px;
   border: 1px solid #ddd;
   text-align: left;
@@ -125,7 +113,6 @@ table .actions button {
   background-color: #c82333;
 }
 
-/* Button Styling */
 .button1 {
   background-color: #28a745;
   padding: 10px 20px;
@@ -150,7 +137,7 @@ table .actions button {
   width: 200px;
 }
 
-/* Search Input */
+
 .type1 input[type="text"][placeholder="Search by Product Name"] {
   margin-bottom: 20px;
   width: 50%;
@@ -159,6 +146,7 @@ table .actions button {
   padding: 10px;
   border: 1px solid #ddd;
 }
+
 .type1 input[type="text"][placeholder="Search by Supplier Name"] {
   margin-bottom: 20px;
   width: 50%;
