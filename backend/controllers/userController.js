@@ -182,11 +182,24 @@ const updateUser = async (req, res, next) => {
     }
 };
 
+const getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find().lean(); // Fetch all users
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).send('Server Error');
+    }
+};
+
+
+
+
 export default {
     signUpRequest,
     signUpVerify,
     signIn,
     getUserDetails,
     deleteUser,
-    updateUser
+    updateUser,
+    getAllUsers,
 };

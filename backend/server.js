@@ -1,49 +1,38 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
 import { connectDB } from './config/db.js';
+import userRoutes from './routes/userRoutes.js';
+import allUserDocRoutes from './routes/allUserDocRoutes.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
-
-
-//app config
+// App Config
 const app = express();
 const port = 4000;
 
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-//middleware
-app.use(express.json())
-app.use(cors())
-
-
-
-//db connection
+// DB Connection
 connectDB();
 
-//routes
-import userRoutes from './routes/userRoutes.js';
-import allUserDoc from './routes/allUserDocRoutes.js';
+// Route Middlewares
+app.use('/NatureHug/user', userRoutes);        // User routes
+app.use('/NatureHug/documents', allUserDocRoutes);  // Document routes
 
-//route middlewares
-app.use(`/NatureHug/user`, userRoutes)
-app.use('/NatureHug/documents', allUserDoc)
+// API Routes
+app.use('/api/employees', employeeRoutes);     // Employee routes
+app.use('/api/finance', financeRoutes);        // Finance routes
 
+// Root route
+app.get("/", (req, res) => {
+    res.send("API is Working");
+});
 
-
-
-//api routes
-app.use('/api', employeeRoutes);
-app.use(financeRoutes);
-
-
-
-app.get("/",(req, res) =>{
-    res.send("API Is Working")
-})
-
+// Server Initialization
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`)
-})
-
-
-
+    console.log(`Server is running on http://localhost:${port}`);
+});

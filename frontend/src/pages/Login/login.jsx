@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -135,7 +136,7 @@ const Login = () => {
         </div>
         <button className="google-login-button">G+ Google</button>
         <div className="register">
-          <span>New member? <a href="#">Register here</a></span>
+          <span>New member? <Link to={`/signup`}>Register here</Link></span>
         </div>
       </div>
     </div>
