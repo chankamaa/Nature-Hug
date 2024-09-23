@@ -71,9 +71,9 @@ const App = () => {
           <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
-          <Route path='/Das' element={<Das/>} />
+          <Route path='/Das' element={<Das/>} /> 
             
-          <Route path='/add/promotions' element={<ManagePromotions />} />
+          <Route path='admin/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
         </Routes>
