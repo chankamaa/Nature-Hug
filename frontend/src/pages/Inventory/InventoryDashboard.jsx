@@ -8,7 +8,36 @@ import axios from 'axios';
 import { assets } from '../../assets/assets';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const LOW_STOCK_THRESHOLD = 5; // Define your low stock threshold here
+
 const InventoryDashboard = () => {
+  
+  const [lowStockItems, setLowStockItems] = useState([]);
+
+  useEffect(() => {
+    fetchStocks();
+  }, []);
+
+  // Fetch all stock data
+  const fetchStocks = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/stocks');
+      
+      checkLowStock(response.data); // Check for low stock items
+    } catch (error) {
+      console.error('Error fetching stock data', error);
+    }
+  };
+
+  // Check for low-stock items and alert
+  const checkLowStock = (stockData) => {
+    const lowStock = stockData.filter(stock => stock.Qty > 0 && stock.Qty <= LOW_STOCK_THRESHOLD);
+
+    if (lowStock.length > 0) {
+      setLowStockItems(lowStock);
+      alert(`Warning: There are ${lowStock.length} items with low stock!`);
+    }
+  };
   const [stockLevels, setStockLevels] = useState({
     inStock: 0,
     lowStock: 0,
@@ -102,6 +131,20 @@ const InventoryDashboard = () => {
         <section className="chart">
           <h2>Stock Level Bar Chart</h2>
           <Bar data={chartData} options={chartOptions} />
+        </section>
+        <section className="low-stock-alert">
+          {lowStockItems.length > 0 && (
+            <div className="alert alert-warning">
+              <h3>Low Stock Items</h3>
+              <ul>
+                {lowStockItems.map(stock => (
+                  <li key={stock._id}>
+                    {stock.Product_name} - Only {stock.Qty} left in stock!
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       </main>
     </div>

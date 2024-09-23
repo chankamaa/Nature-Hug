@@ -74,7 +74,7 @@ export const getStockLevels = async (req, res) => {
     const stocks = await Stoks.find();
 
     // Define thresholds for stock levels
-    const inStockThreshold = 5;
+    const inStockThreshold = 1;
     const lowStockThreshold = 1;
 
     let inStockCount = 0;
@@ -87,7 +87,7 @@ export const getStockLevels = async (req, res) => {
         inStockCount = lowStockCount+inStockCount;
          inStockCount++;
        
-      } else if (stock.Qty >= lowStockThreshold && stock.Qty < inStockThreshold) {
+      } else if (stock.Qty >= lowStockThreshold && stock.Qty <= inStockThreshold) {
         lowStockCount++;
       } else {
         outOfStockCount++;
