@@ -1,23 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './CreateCampaignEmail.css'
-
+import './CreateCampaignEmail.css';
 
 const CreateCampaignEmail = () => {
     const [campaignName, setCampaignName] = useState('');
     const [emailSubject, setEmailSubject] = useState('');
     const [emailContent, setEmailContent] = useState('');
-    const [recipients, setRecipients] = useState(''); // Comma-separated list of emails
+    const [recipients, setRecipients] = useState('futurehasitha@gmail.com'); // Predefined recipient email for testing
+
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!campaignName || !emailSubject || !emailContent || !recipients) {
+            alert('All fields are required');
+            return;
+        }
+
+        const recipientList = recipients.split(',');
+        const invalidEmails = recipientList.filter(email => !validateEmail(email));
+
+        if (invalidEmails.length > 0) {
+            alert(`The following email(s) are invalid: ${invalidEmails.join(', ')}`);
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:4000/api/campaigns/send-email', {
                 campaignName,
                 emailSubject,
                 emailContent,
-                recipients: recipients.split(','), // Convert string to array of emails
+                recipients: recipientList, // Ensure recipients are an array
             });
 
             alert(response.data.message);
@@ -25,7 +42,7 @@ const CreateCampaignEmail = () => {
             setCampaignName('');
             setEmailSubject('');
             setEmailContent('');
-            setRecipients('');
+            setRecipients('futurehasitha@gmail.com'); // Predefine email again
         } catch (error) {
             console.error('Error sending campaign email:', error);
             alert('Error sending campaign email.');
@@ -33,7 +50,7 @@ const CreateCampaignEmail = () => {
     };
 
     return (
-        <div>
+        <div className='main-002'>
             <h2>Create and Send Campaign Email</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -54,13 +71,17 @@ const CreateCampaignEmail = () => {
                         required
                     />
                 </div>
+                <label>Email Content:</label>
                 <div>
-                    <label>Email Content:</label>
+                    
+                    <label>
                     <textarea
                         value={emailContent}
                         onChange={(e) => setEmailContent(e.target.value)}
                         required
+                    
                     />
+                    </label>
                 </div>
                 <div>
                     <label>Recipients (comma-separated):</label>

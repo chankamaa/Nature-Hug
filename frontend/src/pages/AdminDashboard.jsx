@@ -22,10 +22,7 @@ const AdminDashboard = () => {
           <ManagePromotions />
         </section>
          */}
-          <section className="dashboard-section">
-          <h2>All Promo Codes</h2>
-          <PromoCodeList /> {/* Add the PromoCodeList component */}
-        </section>
+          
 
         {/* Add more sections for other admin functionalities */}
       </div>
