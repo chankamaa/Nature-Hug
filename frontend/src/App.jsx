@@ -20,7 +20,8 @@ import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
 import EmployeeList from './components/finance/EmployeeList'
-
+import Terms from './pages/Terms/terms'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 
 
 
@@ -52,6 +53,8 @@ const App=() =>{
 
         <Route path='/product'element={<Product />} />
         <Route path='/admin' element={<AdminDashboard />} />
+        <Route path='/terms' element={<Terms />} />
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
 
       </Routes>
       
