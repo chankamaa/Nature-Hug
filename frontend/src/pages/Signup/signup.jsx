@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable no-irregular-whitespace */
 import React, { useState } from 'react';
 import './signup.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link} from 'react-router-dom';
-import { assets } from '../../assets/assets';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -119,46 +121,9 @@ const validateLastName = (value) => {
     }
   };
 
-  const verifyOtp = async (e) => {
-    e.preventDefault();
-
-    const userData = {
-      email,
-      otp,
-      firstName,
-      lastName,
-      phoneNumber,
-      password,
-      role // 'User' is automatically set here as well
-    };
-
-    try {
-      await axios.post("http://localhost:4000/NatureHug/user/signup-verify", userData);
-      Swal.fire({
-        icon: 'success',
-        title: 'User registered successfully.',
-        showConfirmButton: true
-      }).then(() => {
-        window.location.href = '/login';
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response.data || 'Invalid OTP or something went wrong!',
-      });
-    }
-  };
-
   return (
     <div className="signup-container">
-     
       <div className="signup-up-form">
-      <div className="login-left">
-        <img src={assetlogo} alt="Nature Hug Logo" className="login-logo" />
-      </div>
-
-      <div className="login-box">
         <h2>Welcome to Nature Hug! Please Sign Up.</h2>
         <h3>Create your Account</h3>
         <form onSubmit={sendData}>
@@ -279,12 +244,12 @@ const validateLastName = (value) => {
         )}
 
         <div className="alternative-signup">
-        <span>New member? <Link to={`/Login`}>Login here</Link></span>
+        <span>New member? <Link to={"/Login"}>Login here</Link></span>
         </div>
-        </div>
+      
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Signup;

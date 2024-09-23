@@ -2,6 +2,15 @@
 .input-group .form-control {
     border-radius: 0.25rem;
     border-color: #ced4da;
+    width: 200px; /* Adjust the width to make it smaller */
+    padding: 5px 10px; /* Adjust the padding to make the input field more compact */
+    justify-content: center;
+}
+
+/* Center the input group container */
+.input-group {
+    display: flex;
+    justify-content: center; /* This centers the search box */
 }
 
 /* Styling for the generate report button */
@@ -24,6 +33,7 @@
 
 /* Table styling */
 .table-hover {
+    width: 98%; /* Set table width to 100% */
     border: 2px solid #343a40;  /* Added border around the table */
     border-radius: 5px;  /* Optional: rounded corners for the table */
 }
