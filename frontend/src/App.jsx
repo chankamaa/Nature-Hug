@@ -18,13 +18,14 @@ import EPFETFManagement from './components/finance/EPFETFManagement';
 import EmployeeAddForm from './components/finance/EmployeeAddForm';
 import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
-
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
 
 import EmployeeList from './components/finance/EmployeeList';
 import Dashboard from './pages/Employee/Dashboard';
 import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
+import Terms from './pages/Terms/terms'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 
 import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
@@ -79,8 +80,11 @@ const App = () => {
           <Route path='admin/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          <Route path='/terms' element={<Terms />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
 
         </Routes>
+
 
         {/* Conditionally render Footer */}
         {!noHeaderFooterPaths.includes(location.pathname) && <Footer />}

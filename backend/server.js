@@ -8,6 +8,7 @@ import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import plantRoutes from './routes/plantRoute.js';
+import cartRoutes from './routes/cartRoutes.js';  // Import cart routes
 import promotionsRoute from './routes/promotionsRoute.js';
 import campaignRoutes from './routes/campaignRoute.js';
 
@@ -28,7 +29,6 @@ connectDB();
 
 
 
-
 //api routes
 
 app.use('/api',supplierRouter);
@@ -41,21 +41,22 @@ app.use('/api', attendanceRoutes);
 app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
+app.use('/api/cart', cartRoutes);  // Cart route
+app.use('/images', express.static("uploads"));
 
 
 
 dotenv.config(); // Load .env variables
 
-// Static files (e.g., images)
-app.use('/images', express.static("uploads"));
 
 
-app.get("/",(req, res) =>{
-    res.send("API Is Working")
-})
+// Simple route to check if the API is working
+app.get("/", (req, res) => {
+    res.send("API Is Working");
+});
 
 
-// Start server
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
