@@ -16,10 +16,10 @@ function ADDstocks() {
     Total_Amount: '',
   });
   const [editStockId, setEditStockId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); //  search 
-  const [filteredStocks, setFilteredStocks] = useState([]); //  filtered stocks
+  const [searchTerm, setSearchTerm] = useState(''); // search term
+  const [filteredStocks, setFilteredStocks] = useState([]); // filtered stocks
 
-  //  all stocks
+  // Fetch all stocks
   const fetchStocks = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/stocks');
@@ -34,19 +34,19 @@ function ADDstocks() {
     fetchStocks();
   }, []);
 
-  // adding/editing stock items
+  // Handle input changes for adding/editing stock items
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewStock({ ...newStock, [name]: value });
   };
 
-  // calculate total amount 
+  // Calculate total amount for the current stock
   const calculateTotal = (price, qty) => {
     const totalAmount = parseFloat(price) * parseInt(qty);
     return totalAmount;
   };
 
-  // add a new stock 
+  // Add a new stock item
   const addStock = async (e) => {
     e.preventDefault();
     try {
@@ -58,12 +58,13 @@ function ADDstocks() {
       await axios.post('http://localhost:4000/api/stocks', stockToAdd);
       fetchStocks();
       resetForm();
+      alert('Stock added successfully!'); // Show success alert
     } catch (error) {
       console.error('Error adding stock:', error);
     }
   };
 
-  // update 
+  // Update an existing stock item
   const updateStock = async (id) => {
     try {
       const calculatedTotal = calculateTotal(newStock.Price, newStock.Qty);
@@ -80,7 +81,7 @@ function ADDstocks() {
     }
   };
 
-  // delete a stock
+  // Delete a stock item
   const deleteStock = async (id) => {
     try {
       await axios.delete(`http://localhost:4000/api/stocks/${id}`);
@@ -90,7 +91,7 @@ function ADDstocks() {
     }
   };
 
-  //  reset the form
+  // Reset the form
   const resetForm = () => {
     setNewStock({
       Product_ID: '',
@@ -101,7 +102,7 @@ function ADDstocks() {
     });
   };
 
-  //  price change and calculate total
+  // Handle price change and calculate total
   const handlePriceChange = (e) => {
     const newPrice = parseFloat(e.target.value);
     if (!isNaN(newPrice)) {
@@ -113,7 +114,7 @@ function ADDstocks() {
     }
   };
 
-  // quantity change and calculate total
+  // Handle quantity change and calculate total
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value);
     if (!isNaN(newQuantity)) {
@@ -125,7 +126,7 @@ function ADDstocks() {
     }
   };
 
-  // Search  filter stocks
+  // Search and filter stocks
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchTerm(searchValue);
@@ -137,7 +138,7 @@ function ADDstocks() {
     setFilteredStocks(filtered);
   };
 
-  //  update the stock
+  // Submit function to either add or update the stock
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editStockId !== null) {
@@ -147,13 +148,13 @@ function ADDstocks() {
     }
   };
 
-
+  // Handle editing an existing stock
   const handleEdit = (stock) => {
     setNewStock(stock);
-    setEditStockId(stock._id); // stock identifier
+    setEditStockId(stock._id); // Assuming stock._id is the unique identifier
   };
 
-  // stocks data as PDF
+  // Download stocks data as PDF
   const downloadPDF = () => {
     const doc = new jsPDF();
 
@@ -184,33 +185,27 @@ function ADDstocks() {
 
         <main className="main-contet">
           <section>
-
-
-
+            <h1 style={{ textAlign: "center" }}>Stock Management</h1>
             <form onSubmit={handleSubmit}>
               <div className='type1'>
-
                 <input type="text" placeholder="Search by Product Name" value={searchTerm} onChange={handleSearch} />
                 <label>Product ID:</label>
                 <input type="text" name="Product_ID" value={newStock.Product_ID} placeholder='Product_ID' onChange={handleChange} required />
                 <label>Product Name:</label>
                 <input type="text" placeholder='Product_name' name="Product_name" value={newStock.Product_name} onChange={handleChange} required />
-
                 <label>Price:</label>
                 <input type="text" name="Price" placeholder='Price' value={newStock.Price} onChange={handlePriceChange} required />
-
-                <label >Stoks:</label>
+                <label>Stocks:</label>
                 <input type="text" name="Qty" placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required />
-
-                <label >Total Amount:</label>
+                <label>Total Amount:</label>
                 <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
-
                 <button className='button1' type='submit'> {editStockId !== null ? 'Update Stock' : 'Add Stock'}</button>
-
-                <button className='button2'> Remove</button>
-
+                <button className='button2' type='button' onClick={() => alert('Remove button clicked!')}>Remove</button>
               </div>
-            </form></section></main></div>
+            </form>
+          </section>
+        </main>
+      </div>
       <h2 style={{ textAlign: 'center' }}>Stocks List</h2>
       <main className="main-contet">
         <table style={{ width: '100%' }} border="1">
@@ -239,7 +234,8 @@ function ADDstocks() {
               </tr>
             ))}
           </tbody>
-        </table></main>
+        </table>
+      </main>
       <div className='cont'>
         <button className='button1' onClick={downloadPDF}>Download PDF</button>
       </div>

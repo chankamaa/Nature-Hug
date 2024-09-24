@@ -40,38 +40,42 @@ const Suppliers = () => {
     setNewSupplier({ ...newSupplier, [name]: value });
   };
 
-  // Add a new supplier
-  const addSupplier = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:4000/api/suppliers', newSupplier);
-      fetchSuppliers();
-      setNewSupplier({ ID: '', Suppliername: '', Description: '', Contactinfor: '', Product: '' });
-    } catch (error) {
-      console.error('Error adding supplier', error);
-    }
-  };
+ // Add a new supplier
+const addSupplier = async (e) => {
+  e.preventDefault();
+  try {
+    await axios.post('http://localhost:4000/api/suppliers', newSupplier);
+    fetchSuppliers();
+    setNewSupplier({ ID: '', Suppliername: '', Description: '', Contactinfor: '', Product: '' });
+    alert('Supplier added successfully!'); // Alert after successful addition
+  } catch (error) {
+    console.error('Error adding supplier', error);
+  }
+};
 
-  // Update a supplier
-  const updateSupplier = async (id) => {
-    try {
-      await axios.put(`http://localhost:4000/api/suppliers/${id}`, newSupplier);
-      fetchSuppliers();
-      setEditSupplierId(null);
-    } catch (error) {
-      console.error('Error updating supplier', error);
-    }
-  };
+// Update a supplier
+const updateSupplier = async (id) => {
+  try {
+    await axios.put(`http://localhost:4000/api/suppliers/${id}`, newSupplier);
+    fetchSuppliers();
+    setEditSupplierId(null);
+    alert('Supplier updated successfully!'); // Alert after successful update
+  } catch (error) {
+    console.error('Error updating supplier', error);
+  }
+};
 
-  // Delete a supplier
-  const deleteSupplier = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/api/suppliers/${id}`);
-      fetchSuppliers();
-    } catch (error) {
-      console.error('Error deleting supplier', error);
-    }
-  };
+// Delete a supplier
+const deleteSupplier = async (id) => {
+  try {
+    await axios.delete(`http://localhost:4000/api/suppliers/${id}`);
+    fetchSuppliers();
+    alert('Supplier deleted successfully!'); // Alert after successful deletion
+  } catch (error) {
+    console.error('Error deleting supplier', error);
+  }
+};
+
 
   // Search function to filter suppliers by name or any other field
   const handleSearch = (e) => {
@@ -115,7 +119,7 @@ const Suppliers = () => {
         <Dashboard />
         <main className="main-contet">
           <section>
-
+<h1 style={{textAlign:"center"}}>Supplier Management</h1>
 
             <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
               <div className="type1">

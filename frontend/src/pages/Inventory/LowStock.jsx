@@ -54,7 +54,7 @@ const AllStocks = () => {
       <main className="main-contet">
         {/* All Stock Items List View */}
         <section className="all-stock-list">
-          <h2>All Stock Items List</h2>
+          <h2 style={{textAlign:"center"}}>All Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>

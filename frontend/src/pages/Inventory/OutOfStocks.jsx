@@ -57,7 +57,7 @@ const OutOfStocks = () => {
       <main className="main-contet">
         {/* Out-Of-Stock Items List View */}
         <section className="out-stock-list">
-          <h2>Out-Of-Stock Items List</h2>
+          <h2 style={{textAlign:"center"}}>Out-Of-Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>

@@ -57,7 +57,7 @@ const InStock = () => {
       <main className="main-contet">
         {/* In-Stock Items List View */}
         <section className="in-stock-list">
-          <h2>In-Stock Items List</h2>
+          <h2 className='header1'>In-Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>
@@ -91,9 +91,9 @@ const InStock = () => {
         </section>
 
         {/* Download PDF Button */}
-        <section className="pdf-download">
-          <button className="download-btn" onClick={downloadInStockPDF}>
-            Download In-Stock List as PDF
+        <section className="cont">
+          <button className="button1" onClick={downloadInStockPDF}>
+             In-Stock List 
           </button>
         </section>
       </main>

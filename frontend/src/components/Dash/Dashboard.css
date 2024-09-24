@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 200px;
-  background-color: #f5f5dc;
+  background-color: #edede6;
   height: 100vh;
   position: fixed;
   padding-top: 20px;
@@ -15,7 +15,7 @@
   width: 90%;
   padding: 10px;
   margin: 10px;
-  background-color: #f4cccc;
+  background-color: #3fcb6e;
   border: none;
   color: #000;
   text-align: left;
@@ -25,5 +25,5 @@
 }
 
 .sidebar button:hover {
-  background-color: #f1a5a5;
+  background-color: #a39e9e;
 }
