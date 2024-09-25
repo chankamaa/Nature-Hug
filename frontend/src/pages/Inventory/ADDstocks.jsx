@@ -34,7 +34,7 @@ function ADDstocks() {
     fetchStocks();
   }, []);
 
-  // Handle input changes for adding/editing stock items
+  //r adding/editing stock items
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewStock({ ...newStock, [name]: value });
@@ -151,7 +151,7 @@ function ADDstocks() {
   // Handle editing an existing stock
   const handleEdit = (stock) => {
     setNewStock(stock);
-    setEditStockId(stock._id); // Assuming stock._id is the unique identifier
+    setEditStockId(stock._id); // unique identifier
   };
 
   // Download stocks data as PDF
@@ -196,8 +196,12 @@ function ADDstocks() {
                 <label>Price:</label>
                 <input type="text" name="Price" placeholder='Price' value={newStock.Price} onChange={handlePriceChange} required />
                 <label>Stocks:</label>
+                <input type="text" name="unit" placeholder='unit' value={newStock.Total_Amount} readOnly />
+                <label>unit:</label>
+                <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
                 <input type="text" name="Qty" placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required />
                 <label>Total Amount:</label>
+            
                 <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
                 <button className='button1' type='submit'> {editStockId !== null ? 'Update Stock' : 'Add Stock'}</button>
                 <button className='button2' type='button' onClick={() => alert('Remove button clicked!')}>Remove</button>
