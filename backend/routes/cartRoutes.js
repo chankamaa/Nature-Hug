@@ -3,16 +3,9 @@ import { getCart, addItemToCart, updateCartItem, removeItemFromCart } from '../c
 
 const router = express.Router();
 
-// Get cart for a user
-router.get('/:userId', getCart);
-
-// Add or update cart for a user
-router.post('/add', addItemToCart);
-
-// Update item quantity in cart
-router.put('/update', updateCartItem);
-
-// Remove an item from the cart
-router.delete('/remove', removeItemFromCart);
+router.get('/:userId', getCart); // Get cart for a user
+router.post('/add', addItemToCart); // Add item to cart
+router.put('/update', updateCartItem); // Update item quantity in cart
+router.delete('/remove', removeItemFromCart); // Remove item from cart
 
 export default router;

@@ -61,16 +61,16 @@ const StoreContextProvider = (props) => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
             setToken(storedToken);
-            await fetchEmployees();
+            await fetchEmployees();  // Ensure employees are fetched after token is set
         }
     };
+
     const fetchplants = async () => {
         const response = await axios.get(url + "/api/plants");
         setPlants(response.data.data);
-    }
+    };
 
-
-    const addToCart = (item) => {
+    const addToCart = async (item) => {
         const itemId = item.id;
 
         setCartItems((prevCartItems) => {
@@ -85,10 +85,21 @@ const StoreContextProvider = (props) => {
             return updatedCart;
         });
 
-        console.log(`Added ${item.name} to cart`);
+        try {
+            await axios.post(`${url}/api/cart/add`, {
+                cartItems,
+                itemId,
+                action: 'add'  // Send action to indicate it's an add operation
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log(`Added ${item.name} to cart and synced with server`);
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
     };
 
-    const removeFromCart = (itemId) => {
+    const removeFromCart = async (itemId) => {
         setCartItems((prevCartItems) => {
             const updatedCart = { ...prevCartItems };
 
@@ -100,6 +111,19 @@ const StoreContextProvider = (props) => {
 
             return updatedCart;
         });
+
+        try {
+            await axios.post(`${url}/api/carts/add`, {
+                cartItems,
+                itemId,
+                action: 'remove'  // Send action to indicate it's a remove operation
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log(`Removed item from cart and synced with server`);
+        } catch (error) {
+            console.error('Error removing from cart:', error);
+        }
     };
 
     // Function to calculate total cart amount
@@ -119,13 +143,8 @@ const StoreContextProvider = (props) => {
     };
 
     useEffect(() => {
-        async function loadData(){
-            await fetchplants();
-            if(localStorage.getItem('token')){
-                setToken(localStorage.getItem('token'));
-            }
-        }
-        loadData();
+        loadInitialData();  // Moved the logic to a reusable function
+        fetchplants();      // Fetch plants on load
     }, []);
 
     useEffect(() => {
@@ -151,7 +170,6 @@ const StoreContextProvider = (props) => {
         plants,
         fetchplants
     };
-    
 
     return (
         <StoreContext.Provider value={contextValue}>

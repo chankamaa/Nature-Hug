@@ -83,6 +83,6 @@ export const removeItemFromCart = async (req, res) => {
 };
 
 // Utility function to calculate total
-const calculateTotal = (items) => {
+ const calculateTotal = (items) => {
     return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 };

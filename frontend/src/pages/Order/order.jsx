@@ -23,7 +23,18 @@ const Order = () => {
 
     const onhandleChange = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
+        let value = event.target.value;
+
+        // Name fields should only accept alphabetic characters
+        if ((name === "firstName" || name === "lastName") && value) {
+            value = value.replace(/[^a-zA-Z]/g, '');
+        }
+
+        // Phone number should only accept numeric values
+        if (name === "phone" && value) {
+            value = value.replace(/[^0-9]/g, '');
+        }
+
         setData({ ...data, [name]: value });
     };
 
@@ -31,47 +42,52 @@ const Order = () => {
         let tempErrors = {};
         let isValid = true;
 
-        // Validation logic for required fields and correct email/phone formats
+        // Name validation (must contain only letters and not be empty)
         if (!data.firstName) {
             tempErrors.firstName = "First name is required";
             isValid = false;
         }
+
         if (!data.lastName) {
             tempErrors.lastName = "Last name is required";
             isValid = false;
         }
-        if (!data.email) {
-            tempErrors.email = "Email is required";
-            isValid = false;
-        } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-            tempErrors.email = "Email address is invalid";
+
+        // Phone validation (must contain only digits and be between 9 and 15 characters)
+        if (!data.phone.match(/^[0-9]{9,15}$/)) {
+            tempErrors.phone = "Phone number is required and must be between 9 and 15 digits";
             isValid = false;
         }
+
+        // Email validation (basic email format validation)
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+            tempErrors.email = "A valid email is required";
+            isValid = false;
+        }
+
+        // Required field validation
         if (!data.street) {
             tempErrors.street = "Street is required";
             isValid = false;
         }
+
         if (!data.city) {
             tempErrors.city = "City is required";
             isValid = false;
         }
+
         if (!data.state) {
             tempErrors.state = "State is required";
             isValid = false;
         }
+
         if (!data.zip) {
             tempErrors.zip = "Zip code is required";
             isValid = false;
         }
+
         if (!data.country) {
             tempErrors.country = "Country is required";
-            isValid = false;
-        }
-        if (!data.phone) {
-            tempErrors.phone = "Phone number is required";
-            isValid = false;
-        } else if (!/^\d{10}$/.test(data.phone)) {
-            tempErrors.phone = "Phone number is invalid (must be 10 digits)";
             isValid = false;
         }
 
@@ -81,7 +97,8 @@ const Order = () => {
 
     const handleSubmit = () => {
         if (validate()) {
-            saveOrderData(data);  // Save the order data to the context and localStorage
+            // Save the order data to the context and localStorage
+            saveOrderData(data);
             localStorage.setItem("orderData", JSON.stringify(data));  // Save order data in localStorage
             navigate('/Step04');  // Navigate to Step04
         }
@@ -104,7 +121,7 @@ const Order = () => {
                         name="firstName"
                         value={data.firstName}
                     />
-                    {errors.firstName && <p className="error">{errors.firstName}</p>}
+                    {errors.firstName && <span className="error">{errors.firstName}</span>}
                     <input
                         type="text"
                         placeholder="Last name"
@@ -112,7 +129,7 @@ const Order = () => {
                         name="lastName"
                         value={data.lastName}
                     />
-                    {errors.lastName && <p className="error">{errors.lastName}</p>}
+                    {errors.lastName && <span className="error">{errors.lastName}</span>}
                 </div>
                 <input
                     type="email"
@@ -121,7 +138,7 @@ const Order = () => {
                     name="email"
                     value={data.email}
                 />
-                {errors.email && <p className="error">{errors.email}</p>}
+                {errors.email && <span className="error">{errors.email}</span>}
                 <input
                     type="text"
                     placeholder="Street"
@@ -129,7 +146,7 @@ const Order = () => {
                     name="street"
                     value={data.street}
                 />
-                {errors.street && <p className="error">{errors.street}</p>}
+                {errors.street && <span className="error">{errors.street}</span>}
                 <div className="multi-fields">
                     <input
                         type="text"
@@ -138,7 +155,7 @@ const Order = () => {
                         name="city"
                         value={data.city}
                     />
-                    {errors.city && <p className="error">{errors.city}</p>}
+                    {errors.city && <span className="error">{errors.city}</span>}
                     <input
                         type="text"
                         placeholder="State"
@@ -146,7 +163,7 @@ const Order = () => {
                         name="state"
                         value={data.state}
                     />
-                    {errors.state && <p className="error">{errors.state}</p>}
+                    {errors.state && <span className="error">{errors.state}</span>}
                 </div>
                 <div className="multi-fields">
                     <input
@@ -156,7 +173,7 @@ const Order = () => {
                         name="zip"
                         value={data.zip}
                     />
-                    {errors.zip && <p className="error">{errors.zip}</p>}
+                    {errors.zip && <span className="error">{errors.zip}</span>}
                     <input
                         type="text"
                         placeholder="Country"
@@ -164,7 +181,7 @@ const Order = () => {
                         name="country"
                         value={data.country}
                     />
-                    {errors.country && <p className="error">{errors.country}</p>}
+                    {errors.country && <span className="error">{errors.country}</span>}
                 </div>
                 <input
                     type="text"
@@ -173,7 +190,7 @@ const Order = () => {
                     name="phone"
                     value={data.phone}
                 />
-                {errors.phone && <p className="error">{errors.phone}</p>}
+                {errors.phone && <span className="error">{errors.phone}</span>}
             </div>
 
             <div className="place-order-button-container">

@@ -4,7 +4,7 @@ import { StoreContext } from '../../context/StoreContext';
 import './ProductList.css';
 
 const ProductList = () => {
-  const { plants, fetchplants } = useContext(StoreContext);
+  const { plants, fetchplants, addToCart } = useContext(StoreContext); // Add addToCart function
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Local state for loading and error handling
@@ -26,9 +26,11 @@ const ProductList = () => {
     fetchData();
   }, [fetchplants]);
 
-  // Handle click event to navigate to plant details page
-  const handleCardClick = (plant) => {
-    navigate(`/plants/${plant._id}`, { state: plant }); // Pass the whole plant object as state
+  // Handle click event to add the plant to the cart and navigate to the cart page
+  const handleAddToCart = (plant) => {
+    addToCart(plant); // Call addToCart function from context
+    alert(`${plant.name} has been added to your cart!`);
+    navigate('/cart'); // Navigate to Cart page after adding the item
   };
 
   if (loading) {
@@ -50,7 +52,6 @@ const ProductList = () => {
             <div
               key={plant._id}
               className="product-card"
-              onClick={() => handleCardClick(plant)} // Pass plant object on click
             >
               <img
                 src={`http://localhost:4000/images/${plant.image}`}
@@ -58,7 +59,9 @@ const ProductList = () => {
                 className="plant-image"
               />
               <h3>{plant.name}</h3>
-              <button>Add to Cart</button>
+              <button onClick={() => handleAddToCart(plant)}>
+                Add to Cart
+              </button>
             </div>
           ))
         )}

@@ -31,30 +31,48 @@ const Step04 = () => {
         navigate('/product');  // Replace '/products' with the actual route to your product page
     };
 
-    // Function to generate PDF report
+    // Function to generate PDF report with header
     const generateReport = () => {
-        const input = document.getElementById('report-content');  // Get the content to be converted to PDF
+        const input = document.getElementById('report-content');
+        const doc = new jsPDF('p', 'mm', 'a4');
+        
+        // Add header with logo, company details, and date
+        const imgLogo = assets.logo; // Assuming logo is stored in assets
+        const headerText = `Nature Hug\nAddress: 54A, Ihala Vitiyala, Karagoda-Uyangoda, Matara\nEmail: handamama.pvt@gmail.com | Phone: +94 76 258 2337\n`;
+        const currentDate = new Date().toLocaleDateString(); // Get current date
+
+        // Load logo
+        doc.addImage(imgLogo, 'PNG', 10, 10, 30, 30); // Logo position (x, y) and size (width, height)
+        
+        // Add company details
+        doc.setFontSize(12);
+        doc.text(headerText, 50, 20); // Adjust position of text
+        
+        // Add date
+        doc.text(`Date: ${currentDate}`, 150, 10); // Date position
+
+        // Add report content
         html2canvas(input, { scale: 2 }).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4'); // Adjust PDF page size as necessary
             const imgWidth = 210; // A4 width in mm
             const pageHeight = 295; // A4 height in mm
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             let heightLeft = imgHeight;
-            let position = 0;
+            let position = 50; // Start after header
 
-            // Add the image data to the PDF
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            // Add the report image
+            doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
             while (heightLeft >= 0) {
                 position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                doc.addPage();
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
-            pdf.save("Order_Report.pdf");  // Save the PDF
+            // Save the PDF
+            doc.save("Order_Report.pdf");
         });
     };
 
@@ -66,7 +84,7 @@ const Step04 = () => {
                 <br></br>
                 <h1 className="text-2xl font-bold text-green-900">Checkout</h1>
                 <a className="text-gray-700 mt-2 step-info">Step 4/4</a>
-                <p className="text-xl text-gray-800 mt-4">Thank you for your order, <span className="font-bold">#{Math.floor(Math.random() * 10000000000000)}</span></p>
+                <p className="text-xl text-gray-800 mt-4">Thank you for your Order</p>
             </header>
 
             {/* Order Confirmation Details */}
@@ -89,6 +107,7 @@ const Step04 = () => {
                     <div>
                         <h3 className="font-bold">Delivery To:</h3>
                         <p>{orderData.firstName} {orderData.lastName}</p>
+                        <p>{orderData.email}</p>
                         <p>{orderData.street}</p>
                         <p>{orderData.city}, {orderData.state}, {orderData.zip}</p>
                         <p>{orderData.country}</p>

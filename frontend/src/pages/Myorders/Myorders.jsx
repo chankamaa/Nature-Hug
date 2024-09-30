@@ -5,7 +5,8 @@ import './Myorders.css';
 const OrderDisplay = () => {
   const [myOrders, setMyOrders] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-
+  const [gpsLocation, setGpsLocation] = useState({ latitude: null, longitude: null });
+  
   useEffect(() => {
     // Retrieve orderData from localStorage
     const storedOrderData = localStorage.getItem('orderData');
@@ -18,19 +19,31 @@ const OrderDisplay = () => {
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }
+
+    // Get GPS location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setGpsLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
   }, []);
 
-  // Function to track an order
+  // Dummy function for tracking order
   const trackOrder = (orderId) => {
-    alert(`Tracking order ID: ${orderId}`);
-    // Implement tracking functionality here
+    console.log(`Tracking order with ID: ${orderId}`);
+    // Add tracking functionality if needed
   };
 
   return (
     <div>
-      <br />
-      <br />
-      <h1>My Orders</h1>
+      <br></br><br></br><br></br><br></br><br></br>
+      <h1> Order History</h1>
+      <br></br><br></br><br></br><br></br>
       {myOrders.map((order, orderIndex) => (
         <div key={orderIndex} className="order">
           <h2>Order ID: {orderIndex + 1}</h2>
@@ -49,8 +62,11 @@ const OrderDisplay = () => {
               );
             })}
           </ul>
+          <br></br><br></br>
           <p><strong>Status:</strong> {order.status || "Processing"}</p>
+          <br></br><br></br>
           <button onClick={() => trackOrder(orderIndex + 1)}>Track Order</button>
+          <br></br><br></br>
         </div>
       ))}
     </div>

@@ -24,10 +24,11 @@ const port = process.env.PORT || 4000; // Use port from .env file if available
 app.use(express.json());
 app.use(cors());
 
+
 // Database connection
 connectDB();
 
-
+ 
 
 //api routes
 
@@ -42,7 +43,7 @@ app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
 app.use('/api/cart', cartRoutes);  // Cart route
-app.use('/images', express.static("uploads"));
+
 
 
 
