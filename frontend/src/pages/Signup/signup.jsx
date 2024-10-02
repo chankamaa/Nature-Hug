@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import './signup.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -27,28 +27,35 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  const validateFirstName = (value) => {
-    const namePattern = /^[A-Za-z]+$/;
-    if (value.trim() === '') {
-        setFirstNameError('First name is required.');
-    } else if (!namePattern.test(value)) {
-        setFirstNameError('First name can only contain letters.');
-    } else {
-        setFirstNameError('');
+  // Prevent non-letter characters from being typed (e.g., numbers or special characters)
+  const handleKeyDown = (event) => {
+    const allowedKeys = /^[a-zA-Z]*$/;
+    if (!allowedKeys.test(event.key) && event.key !== 'Backspace' && event.key !== ' ') {
+      event.preventDefault(); // Block the key press
     }
-};
+  };
 
-const validateLastName = (value) => {
-    const namePattern = /^[A-Za-z]+$/;
+  const validateAndSetFirstName = (value) => {
     if (value.trim() === '') {
-        setLastNameError('Last name is required.');
-    } else if (!namePattern.test(value)) {
-        setLastNameError('Last name can only contain letters.');
+      setFirstNameError('First name is required.');
+    } else if (!/^[a-zA-Z ]*$/.test(value)) {
+      setFirstNameError('First name can only contain letters.');
     } else {
-        setLastNameError('');
+      setFirstNameError('');
     }
-};
+    setFirstName(value);
+  };
 
+  const validateAndSetLastName = (value) => {
+    if (value.trim() === '') {
+      setLastNameError('Last name is required.');
+    } else if (!/^[a-zA-Z ]*$/.test(value)) {
+      setLastNameError('Last name can only contain letters.');
+    } else {
+      setLastNameError('');
+    }
+    setLastName(value);
+  };
 
   const validateEmail = (value) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -57,15 +64,27 @@ const validateLastName = (value) => {
     } else {
       setEmailError('');
     }
+    setEmail(value);
   };
 
+  // Updated phone number validation
   const validatePhoneNumber = (value) => {
-    const phonePattern = /^[0-9]{10}$/; // Assuming phone numbers are 10 digits long
-    if (!phonePattern.test(value)) {
-      setPhoneNumberError('Please enter a valid 10-digit phone number.');
+    // Remove any non-numeric characters
+    const cleanedValue = value.replace(/\D/g, '');
+
+    if (cleanedValue.length > 10) {
+      setPhoneNumberError('Phone number must be exactly 10 digits long.');
+    } else if (cleanedValue.length < 10) {
+      setPhoneNumberError('Phone number must be exactly 10 digits long.');
     } else {
       setPhoneNumberError('');
     }
+    setPhoneNumber(cleanedValue);
+  };
+
+  const handlePhoneNumberChange = (event) => {
+    const { value } = event.target;
+    validatePhoneNumber(value);
   };
 
   const validatePassword = (value) => {
@@ -74,6 +93,7 @@ const validateLastName = (value) => {
     } else {
       setPasswordError('');
     }
+    setPassword(value);
   };
 
   const validateConfirmPassword = (value) => {
@@ -82,25 +102,38 @@ const validateLastName = (value) => {
     } else {
       setConfirmPasswordError('');
     }
+    setConfirmPassword(value);
   };
 
+  // Function to handle sending user data and OTP request
   const sendData = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+    // Perform validation before submission
+    validateAndSetFirstName(firstName);
+    validateAndSetLastName(lastName);
+    validateEmail(email);
+    validatePhoneNumber(phoneNumber);
+    validatePassword(password);
+    validateConfirmPassword(confirmPassword);
+
+    // Check if any errors are present
+    if (firstNameError || lastNameError || emailError || phoneNumberError || passwordError || confirmPasswordError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation failed!',
+        text: 'Please check all fields and try again.',
+      });
       return;
     }
-
-    setError('');
 
     const newUser = {
       firstName,
       lastName,
       email,
       phoneNumber,
-      password, 
-      role 
+      password,
+      role
     };
 
     try {
@@ -112,11 +145,37 @@ const validateLastName = (value) => {
       });
       setShowOtpInput(true);
     } catch (error) {
-      console.log('data Error:', error);
+      console.log('Data Error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data || 'Something went wrong!',
+        text: error.response?.data || 'Something went wrong!',
+      });
+    }
+  };
+
+  // Function to verify OTP and complete registration
+  const verifyOtp = async (e) => {
+    e.preventDefault();
+
+    const otpVerificationData = {
+      email,
+      otp
+    };
+
+    try {
+      await axios.post("http://localhost:4000/NatureHug/user/signup-verify", otpVerificationData);
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration successful!',
+        text: 'You can now log in.',
+        showConfirmButton: true
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'OTP verification failed!',
+        text: error.response?.data || 'Invalid OTP or something went wrong.',
       });
     }
   };
@@ -135,10 +194,9 @@ const validateLastName = (value) => {
                 id="firstName" 
                 name="firstName" 
                 placeholder="Enter your first name" 
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                  validateFirstName(e.target.value);
-                }} 
+                value={firstName} 
+                onChange={(e) => validateAndSetFirstName(e.target.value)} 
+                onKeyDown={handleKeyDown} // Prevent non-letter keys
                 required 
               />
               {firstNameError && <div className="invalid-feedback">{firstNameError}</div>}
@@ -150,10 +208,9 @@ const validateLastName = (value) => {
                 id="lastName" 
                 name="lastName" 
                 placeholder="Enter your last name" 
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                  validateLastName(e.target.value);
-                }} 
+                value={lastName} 
+                onChange={(e) => validateAndSetLastName(e.target.value)} 
+                onKeyDown={handleKeyDown} // Prevent non-letter keys
                 required 
               />
               {lastNameError && <div className="invalid-feedback">{lastNameError}</div>}
@@ -167,10 +224,8 @@ const validateLastName = (value) => {
                 id="email" 
                 name="email" 
                 placeholder="Enter your email address" 
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  validateEmail(e.target.value);
-                }} 
+                value={email}
+                onChange={(e) => validateEmail(e.target.value)} 
                 required 
               />
               {emailError && <div className="invalid-feedback">{emailError}</div>}
@@ -182,10 +237,9 @@ const validateLastName = (value) => {
                 id="phoneNumber" 
                 name="phoneNumber" 
                 placeholder="Enter your phone number" 
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                  validatePhoneNumber(e.target.value);
-                }} 
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange} // Validate phone number
+                maxLength="10" // Restrict input to 10 digits
                 required 
               />
               {phoneNumberError && <div className="invalid-feedback">{phoneNumberError}</div>}
@@ -199,6 +253,7 @@ const validateLastName = (value) => {
                 id="password" 
                 name="password" 
                 placeholder="Enter your password" 
+                value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   validatePassword(e.target.value);
@@ -214,6 +269,7 @@ const validateLastName = (value) => {
                 id="confirmPassword" 
                 name="confirmPassword" 
                 placeholder="Confirm your password" 
+                value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                   validateConfirmPassword(e.target.value);
@@ -235,6 +291,7 @@ const validateLastName = (value) => {
                 id="otp" 
                 name="otp" 
                 placeholder="Enter the OTP sent to your email" 
+                value={otp}
                 onChange={(e) => setOtp(e.target.value)} 
                 required 
               />
@@ -244,12 +301,11 @@ const validateLastName = (value) => {
         )}
 
         <div className="alternative-signup">
-        <span>New member? <Link to={"/Login"}>Login here</Link></span>
+          <span>Already have an account? <Link to={"/Login"}>Login here</Link></span>
         </div>
-      
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Signup;
