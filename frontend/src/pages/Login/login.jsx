@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import './login.css';
 import axios from 'axios';
@@ -124,7 +125,7 @@ const Login = () => {
             {passwordError && <small className="text-danger">{passwordError}</small>}
           </div>
           <div className="forgot-password">
-            <a href="#">Forgot your password?</a>
+            <a href="/forgot-password">Forgot your password?</a>
           </div>
           <button type="submit" className="login-button">
             Log in
@@ -136,7 +137,7 @@ const Login = () => {
         </div>
         <button className="google-login-button">G+ Google</button>
         <div className="register">
-          <span>New member? <Link to={`/signup`}>Register here</Link></span>
+          <span>New member? <Link to={`/signup`}>Forgot your password?</Link></span>
         </div>
       </div>
     </div>
@@ -144,3 +145,5 @@ const Login = () => {
 };
 
 export default Login;
+
+<span>New member? <Link to={`/signup`}>Register here</Link></span>

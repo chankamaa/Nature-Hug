@@ -1,111 +1,114 @@
 body {
-    background-color: #f7f7de;
-  }
+  background-color: #f7f7de;
+}
+
+.login-container {
+  margin-bottom: 20px; /* Reduced top margin to move everything up */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+.login-box {
+  background-color: #ffffeb;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px;
+}
+
+.login-box h2 {
+  margin-bottom: 10px; /* Reduced margin below the title */
+  color: #333;
   
-  .login-container {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
+}
+
+.input-group {
+  margin-bottom: 10px; /* Reduced margin between input fields */
+  text-align: left;
   
-  .login-box {
-    background-color: #ffffeb;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 400px;
-  }
-  
-  .login-box h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .input-group input::placeholder {
-    color: #bbb;
-  }
-  
-  .forgot-password {
-    text-align: right;
-    margin-bottom: 15px;
-  }
-  
-  .forgot-password a {
-    color: #3d9970;
-    text-decoration: none;
-  }
-  
-  .forgot-password a:hover {
-    text-decoration: underline;
-  }
-  
-  .login-button {
-    width: 80%;
-    padding: 10px;
-    background-color: #3d9970;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: #2e7d57;
-  }
-  
-  .alternative-login {
-    margin: 20px 0;
-  }
-  
-  .google-login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #db4437;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .google-login-button:hover {
-    background-color: #c23321;
-  }
-  
-  .register {
-    margin-top: 20px;
-  }
-  
-  .register span {
-    color: #333;
-  }
-  
-  .register a {
-    color: #3d9970;
-    text-decoration: none;
-  }
-  
-  .register a:hover {
-    text-decoration: underline;
-  }
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 50px;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-group input::placeholder {
+  color: #bbb;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 10px; /* Reduced margin below "Forgot password" */
+}
+
+.forgot-password a {
+  color: #3d9970;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.login-button {
+  width: 80%;
+  padding: 10px;
+  background-color: #3d9970;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #2e7d57;
+}
+
+.alternative-login {
+  margin: 15px 0; /* Reduced margin around alternative login section */
+}
+
+.google-login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #db4437;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.google-login-button:hover {
+  background-color: #c23321;
+}
+
+.register {
+  margin-top: 10px; /* Reduced margin above the register section */
+}
+
+.register span {
+  color: #333;
+}
+
+.register a {
+  color: #3d9970;
+  text-decoration: none;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
