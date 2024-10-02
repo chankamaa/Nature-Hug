@@ -187,22 +187,25 @@ function ADDstocks() {
           <section>
             <h1 style={{ textAlign: "center" }}>Stock Management</h1>
             <form onSubmit={handleSubmit}>
+
               <div className='type1'>
                 <input type="text" placeholder="Search by Product Name" value={searchTerm} onChange={handleSearch} />
+
                 <label>Product ID:</label>
                 <input type="text" name="Product_ID" value={newStock.Product_ID} placeholder='Product_ID' onChange={handleChange} required />
+
                 <label>Product Name:</label>
                 <input type="text" placeholder='Product_name' name="Product_name" value={newStock.Product_name} onChange={handleChange} required />
-                <label>Price:</label>
+
+                <label>Unit Price:</label>
                 <input type="text" name="Price" placeholder='Price' value={newStock.Price} onChange={handlePriceChange} required />
-                <label>Stocks:</label>
-                <input type="text" name="unit" placeholder='unit' value={newStock.Total_Amount} readOnly />
-                <label>unit:</label>
-                <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
+
+                <label>Stock:</label>
                 <input type="text" name="Qty" placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required />
+
                 <label>Total Amount:</label>
-            
                 <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
+
                 <button className='button1' type='submit'> {editStockId !== null ? 'Update Stock' : 'Add Stock'}</button>
                 <button className='button2' type='button' onClick={() => alert('Remove button clicked!')}>Remove</button>
               </div>

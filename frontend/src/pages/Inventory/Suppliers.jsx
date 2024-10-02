@@ -167,6 +167,7 @@ const Suppliers = () => {
                   onChange={handleChange} 
                   required 
                 />
+                
                 {errors.Suppliername && <p className="error-message">{errors.Suppliername}</p>}
 
                 <label>Description:</label>
