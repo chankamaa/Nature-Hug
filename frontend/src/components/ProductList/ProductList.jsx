@@ -1,0 +1,70 @@
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { StoreContext } from '../../context/StoreContext';
+import './ProductList.css';
+
+const ProductList = () => {
+  const { plants, fetchplants } = useContext(StoreContext);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Local state for loading and error handling
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch plants when component is mounted
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchplants();
+        setLoading(false); // Set loading to false once data is fetched
+      } catch (err) {
+        setError('Failed to fetch plants');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [fetchplants]);
+
+  // Handle click event to navigate to plant details page
+  const handleCardClick = (plant) => {
+    navigate(`/plants/${plant._id}`, { state: plant }); // Pass the whole plant object as state
+  };
+
+  if (loading) {
+    return <p>Loading plants...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  return (
+    <div>
+      <h2>Plant List</h2>
+      <div className="product-grid">
+        {plants.length === 0 ? (
+          <p>No products available</p>
+        ) : (
+          plants.map((plant) => (
+            <div
+              key={plant._id}
+              className="product-card"
+              onClick={() => handleCardClick(plant)} // Pass plant object on click
+            >
+              <img
+                src={`http://localhost:4000/images/${plant.image}`}
+                alt={plant.name}
+                className="plant-image"
+              />
+              <h3>{plant.name}</h3>
+              <button>Add to Cart</button>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;
