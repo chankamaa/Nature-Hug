@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CreateCampaignEmail.css';
 
@@ -7,10 +7,20 @@ const CreateCampaignEmail = () => {
     const [emailSubject, setEmailSubject] = useState('');
     const [emailContent, setEmailContent] = useState('');
     const [recipients, setRecipients] = useState('futurehasitha@gmail.com'); // Predefined recipient email for testing
+    const [campaigns, setCampaigns] = useState([]); // State to store sent campaigns
 
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
+    };
+
+    const fetchCampaigns = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/api'); // Adjust the endpoint as necessary
+            setCampaigns(response.data); // Update state with fetched campaigns
+        } catch (error) {
+            console.error('Error fetching campaigns:', error);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -34,7 +44,7 @@ const CreateCampaignEmail = () => {
                 campaignName,
                 emailSubject,
                 emailContent,
-                recipients: recipientList, // Ensure recipients are an array
+                recipients: recipientList,
             });
 
             alert(response.data.message);
@@ -43,11 +53,18 @@ const CreateCampaignEmail = () => {
             setEmailSubject('');
             setEmailContent('');
             setRecipients('futurehasitha@gmail.com'); // Predefine email again
+
+            // Fetch campaigns after sending email
+            fetchCampaigns(); // Refresh the campaign list after sending
         } catch (error) {
             console.error('Error sending campaign email:', error);
             alert('Error sending campaign email.');
         }
     };
+
+    useEffect(() => {
+        fetchCampaigns(); // Fetch campaigns when the component mounts
+    }, []);
 
     return (
         <div className='main-002'>
@@ -73,15 +90,11 @@ const CreateCampaignEmail = () => {
                 </div>
                 <label>Email Content:</label>
                 <div>
-                    
-                    <label>
                     <textarea
                         value={emailContent}
                         onChange={(e) => setEmailContent(e.target.value)}
                         required
-                    
                     />
-                    </label>
                 </div>
                 <div>
                     <label>Recipients (comma-separated):</label>
@@ -94,6 +107,29 @@ const CreateCampaignEmail = () => {
                 </div>
                 <button type="submit">Send Campaign Email</button>
             </form>
+
+            {/* Campaigns Table */}
+            <h3>Sent Campaigns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campaign Name</th>
+                        <th>Email Subject</th>
+                        <th>Recipients</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {campaigns.map(campaign => (
+                        <tr key={campaign._id}>
+                            <td>{campaign.campaignName}</td>
+                            <td>{campaign.emailSubject}</td>
+                            <td>{campaign.recipients.join(', ')}</td>
+                            <td>{campaign.status}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
