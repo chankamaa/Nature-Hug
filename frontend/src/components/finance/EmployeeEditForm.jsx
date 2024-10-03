@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { StoreContext } from '../../context/StoreContext';
 import './EmployeeEditForm.css';
+import { toast } from 'react-toastify';
 
 const EmployeeEditForm = () => {
   const { id } = useParams(); // Get the employee ID from the URL
@@ -93,7 +94,8 @@ const EmployeeEditForm = () => {
     e.preventDefault();
 
     if (errors.fullName || errors.email || errors.phoneNumber) {
-      alert('Please fix the errors before submitting.');
+      // alert('Please fix the errors before submitting.');
+      toast.error('Please fix the errors before submitting.'); 
       return;
     }
 
@@ -101,10 +103,10 @@ const EmployeeEditForm = () => {
       const response = await axios.put(`${url}/api/employees/${id}`, employee);
 
       if (response.status === 200) {
-        alert('Employee updated successfully!');
-        navigate('/employees'); // Redirect to the employee list page
+        toast.success('Employee updated successfully');
+        navigate('/employees'); 
       } else {
-        alert('Failed to update employee.');
+        toast.error('Failed to update employee. Please try again later.');
       }
     } catch (error) {
       console.error('Error updating employee:', error);

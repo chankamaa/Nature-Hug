@@ -29,12 +29,16 @@ import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const App = () => {
   const location = useLocation();
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard'];
+  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard','/finance/add-employee'];
 
 
   return (
@@ -42,6 +46,7 @@ const App = () => {
       <div className='app'>
         {/* Conditionally render Navbar */}
         {!noHeaderFooterPaths.includes(location.pathname) && <Navbar />}
+        <ToastContainer position="top-right" autoClose={3000} />
 
         <Routes>
           <Route path='/' element={<Home />} />
@@ -67,6 +72,7 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+
         </Routes>
 
         {/* Conditionally render Footer */}

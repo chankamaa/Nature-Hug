@@ -18,11 +18,11 @@ const AttendanceSearch = () => {
 
   useEffect(() => {
     const storedEmpId = localStorage.getItem('empId');
-    const storedDate = localStorage.getItem('date');
+    // const storedDate = localStorage.getItem('date');
     const storedAttendanceRecords = localStorage.getItem('attendanceRecords');
 
     if (storedEmpId) setEmpId(storedEmpId);
-    if (storedDate) setDate(storedDate);
+    //if (storedDate) setDate(storedDate);
     if (storedAttendanceRecords) {
       setAttendanceRecords(JSON.parse(storedAttendanceRecords)); // Parse stored records from JSON
     }

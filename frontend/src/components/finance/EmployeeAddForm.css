@@ -1,5 +1,7 @@
+
 .component {
-  margin-top: 90px;
+  margin-top: 1px;
+  margin-bottom: 50px;
 }
 
 .employee-add-form {
@@ -9,6 +11,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
+    padding-top: 100px;
   }
   
   .form-title {

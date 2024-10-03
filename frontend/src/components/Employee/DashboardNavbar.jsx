@@ -13,7 +13,6 @@ const DashboardNavbar = () => {
         </button>
       </div>
 
-      {/* Center: Simple Search bar */}
       <div className="navbar-search-custom">
         <input type="text" placeholder="Search here..." className="simple-search-input-custom" />
         <button className="search-btn-custom">
@@ -21,15 +20,15 @@ const DashboardNavbar = () => {
         </button>
       </div>
 
-      {/* Right side: Notifications and user profile */}
       <div className="navbar-right-custom">
         <div className="navbar-notifications-custom">
-          <i className="fas fa-bell"></i> {/* FontAwesome bell icon */}
+          <img src={assets.bell_icon} alt="" className='not-bell-icon' />
+          <i className="fas fa-bell"></i> 
           <span className="notification-dot-custom"></span>
         </div>
         <div className="navbar-profile-custom">
-          <img src="/path-to-profile-pic.jpg" alt="Profile" className="profile-pic-custom" />
-          <span>Welcome Smith</span>
+          <img src={assets.profile_icon} alt="Profile" className="profile-pic-custom" />
+          <span>Welcome Chankama</span>
         </div>
       </div>
     </div>

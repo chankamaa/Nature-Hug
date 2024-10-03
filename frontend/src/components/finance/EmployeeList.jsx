@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';  // Use useNavigate instead of u
 import axios from 'axios';
 import { StoreContext } from '../../context/StoreContext';
 import './EmployeeList.css';
+import { toast } from 'react-toastify';
 
 const EmployeeList = () => {
   const { url, fetchEmployees, employees } = useContext(StoreContext);
@@ -12,7 +13,8 @@ const EmployeeList = () => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
         await axios.delete(`${url}/api/employees/${id}`);
-        alert('Employee deleted successfully');
+        // alert('Employee deleted successfully');
+        toast.success('Employee deleted successfully'); // Use toast instead of alert
         fetchEmployees(); // Refresh the employee list after deletion
       } catch (error) {
         console.error('Error deleting employee:', error);

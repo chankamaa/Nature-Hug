@@ -39,7 +39,7 @@ const employeeSchema = new mongoose.Schema({
   },
   basicSalary: {
     type: Number,
-    required: true,
+    default: 0,
   },
   allowances: {
     type: Number,
@@ -74,6 +74,15 @@ const employeeSchema = new mongoose.Schema({
     default: function () {
       return this.basicSalary + this.allowances;
     },
+  },
+  NICNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  bithday: {
+    type: Date,
+    required: true,
   },
   totalDeductions: {
     type: Number,
