@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
+import { jsPDF } from 'jspdf'; // Import jsPDF
 import './ManagePromotions.css'; // Import the separate CSS file
 
 const ManagePromotions = () => {
@@ -50,6 +51,7 @@ const ManagePromotions = () => {
             console.log(response.data);
             if (response.status === 201) {
                 alert('Promotion created successfully!');
+                generatePDF(); // Call the function to generate PDF
                 // Reset form fields
                 setPromotionName('');
                 setDiscountPercentage('');
@@ -63,6 +65,24 @@ const ManagePromotions = () => {
             console.error('Error creating promotion:', error);
             alert('An error occurred. Please try again.');
         }
+    };
+
+    // Function to generate PDF using jsPDF
+    const generatePDF = () => {
+        const doc = new jsPDF();
+
+        doc.setFontSize(16);
+        doc.text('Promotion Details', 10, 10);
+
+        doc.setFontSize(12);
+        doc.text(`Promotion Name: ${promotionName}`, 10, 30);
+        doc.text(`Discount Percentage: ${discountPercentage}%`, 10, 40);
+        doc.text(`Promo Code: ${promoCode}`, 10, 50);
+        doc.text(`Start Date: ${startDate}`, 10, 60);
+        doc.text(`End Date: ${endDate}`, 10, 70);
+
+        // Save the generated PDF
+        doc.save(`${promotionName}_promotion.pdf`);
     };
 
     return (
@@ -119,8 +139,6 @@ const ManagePromotions = () => {
                 </div>
                 <button type="submit">Create Promotion</button>
             </form>
-
-            {/* Display existing promotions here in the future */}
         </div>
     );
 };
