@@ -29,6 +29,7 @@ const plantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    
 
 })
 const Plant = mongoose.models.plant || mongoose.model("Plant", plantSchema);

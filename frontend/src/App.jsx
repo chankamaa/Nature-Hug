@@ -34,14 +34,14 @@ import ManagePromotions from './components/Sales/ManagePromotions'
 import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
-
+import ProductItem from './components/ProductItem/ProductItem';
 
 const App = () => {
   const location = useLocation();
 
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard'];
+  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard','/admin/ProductItem'];
 
 
   return (
@@ -78,6 +78,9 @@ const App = () => {
           <Route path='/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          <Route path= '/admin/add/ProductItem' element={<ProductItem/>}/>
+          
+
 
         </Routes>
 

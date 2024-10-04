@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { StoreContext } from '../../context/StoreContext';
 import './ProductList.css';
 
+
 const ProductList = () => {
   const { plants, fetchplants } = useContext(StoreContext);
   const navigate = useNavigate(); // Initialize useNavigate
@@ -58,7 +59,12 @@ const ProductList = () => {
                 className="plant-image"
               />
               <h3>{plant.name}</h3>
-              <button>Add to Cart</button>
+              <button onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering card click
+                handleAddToCart(plant);
+              }}>
+                Add to Cart
+              </button>
             </div>
           ))
         )}

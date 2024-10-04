@@ -1,11 +1,11 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useLocation} from 'react-router-dom'; // Import useLocation
 import './PlantDetail.css';
 
 const PlantDetail = () => {
   const location = useLocation(); // Get location object
   const plant = location.state; // Access the passed plant object
-
+ 
   if (!plant) {
     return <p>No plant details available.</p>;
   }
@@ -21,6 +21,7 @@ const PlantDetail = () => {
       <p><strong>Category:</strong> {plant.category}</p>
     </div>
   );
+ 
 };
 
 export default PlantDetail;
