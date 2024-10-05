@@ -1,93 +1,117 @@
-/* Add this CSS to your styles file */
-
-.container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically if needed */
-  height: 100vh; /* Full viewport height for vertical centering */
-  margin: 0; /* Remove default margin */
-}
-
-.order {
-  border: 12px solid #ddd;
-  border-radius: 10px;
-  padding: 8px; /* Adjusted padding */
-  margin-bottom: 20px; /* Spacing between boxes */
+/* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
-  max-width: 700px; /* Limit the width of the box */
+  color: #333;
 }
 
-/* Rest of your CSS remains the same */
+/* Container */
+.order {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 700px;
+  transition: transform 0.2s;
+}
 
-  
-  .order h2 {
-    font-size: 16px; /* Reduced font size for heading */
-    margin-bottom: 8px; /* Reduced margin below heading */
-    text-align: center;
-  }
-  
-  .order ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0; /* Remove margin to make the list compact */
-  }
-  
-  .order-item {
-    display: flex;
-    align-items: flex-start; /* Align items at the start of the flex container */
-    padding: 6px 0; /* Reduced padding for smaller item boxes */
-    border-bottom: 1px solid #ddd;
-   
-  }
-  
-  .order-item img {
-    width: 50px; /* Smaller image size */
-    height: 50px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-right: 10px; /* Reduced margin between image and text */
-    
-  }
-  
-  .order-item-details {
-    flex: 1;
-    font-size: 14px; /* Reduced font size for details */
-  }
-  
-  .order-item-details div {
-    margin-bottom: 4px; /* Reduced space between each detail line */
-  }
-  
-  .order-item-details strong {
-    display: block; /* Make each label a block element to stack vertically */
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 4px 8px; /* Reduced padding for smaller button */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px; /* Reduced font size for smaller button */
-    margin-top: 8px; /* Reduced margin at the top of the button */
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+.order:hover {
+  transform: scale(1.02);
+}
 
-  .qr-code {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .qr-code img {
-    width: 200px;
-    height: 200px;
-  }
-  
+/* Title */
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+/* Order Information */
+.order h2 {
+  font-size: 1.5rem;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.order-details p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.order-item:hover {
+  background-color: #eaeaea;
+}
+
+.order-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.order-item-details {
+  flex-grow: 1;
+}
+
+.order-item-details div {
+  margin: 5px 0;
+}
+
+/* Status */
+p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+strong {
+  color: #2c3e50;
+}
+
+/* Button */
+button {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2ecc71;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Order History Container */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Empty Order Message */
+.empty-message {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin-top: 30px;
+}

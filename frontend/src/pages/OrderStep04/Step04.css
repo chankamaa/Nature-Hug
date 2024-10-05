@@ -74,10 +74,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.text-gray-700 {
-  color: #4a5568;
-}
-
 .barcode img {
   width: 100px;
   height: auto;
@@ -118,13 +114,14 @@
 }
 
 .gray-dot {
-  background-color: #cbd5e0; /* Gray for other status indicators */
+  background-color: #aab0b8; /* Gray for other status indicators */
 }
 
-.status-label {
+/* Force black text on order status */
+.order-status .status-label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #2d3748;
+  color: black !important; /* Force the color to be black */
 }
 
 /* Cart Items Summary */
@@ -161,7 +158,7 @@
 /* Buttons */
 .continue-shopping-button {
   background-color: #48bb78; /* Green color for continue shopping */
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 0.75rem 2rem;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -177,10 +174,10 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .order-confirmation, .cart-items-summary {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
 
   .continue-shopping-button {
-      padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
   }
 }

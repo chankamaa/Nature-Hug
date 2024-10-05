@@ -42,7 +42,8 @@ app.use('/api', attendanceRoutes);
 app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
-app.use('/api/cart', cartRoutes);  // Cart route
+app.use('/api/carts', cartRoutes);  // Cart route
+
 
 
 

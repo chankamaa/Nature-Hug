@@ -1,21 +1,60 @@
 import React, { useContext } from 'react';
 import './cart.css';
 import { StoreContext } from '../../context/StoreContext';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Cart = () => {
-    const { cartItems, setCartItems, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
-    const navigate = useNavigate();  // Initialize useNavigate hook
-    const deliveryFee = 350;  // Set the delivery fee
+    const { cartItems, setCartItems, removeFromCart, getTotalCartAmount, orderData, clearCart } = useContext(StoreContext);
+    const navigate = useNavigate();
+    const deliveryFee = 350;
 
-    console.log(cartItems);
+    // Function to handle placing an order
+    const handlePlaceOrder = async () => {
+        const totalWithDelivery = getTotalCartAmount() + deliveryFee;
 
-    const handlePlaceOrder = () => {
-        // Navigate to Step01 page on clicking Place Order
-        navigate('/step01', { state: { totalWithDelivery: getTotalCartAmount() + deliveryFee } });
+        // Validate user data before proceeding to checkout
+        if (!orderData || !orderData.firstName || !orderData.lastName || !orderData.email) {
+            console.error('User information is incomplete! Cannot proceed with checkout.');
+            alert('Please complete your information before placing the order.');
+            return;
+        }
+
+        // Prepare the payload with cart and order data to send to the backend
+        const orderPayload = {
+            items: Object.keys(cartItems).map(itemId => ({
+                productId: itemId,
+                name: cartItems[itemId].name,
+                price: cartItems[itemId].price,
+                quantity: cartItems[itemId].quantity
+            })),
+            deliveryFee: deliveryFee,
+            total: totalWithDelivery,
+            customerInfo: orderData // Include the user's order information from the context
+        };
+
+        try {
+            // Make a POST request to the backend to save the cart and order data
+            const response = await axios.post('http://localhost:4000/api/carts/add', orderPayload);
+
+            if (response.status === 201 || response.status === 200) {
+                // Handle successful order creation
+                console.log('Order saved successfully:', response.data);
+                alert('Order placed successfully!');
+                // clearCart();  // Clear the cart after placing the order
+                navigate('/step01', { state: { totalWithDelivery } }); // Redirect to step01 with total
+            } else {
+                console.error('Unexpected response. Status:', response.status, 'Data:', response.data);
+                alert('Something went wrong! Please try again.');
+            }
+        } catch (error) {
+            // Handle any errors that occur during the order process
+            console.error('Error saving the order:', error.response ? error.response.data : error.message);
+            alert('Failed to place the order. Please try again later.');
+        }
     };
 
-    // Function to increase the quantity of an item
+    // Function to increase the quantity of a specific item in the cart
     const increaseQuantity = (itemId) => {
         setCartItems((prevItems) => {
             const updatedItems = { ...prevItems };
@@ -24,75 +63,96 @@ const Cart = () => {
         });
     };
 
-    // Function to decrease the quantity of an item
+    // Function to decrease the quantity of a specific item in the cart
     const decreaseQuantity = (itemId) => {
         setCartItems((prevItems) => {
             const updatedItems = { ...prevItems };
             if (updatedItems[itemId].quantity > 1) {
                 updatedItems[itemId].quantity -= 1;
             } else {
-                // Optionally remove the item if the quantity goes to 0
                 removeFromCart(itemId);
             }
             return updatedItems;
         });
     };
 
+    // Function to remove an item from the cart
+    const handleRemoveItem = (itemId) => {
+        removeFromCart(itemId);
+    };
+
+    // Check if the cart is empty
+    const isCartEmpty = Object.keys(cartItems).length === 0;
+
     return (
         <div className='cart'>
-            <div className='cart-items'>
-                <br></br>
-                <br></br>
-                <br></br>
-                <h2>My Cart</h2>
+            <h2>My Cart</h2>
+            {isCartEmpty ? (
+                <div className="empty-cart-container">
+                    <p className="empty-cart-message">Your cart is empty</p>
+                </div>
+            ) : (
+                <div className="cart-content">
+                    <table className="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Items</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.keys(cartItems).map((itemId) => {
+                                const item = cartItems[itemId];
+                                return (
+                                    <tr key={itemId}>
+                                        <td>
+                                            <img src={`http://localhost:4000/images/${item.image || 'placeholder.png'}`} alt={item.name} className='cart-item-image' />
+                                        </td>
+                                        <td>{item.name}</td>
+                                        <td>Rs. {item.price}</td>
+                                        <td>
+                                            <div className="quantity-controls">
+                                                <button className="quantity-button" onClick={() => decreaseQuantity(itemId)}>-</button>
+                                                <span>{item.quantity}</span>
+                                                <button className="quantity-button" onClick={() => increaseQuantity(itemId)}>+</button>
+                                            </div>
+                                        </td>
+                                        <td>Rs. {item.price * item.quantity}</td>
+                                        <td>
+                                            <button className="remove-button" onClick={() => handleRemoveItem(itemId)}>x</button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
 
-                {Object.keys(cartItems).length === 0 ? (
-                    <div className="empty-cart-container">
-                        <p className="empty-cart-message">Your cart is empty</p>
-                    </div>
-                ) : (
-                    <div>
-                        <div className='cart-items-list'>
-                            <p>Items</p>
-                            <p>Title</p>
-                            <p>Price</p>
-                            <p>Quantity</p>
-                            <p>Total</p>
-                            <p>Remove</p>
+                    <div className="cart-summary">
+                        <div className="cart-totals">
+                            <p className="subtotal">Subtotal: Rs. {getTotalCartAmount()}</p>
+                            <p className="delivery-fee">Delivery Fee: Rs. {deliveryFee}</p>
+                            <h3 className="total-amount">Total: Rs. {getTotalCartAmount() + deliveryFee}</h3>
+                            <button
+                                className="checkout-button"
+                                onClick={handlePlaceOrder}
+                                disabled={isCartEmpty}  // Disable checkout button if the cart is empty
+                            >
+                                Proceed to Checkout
+                            </button>
                         </div>
-                        <hr />
-                        {Object.keys(cartItems).map((itemId) => {
-                            const item = cartItems[itemId];
-                            return (
-                                <div key={itemId} className='cart-item'>
-                                    <img src={item.image} alt={item.name} className='cart-item-image' />
-                                    <p>{item.name}</p>
-                                    <p>Rs. {item.price}</p>
-                                    <div className="quantity-controls">
-                                        <button onClick={() => decreaseQuantity(itemId)}>-</button>
-                                        <p>{item.quantity}</p>
-                                        <button onClick={() => increaseQuantity(itemId)}>+</button>
-                                    </div>
-                                    <p>Rs. {item.price * item.quantity}</p>
-                                    <button className="remove-button" onClick={() => removeFromCart(itemId)}>
-                                        Remove
-                                    </button>
-                                </div>
-                            );
-                        })}
-                        <hr />
-                        <div className='cart-total'>
-                            <h3>Subtotal: Rs. {getTotalCartAmount()}</h3>
-                            <h3>Delivery Fee: Rs. {deliveryFee}</h3>
-                            <h3>Total: Rs. {getTotalCartAmount() + deliveryFee}</h3> {/* Add delivery fee to total */}
-                        </div>
-                        <div className='place-order'>
-                            {/* Button to navigate to Step01 */}
-                            <button className="place-order-button" onClick={handlePlaceOrder}>Place Order</button>
+
+                        <div className="promo-code">
+                            <p>If you have a coupon code, please apply it below</p>
+                            <input type="text" className="promo-input" placeholder="Promo code" />
+                            <button className="submit-button">Submit</button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

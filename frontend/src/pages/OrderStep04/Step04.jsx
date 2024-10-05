@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Step04.css'; // Ensure this contains the relevant styles for the PDF
 import { assets } from '../../assets/assets'; // Assuming you have assets imported correctly
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import jsPDF from 'jspdf';  // Import jsPDF
 import html2canvas from 'html2canvas';  // Import html2canvas for taking screenshots of DOM elements
+import { StoreContext } from '../../context/StoreContext';  // Import StoreContext to access cart and order data
 
 const Step04 = () => {
     const navigate = useNavigate();  // Initialize the navigate function
@@ -11,6 +12,7 @@ const Step04 = () => {
     // Define state variables to hold the order and cart data
     const [orderData, setOrderData] = useState({});
     const [cartItems, setCartItems] = useState({});
+    const { clearCart } = useContext(StoreContext);
     
     useEffect(() => {
         // Retrieve orderData from localStorage
@@ -28,6 +30,7 @@ const Step04 = () => {
 
     // Handle navigation to the product page
     const handleContinueShopping = () => {
+        clearCart();  // Clear the cart after placing the order
         navigate('/product');  // Replace '/products' with the actual route to your product page
     };
 

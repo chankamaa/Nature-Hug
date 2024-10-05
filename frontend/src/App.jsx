@@ -36,6 +36,7 @@ import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
 import ManageOrders  from './components/ManageOrders/ManageOrders';
+import TrackOrder from './pages/TrackOrder/TrackOrder';
 
 
 
@@ -87,6 +88,7 @@ const App = () => {
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/order' element={<Order />} />
           <Route path='/manage-orders/order' element={<ManageOrders />} />
+          <Route path='/track-order/:orderId' element={<TrackOrder />} />
          
         </Routes>
 
