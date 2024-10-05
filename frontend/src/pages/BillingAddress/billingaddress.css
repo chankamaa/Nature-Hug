@@ -1,0 +1,56 @@
+.billing-address-container {
+    background-color: #f8f9fa; /* Light background color */
+    padding: 20px; /* Padding around the container */
+    border-radius: 8px; /* Rounded corners */
+    max-width: 500px; /* Max width for the form */
+    margin: auto; /* Center the form */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    color: #2c3e50; /* Dark color for heading */
+}
+
+.form-row {
+    display: flex; /* Flexbox for rows */
+    justify-content: space-between; /* Space between columns */
+}
+
+.form-group {
+    flex: 1; /* Equal width for both columns */
+    margin-right: 10px; /* Space between columns */
+}
+
+.form-group:last-child {
+    margin-right: 0; /* Remove margin for the last column */
+}
+
+label {
+    font-weight: bold; /* Bold labels */
+    margin-bottom: 5px; /* Space below labels */
+    display: block; /* Block display for labels */
+}
+
+input,
+select {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below inputs */
+}
+
+.submit-button {
+    background-color: #2ecc71; /* Green background for submit button */
+    color: white; /* White text */
+    padding: 10px; /* Padding inside button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    width: 100%; /* Full width */
+    font-size: 16px; /* Font size */
+}
+
+.submit-button:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}

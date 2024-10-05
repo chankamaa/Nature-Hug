@@ -18,24 +18,22 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 400px;
+  width: 500px;
 }
 
 .login-box h2 {
   margin-bottom: 10px; /* Reduced margin below the title */
   color: #333;
-  
 }
 
 .input-group {
   margin-bottom: 10px; /* Reduced margin between input fields */
   text-align: left;
-  
 }
 
 .input-group label {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
   color: #333;
 }
 
