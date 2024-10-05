@@ -116,7 +116,6 @@ const ViewComplains = () => {
     // Save the PDF
     doc.save("complaint_report.pdf");
   };
-  
 
   return (
     <section className="mt-5">
@@ -127,10 +126,10 @@ const ViewComplains = () => {
               className="rounded-circle"
               loading="lazy"
               alt=""
-              src="src\assets\com.jpg"
+              src="src\\assets\\com.jpg"
               style={{ width: "50px", height: "50px" }}
             />
-            <h1 className="ml-3">Your Complaint Status</h1>
+            <h1 className="ml-3">Complaint Status</h1>
           </div>
         </div>
 
@@ -149,6 +148,9 @@ const ViewComplains = () => {
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
+                  <th scope="col">Name with Initials</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Product/Service</th>
                   <th scope="col">Registration Date</th>
                   <th scope="col">Last Updated Date</th>
                   <th scope="col">Status</th>
@@ -159,13 +161,15 @@ const ViewComplains = () => {
               <tbody>
                 {filteredComplaints.map((complaint) => (
                   <tr key={complaint._id}>
+                    <td>{complaint.nameWithInitials}</td>
+                    <td>{complaint.phoneNo}</td>
+                    <td>{complaint.productNameOrService}</td>
                     <td>
                       {new Date(complaint.createdAt).toLocaleDateString()}
                     </td>
                     <td>
                       {new Date(complaint.updatedAt).toLocaleDateString()}
                     </td>
-               
                     <td>{complaint.status}</td>
                     <td>
                       <button
@@ -187,72 +191,6 @@ const ViewComplains = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
-      </div>
-
-      {/* Bootstrap Modal for Complaint Details */}
-
-      <div
-        className={`modal fade ${showModal ? "show" : ""}`}
-        style={{ display: showModal ? "block" : "none" }}
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="complaintDetailsModalLabel"
-        aria-hidden={!showModal}
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="complaintDetailsModalLabel">
-                Complaint Details
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={handleCloseModal}
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              {selectedComplaint && (
-                <div>
-                  <p className="mb-2">
-                    <strong>Name with Initials:</strong> {selectedComplaint.nameWithInitials}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Phone Number:</strong> {selectedComplaint.phoneNo}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Date of Incident:</strong> {selectedComplaint.dateOfIncident}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Complaint Details:</strong> {selectedComplaint.complaintDetails}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Product/Service:</strong> {selectedComplaint.productNameOrService}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Desired Resolution:</strong> {selectedComplaint.desiredResolution}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Additional Comments:</strong> {selectedComplaint.additionalComments}
-                  </p>
-                  <p className="mb-2">
-                    <strong>Status:</strong> {selectedComplaint.status}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={handleCloseModal}
-              >
-                Close
-              </button>
-            </div>
           </div>
         </div>
       </div>

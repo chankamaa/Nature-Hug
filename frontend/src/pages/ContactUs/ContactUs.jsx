@@ -4,12 +4,10 @@ import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
+import { useNavigate } from "react-router-dom";
 
-import config from "./chatbot/config";
-import MessageParser from "./chatbot/MessageParser";
-import ActionProvider from "./chatbot/ActionProvider";
+import Chatbot from "../chatbot/Chatbot";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -20,9 +18,15 @@ const ContactUs = () => {
   });
 
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+
   const [isChatbotVisible, setChatbotVisible] = useState(false);
 
-  // Function to validate individual fields
+  const toggleChatbot = () => {
+    setChatbotVisible((prev) => !prev);
+  };
+
   const validateField = (name, value) => {
     const newErrors = { ...errors }; // Copy of errors to update
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,12 +34,11 @@ const ContactUs = () => {
 
     switch (name) {
       case "fullName":
- 
         if (!value) {
           newErrors.fullName = "Full name is required";
         } else if (!/^[A-Za-z. ]+$/.test(value)) {
           newErrors.fullName = "Full name must contain only letters.";
-        }else{
+        } else {
           delete newErrors.fullName;
         }
         break;
@@ -211,7 +214,7 @@ const ContactUs = () => {
               {/* Contact Form */}
               <Form onSubmit={handleSubmit} noValidate>
                 <Form.Group className="mb-3" controlId="formFullName">
-                  <Form.Label>Full Name</Form.Label>
+                  <Form.Label style={{ textAlign: "left", display: "block" }}>Full Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter your full name"
@@ -221,12 +224,12 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.fullName && (
-                    <small className="text-danger">{errors.fullName}</small>
+                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.fullName}</small>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPhone">
-                  <Form.Label>Phone</Form.Label>
+                  <Form.Label style={{ textAlign: "left", display: "block" }}>Phone</Form.Label>
                   <Form.Control
                     type="tel"
                     placeholder="Enter your phone number"
@@ -236,12 +239,12 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.phone && (
-                    <small className="text-danger">{errors.phone}</small>
+                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.phone}</small>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label style={{ textAlign: "left", display: "block" }}>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter your email"
@@ -251,12 +254,12 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.email && (
-                    <small className="text-danger">{errors.email}</small>
+                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.email}</small>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formMessage">
-                  <Form.Label>Message</Form.Label>
+                  <Form.Label style={{ textAlign: "left", display: "block" }}>Message</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={3}
@@ -267,7 +270,7 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.message && (
-                    <small className="text-danger">{errors.message}</small>
+                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.message}</small>
                   )}
                 </Form.Group>
 
@@ -282,16 +285,17 @@ const ContactUs = () => {
         </div>
       </div>
 
-      {/* Chatbot */}
-      {isChatbotVisible && (
-        <div className="chatbot-container">
-          <Chatbot
-            config={config}
-            messageParser={MessageParser}
-            actionProvider={ActionProvider}
-          />
-        </div>
-      )}
+      <div
+        style={{
+          position: "fixed", // Fixes the position of the wrapper
+          bottom: "20px", // Distance from the bottom
+          right: "20px", // Distance from the right
+          zIndex: 1000, // Ensures it appears above other content
+        }}
+      >
+
+        {isChatbotVisible && <Chatbot />}
+      </div>
     </Container>
   );
 };

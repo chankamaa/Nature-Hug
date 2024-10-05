@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -56,60 +55,11 @@ const RewardsCenter = () => {
     setTimeout(() => setShowConfetti(false), 6000); // Hide confetti after 6 seconds
   };
 
-  // Inline CSS for styling
-  const styles = {
-    container: {
-      margin: "20px",
-      padding: "20px",
-    },
-    header: {
-      textAlign: "center",
-      marginBottom: "20px",
-    },
-    rewardCard: {
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      marginBottom: "20px",
-      transition: "transform 0.2s",
-    },
-    rewardImage: {
-      borderRadius: "8px 8px 0 0",
-      width: "100%",
-      height: "150px",
-      objectFit: "cover",
-    },
-    rewardBody: {
-      padding: "15px",
-    },
-    rewardTitle: {
-      fontSize: "1.25rem",
-      fontWeight: "bold",
-    },
-    rewardText: {
-      marginBottom: "10px",
-    },
-    claimButton: {
-      backgroundColor: "green",
-      color: "#fff",
-      border: "none",
-      borderRadius: "4px",
-      padding: "10px 15px",
-      cursor: "pointer",
-      fontSize: "1rem",
-      width: "100%",
-      transition: "background-color 0.3s, transform 0.2s",
-    },
-    pointsText: {
-      color: "#28a745",
-      fontWeight: "bold",
-    },
-  };
-
   return (
-    <div style={styles.container}>
+    <div className="container">
       {showConfetti && <Confetti />}
-      <h2 style={styles.header}>Rewards Shop</h2>
-      <h3 style={styles.header}>Available Rewards</h3>
+      <h2 className="header">Rewards Shop</h2>
+      <h3 className="header">Available Rewards</h3>
       <TransitionGroup className="row">
         {rewards.map((reward) => (
           <CSSTransition
@@ -119,8 +69,7 @@ const RewardsCenter = () => {
           >
             <div className="col-md-4 mb-4">
               <div
-                className="card"
-                style={styles.rewardCard}
+                className="reward-card"
                 onMouseOver={(e) =>
                   (e.currentTarget.style.transform = "scale(1.05)")
                 }
@@ -131,21 +80,16 @@ const RewardsCenter = () => {
                 <img
                   src={reward.imageUrl}
                   alt={reward.name}
-                  style={styles.rewardImage}
+                  className="reward-image"
                 />
-                <div className="card-body" style={styles.rewardBody}>
-                  <h5 className="card-title" style={styles.rewardTitle}>
-                    {reward.name}
-                  </h5>
-                  <p className="card-text" style={styles.rewardText}>
-                    {reward.description}
-                  </p>
-                  <p className="card-text">
-                    Cost:{" "}
-                    <span style={styles.pointsText}>{reward.cost} points</span>
+                <div className="reward-body">
+                  <h5 className="reward-title">{reward.name}</h5>
+                  <p className="reward-text">{reward.description}</p>
+                  <p className="reward-text">
+                    Cost: <span className="points-text">{reward.cost} Glow points</span>
                   </p>
                   <button
-                    style={styles.claimButton}
+                    className="claim-button"
                     onClick={() => handleClaim(reward)}
                   >
                     Claim Reward
