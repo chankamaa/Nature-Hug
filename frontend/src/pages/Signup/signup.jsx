@@ -143,7 +143,7 @@ const Signup = () => {
         title: 'OTP sent successfully. Please verify OTP to complete registration.',
         showConfirmButton: true
       });
-      setShowOtpInput(true);
+      setShowOtpInput(true); // Show the OTP input field
     } catch (error) {
       console.log('Data Error:', error);
       Swal.fire({
@@ -160,7 +160,11 @@ const Signup = () => {
 
     const otpVerificationData = {
       email,
-      otp
+      otp,
+      password, // Ensure the password is included in the OTP verification request
+      firstName,   // Ensure this is included
+     lastName,    // Ensure this is included
+    phoneNumber   // Ensure this is included
     };
 
     try {

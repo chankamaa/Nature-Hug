@@ -137,7 +137,7 @@ const Login = () => {
         </div>
         <button className="google-login-button">G+ Google</button>
         <div className="register">
-          <span>New member? <Link to={`/signup`}>Forgot your password?</Link></span>
+          <span>New member? <Link to={`/signup`}>registration</Link></span>
         </div>
       </div>
     </div>
@@ -146,4 +146,3 @@ const Login = () => {
 
 export default Login;
 
-<span>New member? <Link to={`/signup`}>Register here</Link></span>

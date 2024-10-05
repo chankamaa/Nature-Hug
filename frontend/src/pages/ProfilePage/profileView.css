@@ -1,32 +1,86 @@
-/* UserProfile.css */
-.P.container {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-}
-
-.P.card-body img {
-    width: 150px;
-}
-
-.P.card-body .P.my-3 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.P.card-body .P.text-muted {
-    margin-bottom: 1rem;
-}
-
-.P.btn {
-    margin-top: 1rem;
-    margin-right: 0.5rem;
-}
-
-.P.row hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.container p {
+.profile-container {
+    max-width: 600px;
+    margin:100px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     
 }
+
+.greeting {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.birthdate-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.birthdate-input input {
+    width: 32%;
+}
+
+.gender-options {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Space above buttons */
+}
+
+.btn {
+    padding: 12px 20px; /* Adjust padding for button */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold font */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn-danger {
+    background-color: #c62828; /* Red color for logout button */
+    color: white; /* Text color */
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c; /* Darker shade on hover */
+}
+
+.btn-primary {
+    background-color: #388e3c; /* Green color for update button */
+    color: white; /* Text color */
+}
+
+.btn-primary:hover {
+    background-color: #2e7d32; /* Darker shade on hover */
+}
+

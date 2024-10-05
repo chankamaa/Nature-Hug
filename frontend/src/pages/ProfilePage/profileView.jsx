@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import './profileView.css';  // Import the CSS file
+import SidebarUser from "../../components/SidebarUser/sidebaruser";
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -47,57 +49,81 @@ const UserProfile = () => {
         // Redirect to the login page
         navigate('/');
     };
- 
+
     return (
         <section>
-            <div className="P.container">
-                <div className="P.row">
-                    <div className="col-lg-4 d-flex align-items-stretch">
-                        <div className="card mb-4 w-100">
-                            <div className="P.card-body text-center">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="rounded-circle img-fluid" />
-                                <h5 className="P.my-3">{user.firstName || 'User Name'}</h5>
-                                <p className="P.text-muted mb-4">{user.email || 'N/A'}</p>
-                            </div>
+          <SidebarUser></SidebarUser>
+            <div className="profile-container">
+                <h1 className="greeting">Good Evening! {user.firstName}</h1>
+                <div className="profile-form">
+                    <div className="form-group">
+                        <label htmlFor="firstName">First Name</label>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            value={user.firstName || ''} 
+                            className="form-control" 
+                            readOnly 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input 
+                            type="text" 
+                            id="lastName" 
+                            value={user.lastName || ''} 
+                            className="form-control" 
+                            readOnly 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            value={user.email} 
+                            className="form-control" 
+                            readOnly 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="contact">Contact Number</label>
+                        <input 
+                            type="text" 
+                            id="contact" 
+                            value={user.phoneNumber || ''} 
+                            className="form-control" 
+                            readOnly 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Birthdate</label>
+                        <div className="birthdate-input">
+                            <input type="text" placeholder="DD" className="form-control" />
+                            <input type="text" placeholder="MM" className="form-control" />
+                            <input type="text" placeholder="YYYY" className="form-control" />
                         </div>
                     </div>
-
-                    <div className="col-lg-8">
-                        <div className="card mb-4">
-                            <div className="card-body">
-                                <div className="P.row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Full Name</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        <p className="text-muted mb-0">{user.firstName + " " + user.lastName || 'N/A'}</p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className="P.row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Email</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        <p className="text-muted mb-0">{user.email}</p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className="P.row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Phone</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        <p className="text-muted mb-0">{user.phoneNumber || 'N/A'}</p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div>
-                                    <button onClick={handleLogout} className="P.btn btn-danger">LogOut</button>
-                                    <button className="btn btn-danger" onClick={() => navigate(`/update-user/${userId}`)}>Update</button>
-                                </div>
-                            </div>
+                    <div className="form-group">
+                        <label>Gender</label>
+                        <div className="gender-options">
+                            <label>
+                                <input type="radio" name="gender" value="Male" />
+                                Male
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="Female" />
+                                Female
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="Other" />
+                                Other
+                            </label>
                         </div>
+                    </div>
+                    <div className="action-buttons">
+                        <button onClick={handleLogout} className="btn btn-danger">LogOut</button>
+                        <button className="btn btn-primary" onClick={() => navigate(`/update-user/${userId}`)}>Update</button>
                     </div>
                 </div>
             </div>

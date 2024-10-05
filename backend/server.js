@@ -5,8 +5,8 @@ import userRoutes from './routes/userRoutes.js';
 import allUserDocRoutes from './routes/allUserDocRoutes.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenv from 'dotenv'; // Import dotenv
+dotenv.config(); // Load environment variables
 
 // App Config
 const app = express();
