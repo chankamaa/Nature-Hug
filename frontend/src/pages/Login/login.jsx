@@ -132,10 +132,8 @@ const Login = () => {
           </button>
         </form>
         
-        <div className="alternative-login">
-          <span>Or, login with</span>
-        </div>
-        <button className="google-login-button">G+ Google</button>
+       
+       
         <div className="register">
           <span>New member? <Link to={`/signup`}>registration</Link></span>
         </div>

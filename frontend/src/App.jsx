@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart/cart';

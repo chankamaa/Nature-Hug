@@ -52,61 +52,82 @@ const UserProfile = () => {
 
     return (
         <section>
-          <SidebarUser></SidebarUser>
-            <div className="profile-container">
-                <h1 className="greeting">Good Evening! {user.firstName}</h1>
-                <div className="profile-form">
-                    <div className="form-group">
+            <SidebarUser />
+            <div className="userProfileContainer">
+                <h1 className="welcomeMessage">Good Morning! {user.firstName}</h1>
+                <div className="userInfoForm">
+                    <div className="formField">
                         <label htmlFor="firstName">First Name</label>
                         <input 
                             type="text" 
                             id="firstName" 
                             value={user.firstName || ''} 
-                            className="form-control" 
+                            className="inputField" 
                             readOnly 
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="formField">
                         <label htmlFor="lastName">Last Name</label>
                         <input 
                             type="text" 
                             id="lastName" 
                             value={user.lastName || ''} 
-                            className="form-control" 
+                            className="inputField" 
                             readOnly 
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="formField">
                         <label htmlFor="email">Email</label>
                         <input 
                             type="email" 
                             id="email" 
                             value={user.email} 
-                            className="form-control" 
+                            className="inputField" 
                             readOnly 
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="formField">
                         <label htmlFor="contact">Contact Number</label>
                         <input 
                             type="text" 
                             id="contact" 
                             value={user.phoneNumber || ''} 
-                            className="form-control" 
+                            className="inputField" 
                             readOnly 
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="formField">
                         <label>Birthdate</label>
-                        <div className="birthdate-input">
-                            <input type="text" placeholder="DD" className="form-control" />
-                            <input type="text" placeholder="MM" className="form-control" />
-                            <input type="text" placeholder="YYYY" className="form-control" />
+                        <div className="dateInputGroup">
+                            <input 
+                                type="number" 
+                                placeholder="DD" 
+                                className="inputField" 
+                                min="1" 
+                                max="31" 
+                                required 
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="MM" 
+                                className="inputField" 
+                                min="1" 
+                                max="12" 
+                                required 
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="YYYY" 
+                                className="inputField" 
+                                min="1900" 
+                                max={new Date().getFullYear()} 
+                                required 
+                            />
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="formField">
                         <label>Gender</label>
-                        <div className="gender-options">
+                        <div className="genderSelection">
                             <label>
                                 <input type="radio" name="gender" value="Male" />
                                 Male
@@ -115,15 +136,11 @@ const UserProfile = () => {
                                 <input type="radio" name="gender" value="Female" />
                                 Female
                             </label>
-                            <label>
-                                <input type="radio" name="gender" value="Other" />
-                                Other
-                            </label>
                         </div>
                     </div>
-                    <div className="action-buttons">
-                        <button onClick={handleLogout} className="btn btn-danger">LogOut</button>
-                        <button className="btn btn-primary" onClick={() => navigate(`/update-user/${userId}`)}>Update</button>
+                    <div className="buttonGroup">
+                        <button onClick={handleLogout} className="button logoutButton">LogOut</button>
+                        <button className="button updateButton" onClick={() => navigate(`/update-user/${userId}`)}>Update</button>
                     </div>
                 </div>
             </div>

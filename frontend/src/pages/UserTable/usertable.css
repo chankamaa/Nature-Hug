@@ -2,6 +2,7 @@
 .input-group .form-control {
     border-radius: 0.25rem;
     border-color: #ced4da;
+    border: 1px solid #007bff; /* Add border color */
     width: 200px; /* Adjust the width to make it smaller */
     padding: 5px 10px; /* Adjust the padding to make the input field more compact */
     justify-content: center;
@@ -14,16 +15,12 @@
 }
 
 /* Styling for the generate report button */
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: white;
-}
+
 
 /* Styling for the delete button */
 .btn-outline-danger {
-    color: #dc3545;
-    border-color: #dc3545;
+    color: white;
+    border-color: white;
 }
 
 .btn-outline-danger:hover {
@@ -33,11 +30,13 @@
 
 /* Table styling */
 .table-hover {
-    width: 98%; /* Set table width to 100% */
-    border: 2px solid #343a40;  /* Added border around the table */
-    border-radius: 5px;  /* Optional: rounded corners for the table */
+    width: 100%; /* Set table width to 100% for better alignment */
+    border: 2px solid #343a40; /* Added border around the table */
+    border-radius: 5px; /* Optional: rounded corners for the table */
+    margin-left: 0; /* Align the table to the left */
 }
 
+/* Table hover effect */
 .table-hover tbody tr:hover {
     background-color: #f1f1f1;
 }
@@ -46,7 +45,7 @@
 .table thead th {
     background-color: #343a40;
     color: white;
-    text-align: center;
+    text-align: left;
 }
 
 /* Center align table columns */

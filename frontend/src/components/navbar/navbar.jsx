@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
@@ -16,6 +17,9 @@ const navbar = () => {
           <div className="navbar-link">Services</div>
           <div className="navbar-link">Blog</div>
           <div className="navbar-link">Contact</div>
+          <div className="navbar-link">
+                <Link to="/login" className="nav-link">Login</Link>
+            </div>
         </div>
         <div className="navbar-icons">
           <Link to ='/cart'><img className="cart-icon navi" src={assets.cart_icon} alt="icon1" /></Link>

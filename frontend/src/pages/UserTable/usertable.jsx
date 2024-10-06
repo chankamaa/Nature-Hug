@@ -7,6 +7,8 @@ import { saveAs } from "file-saver";  // Importing file-saver to save files
 import axios from "axios";  // Importing axios for making HTTP requests
 import Swal from "sweetalert2";  // Importing SweetAlert2 for alert dialogs
 import './usertable.css'
+import { assets } from '../../assets/assets'; // Assuming you have assets imported correctly
+
 
 const UserTable = () => {
     const [members, setMembers] = useState([]);
@@ -45,9 +47,34 @@ const UserTable = () => {
         });
     };
 
-    const genaratepdf = () => {
+    const generatePDF = () => {
         const doc = new jsPDF();
-        doc.text("User Table Report", 14, 16);
+
+        // Header with logo, company details, and date
+        const imgLogo = assets.logo; // Assuming logo is stored in assets
+        const headerText = [
+            "Nature Hug",
+            "Address: 54A, Ihala Vitiyala, Karagoda-Uyangoda, Matara",
+            "Email: handamama.pvt@gmail.com",
+            "Phone: +94 76 258 2337"
+        ];
+        const currentDate = new Date().toLocaleDateString(); // Get current date
+
+        // Load logo
+        doc.addImage(imgLogo, 'PNG', 10, 10, 30, 30); // Logo position (x, y) and size (width, height)
+        
+        // Add company details
+        doc.setFontSize(12);
+        headerText.forEach((line, index) => {
+            doc.text(line, 50, 10 + (index * 5)); // Adjust position of text
+        });
+
+        // Add date
+        doc.text(`Date: ${currentDate}`, 150, 10); // Date position
+
+        // Title of the document
+        doc.setFontSize(16);
+        doc.text("User Table Report", 14, 60); // Adjusted Y position for the title
 
         const tableColumn = ["#", "Name", "Email", "Contact Number"];
         const tableRows = [];
@@ -62,12 +89,14 @@ const UserTable = () => {
             tableRows.push(memberData);
         });
 
+        // Add the user data table
         doc.autoTable({
             head: [tableColumn],
             body: tableRows,
-            startY: 20,
+            startY: 70, // Start Y position for the table
         });
 
+        // Save the PDF
         doc.save("UserTableReport.pdf");
     };
 
@@ -79,7 +108,7 @@ const UserTable = () => {
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary" onClick={genaratepdf} style={{ marginLeft: 10, marginBottom: 10, width: 200 }}>Generate Report</button>
+            <button type="submit" className="bbtn btn-primary" onClick={generatePDF} style={{ marginLeft: 10, marginBottom: 10, width: 200 }}>Generate Report</button>
 
             <table className="table table-hover mx-3">
                 <thead>

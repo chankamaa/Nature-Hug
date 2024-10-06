@@ -5,21 +5,18 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import './sidebaruser.css';
 
-
-const Sidebar = () => {
+const SidebarUser = () => {
     return (
-        <div className="sidebar">
-            <h2 className="sidebar-header">Menu</h2>
-            <ul className="sidebar-menu">
-            <li><NavLink to="/profileView" className="sidebar-link">Account details</NavLink></li>
-                <li><NavLink to="/orders" className="sidebar-link">Orders</NavLink></li>
-                <li><NavLink to="/coupons" className="sidebar-link">Coupons</NavLink></li>
-                <li><NavLink to="/address" className="sidebar-link">Addresses</NavLink></li>
-             
-                
+        <div className="user-sidebar">
+            <h2 className="user-sidebar-header">Menu</h2>
+            <ul className="user-sidebar-menu">
+                <li><NavLink to="/profileView" className="user-sidebar-link">Account Details</NavLink></li>
+                <li><NavLink to="/cart" className="user-sidebar-link">Orders</NavLink></li>
+                <li><NavLink to="/coupons" className="user-sidebar-link">Coupons</NavLink></li>
+                <li><NavLink to="/address" className="user-sidebar-link">Addresses</NavLink></li>
             </ul>
         </div>
     );
 };
 
-export default Sidebar;
+export default SidebarUser;
