@@ -1,5 +1,5 @@
 body{
-  background-color: white;
+  background-color: rgb(199, 73, 73);
 }
 
 
@@ -13,7 +13,7 @@ body{
 }
 
 .signup-box {
-  background-color: #2f0108;
+  background-color: #c41731;
   padding: 30px; /* Match padding with login form */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

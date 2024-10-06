@@ -18,10 +18,17 @@ import EPFETFManagement from './components/finance/EPFETFManagement'
 import EmployeeAddForm from './components/finance/EmployeeAddForm'
 import Login from './pages/Login/login'
 import Signup from './pages/Signup/signup'
-import UserProfile from './pages/ProfilePage/profileView'
+import  ProfilePage from './pages/ProfilePage/profileView'
 import UpdateUser from './pages/UpdateUser/updateuser'
 import ForgotPassword from './pages/ForgotPassword/forgotpassword';
 import UserTable from './pages/UserTable/usertable';
+import SidebarUser from './components/SidebarUser/sidebaruser';
+import BillingAddress from './pages/BillingAddress/billingaddress';
+import ShippingAddress from './pages/ShippingAddress/shippingaddress';
+import Address from './pages/Address/address';
+
+
+
 
 
 const App=() =>{
@@ -45,10 +52,15 @@ const App=() =>{
         <Route path="/Aboutus" element={<Aboutus />} />
         <Route path="/login" element={<Login />}></Route> 
         <Route path="/signup" element={<Signup />}></Route> 
-        <Route path="/user-profile" element={<UserProfile />}></Route> 
+        <Route path="/profileView" element={<ProfilePage/>} />
         <Route path="/update-user/:id" element={<UpdateUser />}></Route> 
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/usertable" element={<UserTable />}></Route>
+        <Route path="/sidebaruser" element={<SidebarUser />}></Route>
+        <Route path="/billingaddress" element={< BillingAddress />}></Route>
+        <Route path="/shippingaddress" element={< ShippingAddress />}></Route>
+        <Route path="/address" element={< Address />}></Route>
+
       </Routes>
       
     </div>

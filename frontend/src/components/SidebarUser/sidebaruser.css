@@ -3,7 +3,7 @@
 .sidebar {
     width: 150px; /* Width of the sidebar */
     height: 60vh; /* Full height */
-    background-color:#B2BEC3;/* Sidebar background color */
+    background-color:#f7f7de;/* Sidebar background color */
     color: #fff; /* Text color */
     position: fixed; /* Fixed position */
     top: 10; /* Aligns to the top */

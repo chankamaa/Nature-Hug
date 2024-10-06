@@ -1,101 +1,74 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import './billingaddress.css'; // Import the CSS file for styling
+import './billingaddress.css';
 
 const BillingAddress = () => {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        companyName: '',
-        country: '',
-        streetAddress1: '',
-        streetAddress2: '',
-    });
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [country, setCountry] = useState('');
+    const [streetAddress1, setStreetAddress1] = useState('');
+    const [streetAddress2, setStreetAddress2] = useState('');
+    const [townCity, setTownCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+    const countries = [
+        "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
+        "Angola", "Argentina", "Armenia", "Australia", "Austria",
+        // Add more countries as needed
+    ];
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Process form data
-        console.log(formData);
+        // Handle form submission logic
     };
 
     return (
-        <div className="billing-address-container">
+        <form onSubmit={handleSubmit}>
             <h2>Billing Address</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-row">
-                    <div className="form-group">
-                        <label>First Name</label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Last Name</label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <label>Company Name</label>
-                    <input
-                        type="text"
-                        name="companyName"
-                        value={formData.companyName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Country / Region</label>
-                    <select
-                        name="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="" disabled>Select your country</option>
-                        <option value="Country1">Country 1</option>
-                        <option value="Country2">Country 2</option>
-                        <option value="Country3">Country 3</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Street Address 1</label>
-                    <input
-                        type="text"
-                        name="streetAddress1"
-                        value={formData.streetAddress1}
-                        onChange={handleChange}
-                        placeholder="House number and street name"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Street Address 2</label>
-                    <input
-                        type="text"
-                        name="streetAddress2"
-                        value={formData.streetAddress2}
-                        onChange={handleChange}
-                        placeholder="Apartment, suite, unit, etc. (optional)"
-                    />
-                </div>
-                <button type="submit" className="submit-button">Submit</button>
-            </form>
-        </div>
+            <label>First Name</label>
+            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+
+            <label>Last Name</label>
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+
+            <label>Company Name</label>
+            <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+
+            <label>Country / Region</label>
+            <select value={country} onChange={(e) => setCountry(e.target.value)}>
+                <option value="" disabled>Select your country</option> {/* Placeholder option */}
+                {countries.map((country) => (
+                    <option key={country} value={country}>{country}</option>
+                ))}
+            </select>
+
+            <label>Street Address 1</label>
+            <input type="text" value={streetAddress1} onChange={(e) => setStreetAddress1(e.target.value)} />
+
+            <label>Street Address 2</label>
+            <input type="text" value={streetAddress2} onChange={(e) => setStreetAddress2(e.target.value)} />
+
+            <label>Town / City</label>
+            <input type="text" value={townCity} onChange={(e) => setTownCity(e.target.value)} />
+
+            <label>State</label>
+            <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
+
+            <label>Zip Code</label>
+            <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+
+            <label>Phone</label>
+            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+
+            <label>Email Address</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+            <button type="submit">Save Address</button>
+        </form>
     );
 };
 
