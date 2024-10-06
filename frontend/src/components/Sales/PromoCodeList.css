@@ -1,0 +1,29 @@
+.promo-code-list {
+    margin-top: 20px;
+    margin-top: 50px;
+}
+
+.promo-code-list h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.promo-code-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.promo-code-list table th, 
+.promo-code-list table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.promo-code-list table th {
+    background-color: #f4f4f4;
+}
+
+.promo-code-list table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
