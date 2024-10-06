@@ -86,6 +86,7 @@ const Cart = () => {
 
     return (
         <div className='cart'>
+            <br></br><br></br>
             <h2>My Cart</h2>
             {isCartEmpty ? (
                 <div className="empty-cart-container">

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import jsPDF from 'jspdf';  // Import jsPDF
 import html2canvas from 'html2canvas';  // Import html2canvas for taking screenshots of DOM elements
 import { StoreContext } from '../../context/StoreContext';  // Import StoreContext to access cart and order data
+import emailjs from 'emailjs-com'; // Import EmailJS
 
 const Step04 = () => {
     const navigate = useNavigate();  // Initialize the navigate function
@@ -78,6 +79,34 @@ const Step04 = () => {
             doc.save("Order_Report.pdf");
         });
     };
+
+    // Function to send email
+    const sendEmail = () => {
+        const emailParams = {
+            to_name: orderData.firstName + " " + orderData.lastName,
+            to_email: orderData.email,
+            order_number: `#${Math.floor(Math.random() * 10000000000000)}`,
+            order_items: Object.keys(cartItems).map(itemId => {
+                const item = cartItems[itemId];
+                return `${item.name} x ${item.quantity} (Rs. ${item.price * item.quantity})`;
+            }).join(", "),
+            delivery_address: `${orderData.street}, ${orderData.city}, ${orderData.state}, ${orderData.zip}, ${orderData.country}`,
+            delivery_date: "Tue, Oct 20"
+        };
+
+        emailjs.send('your_service_id', 'your_template_id', emailParams, 'your_user_id')
+            .then((result) => {
+                console.log("Email sent successfully!", result.text);
+            }, (error) => {
+                console.error("Email sending failed:", error.text);
+            });
+    };
+
+    useEffect(() => {
+        if (orderData.email) {
+            sendEmail(); // Automatically send email when orderData is available
+        }
+    }, [orderData]);
 
     return (
         <div className="min-h-screen bg-[#f2f1e7] p-8 flex flex-col justify-between">
