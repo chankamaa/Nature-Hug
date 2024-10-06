@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+//form details
 const feedbackSchema = new mongoose.Schema({
   productType: { type: String, required: true },
   rating: { type: Number, required: true },

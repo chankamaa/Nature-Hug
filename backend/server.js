@@ -18,11 +18,8 @@ const port = 4000;
 app.use(express.json())
 app.use(cors())
 
-
-
 //db connection
 connectDB();
-
 
 
 //api routes

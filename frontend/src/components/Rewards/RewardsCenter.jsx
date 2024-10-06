@@ -11,6 +11,7 @@ const RewardsCenter = () => {
   const { points: initialPoints } = location.state || { points: 0 };
   const [points, setPoints] = useState(initialPoints); // State for available points
 
+  //array
   const [rewards] = useState([
     {
       id: 1,
@@ -68,6 +69,7 @@ const RewardsCenter = () => {
     }
   };
 
+  //display rewars page frontend
   return (
     <div className="container" style={{ marginTop: "6rem" }}>
       {showConfetti && <Confetti />}
@@ -83,6 +85,8 @@ const RewardsCenter = () => {
       </div>
 
       <h2 className="header">Rewards Shop</h2>
+
+{/* display the arrys  items   */}
 
       <TransitionGroup className="row">
         {rewards.map((reward) => (

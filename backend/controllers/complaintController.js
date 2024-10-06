@@ -17,7 +17,7 @@ export const getComplaints = async (req, res) => {
   }
 };
 // Make sure to import your Complaint model
-
+//create complaint
 export const createComplaint = async (req, res) => {
   const {
     nameWithInitials,

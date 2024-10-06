@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+//form detals
 const complaintSchema = mongoose.Schema({
   nameWithInitials: { type: String, required: true },
   phoneNo: { type: String, required: true },
