@@ -1,24 +1,25 @@
-// OrderDisplay.jsx
-
-import React from 'react';
-import { assets } from '../../assets/assets'
+import React, { useState, useEffect } from 'react';
+import { assets } from '../../assets/assets';
 import './Myorders.css';
 
-// Sample data for orders with image URLs
-const Myorders = [
-  {
-    id: 1,
-    items: [
-      { name: 'Cactus and Succulents ', quantity: 1, price: 1150, image: 'url-to-image-of-plant-a' },
-      { name: 'Spider Plant', quantity: 2, price: 1400, image: 'url-to-image-of-pot-b' },
-      { name: 'Jade Plant', quantity: 1, price: 1175, image: 'url-to-image-of-pot-b' },
-    ],
-    status: 'Processing',
-  },
-  
-];
-
 const OrderDisplay = () => {
+  const [myOrders, setMyOrders] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    // Retrieve orderData from localStorage
+    const storedOrderData = localStorage.getItem('orderData');
+    if (storedOrderData) {
+      setMyOrders([JSON.parse(storedOrderData)]); // Store as an array
+    }
+
+    // Retrieve cartItems from localStorage
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
   // Function to track an order
   const trackOrder = (orderId) => {
     alert(`Tracking order ID: ${orderId}`);
@@ -27,29 +28,29 @@ const OrderDisplay = () => {
 
   return (
     <div>
-  
       <br />
-      <br></br>
-      <br></br>
-      <br></br>
+      <br />
       <h1>My Orders</h1>
-      {Myorders.map((order) => (
-        <div key={order.id} className="order">
-          <h2>Order ID: {order.id}</h2>
+      {myOrders.map((order, orderIndex) => (
+        <div key={orderIndex} className="order">
+          <h2>Order ID: {orderIndex + 1}</h2>
           <ul>
-            {order.items.map((item, index) => (
-              <li key={index} className="order-item">
-                <img src={assets.parsal} alt="parsal" />
-                <div className="order-item-details">
-                  <div><strong>Item:</strong> {item.name}</div>
-                  <div><strong>Quantity:</strong> {item.quantity}</div>
-                  <div><strong>Price:</strong> RS{item.price}</div>
-                </div>
-              </li>
-            ))}
+            {Object.keys(cartItems).map((itemId, index) => {
+              const item = cartItems[itemId];
+              return (
+                <li key={index} className="order-item">
+                  <img src={assets.parsal} alt="parsal" />
+                  <div className="order-item-details">
+                    <div><strong>Item:</strong> {item.name}</div>
+                    <div><strong>Quantity:</strong> {item.quantity}</div>
+                    <div><strong>Price:</strong> RS {item.price}</div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
-          <p><strong>Status:</strong> {order.status}</p>
-          <button onClick={() => trackOrder(order.id)}>Track Order</button>
+          <p><strong>Status:</strong> {order.status || "Processing"}</p>
+          <button onClick={() => trackOrder(orderIndex + 1)}>Track Order</button>
         </div>
       ))}
     </div>

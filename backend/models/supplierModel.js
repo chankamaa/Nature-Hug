@@ -3,22 +3,22 @@ import mongoose from 'mongoose';
 const SupplierSchema = new mongoose.Schema({
   ID: {
     type: String,
-    required: true, // Validate that ID is required
+    required: true, 
   },
   Suppliername: {
     type: String,
-    required: true, // Validate that Suppliername is required
+    required: true, 
   },
   Description: {
     type: String,
-    required: true, // Validate that Description is required
+    required: true, 
   },
   Contactinfor: {
     type: Number,
-    required: true, // Validate that Contactinfor is required
+    required: true, 
   },
   Product: {
-    type: String, // Validate that Product is required
+    type: String, 
     required: true, 
   }
 });

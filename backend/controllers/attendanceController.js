@@ -1,10 +1,11 @@
 import Attendance from '../models/Attendance.js';
 import Employee from '../models/Employee.js';  // Ensure Employee model is imported
+import moment from 'moment';
 
 // Punch In with Late or Punctual Check
 export const punchIn = async (req, res) => {
     const { empId } = req.body;
-    const today = new Date().toISOString().slice(0, 10);  // YYYY-MM-DD format
+    const today = moment().format('YYYY-MM-DD');  // YYYY-MM-DD format
   
     try {
       // Check if the Employee exists
@@ -20,12 +21,11 @@ export const punchIn = async (req, res) => {
       }
   
       const currentTime = new Date();
-      const officeStartTime = new Date();
-      officeStartTime.setHours(8, 0, 0);  // 8:00 AM
+      const officeStartTime = moment(today + ' 08:00', 'YYYY-MM-DD HH:mm'); // 8:00 AM as office start time
   
       // Determine if the employee is late
       let status = 'Punctual';
-      if (currentTime > officeStartTime) {
+      if (moment(currentTime).isAfter(officeStartTime)) {
         status = 'Late';
       }
   
@@ -47,7 +47,7 @@ export const punchIn = async (req, res) => {
 // Punch Out and calculate total working hours
 export const punchOut = async (req, res) => {
   const { empId } = req.body;
-  const today = new Date().toISOString().slice(0, 10);  // YYYY-MM-DD format
+  const today = moment().format('YYYY-MM-DD');  // Use moment to format date
 
   try {
     // Check if the Employee exists
@@ -71,7 +71,7 @@ export const punchOut = async (req, res) => {
     existingRecord.punchOutTime = currentTime;
 
     // Calculate total working hours (in milliseconds) and convert to hours
-    const totalWorkingHours = (currentTime - new Date(existingRecord.punchInTime)) / (1000 * 60 * 60);
+    const totalWorkingHours = moment.duration(moment(currentTime).diff(moment(existingRecord.punchInTime))).asHours();
 
     // If the total working hours is less than 8 hours
     const status = totalWorkingHours >= 8 ? 'Completed' : 'Insufficient';
@@ -89,22 +89,30 @@ export const punchOut = async (req, res) => {
 };
 
 
-// Get Today's Attendance
+// Get Today's Attendance with Counts of Punctual and Late
 export const getTodayAttendance = async (req, res) => {
-  const today = new Date().toISOString().slice(0, 10);  // Get the date in YYYY-MM-DD format
+  const today = moment().format('YYYY-MM-DD');  // Use moment to get today's date
 
   try {
     // Fetch all attendance records for today
     const attendanceRecords = await Attendance.find({ date: today });
 
-    res.status(200).json(attendanceRecords);
+    // Calculate punctual and late counts
+    const punctualCount = attendanceRecords.filter(record => record.status === 'Punctual').length;
+    const lateCount = attendanceRecords.filter(record => record.status === 'Late').length;
+
+    res.status(200).json({
+      attendanceRecords,
+      punctualCount,
+      lateCount,
+      total: attendanceRecords.length
+    });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching today\'s attendance', error });
   }
 };
 
-
-// API Route to Get Attendance Data
+// API Route to Get Attendance Data (Filtered by empId or Date)
 export const getAttendanceRecords = async (req, res) => {
     const { empId, date } = req.query;
     

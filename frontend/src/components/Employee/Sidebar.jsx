@@ -4,13 +4,14 @@ import './Sidebar.css';
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
+    <div className="sidebar-cso">
       <ul>
         <li><Link to="/cso/dashboard">Dashboard</Link></li>
         <li><Link to="/cso/time-book">Time Book</Link></li>
 
         {/* Add the Attendance Search Link here */}
         <li><Link to="/cso/attendance-search">Search Attendance</Link></li>
+        <li><Link to="/finance/dashboard">Finance Dashboard</Link></li>
       </ul>
     </div>
   );
