@@ -71,7 +71,7 @@ const Login = () => {
         if (role === 'Admin') {
           window.location.href = '/admin-dashboard';  // Redirect to admin dashboard
         } else {
-          window.location.href = '/user-profile';     // Redirect to user profile page
+          window.location.href = '/profileView';     // Redirect to user profile page
         }
       } else {
         Swal.fire({
