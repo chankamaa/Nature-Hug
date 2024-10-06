@@ -31,10 +31,14 @@ import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import EmployeeDetail from './components/Employee/EmployeeDetail';
 import ManagePromotions from './components/Sales/ManagePromotions'
 import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
+
 
 
 const App = () => {
@@ -42,14 +46,26 @@ const App = () => {
 
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard'];
+  const noHeaderFooterPaths = [
+    '/cso/time-book',
+    '/cso/dashboard',
+    '/cso/attendance-search',
+    '/finance/dashboard',
+    '/finance/add-employee',
+    '/employees',
+    `/employees/${location.pathname.split('/')[2]}`,
+    '/finance/epf-etf-management',
+    '/finance/salary-dashboard'
+  ];
 
+ 
 
   return (
     <>
       <div className='app'>
         {/* Conditionally render Navbar */}
         {!noHeaderFooterPaths.includes(location.pathname) && <Navbar />}
+        <ToastContainer position="top-right" autoClose={3000} />
 
         <Routes>
           <Route path='/' element={<Home />} />
@@ -75,6 +91,7 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+          <Route path='/employees/:id' element={<EmployeeDetail />} /> 
           <Route path='/plants/:id' element={<PlantDetail />} />
           <Route path='/add/promotions' element={<ManagePromotions />} />
           <Route path='admin/add/promotions' element={<ManagePromotions />} />

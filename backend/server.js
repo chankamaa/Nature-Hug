@@ -8,6 +8,7 @@ import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import plantRoutes from './routes/plantRoute.js';
+import emailRoutes from './routes/emailRoutes.js'; 
 import cartRoutes from './routes/cartRoutes.js';  // Import cart routes
 import promotionsRoute from './routes/promotionsRoute.js';
 import campaignRoutes from './routes/campaignRoute.js';
@@ -38,15 +39,13 @@ app.use("/api/plants",plantRoutes);
 app.use("/images", express.static("uploads"));
 app.use('/api',financeRoutes);
 app.use('/api', attendanceRoutes);
+app.use('/api', emailRoutes);
 app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
 app.use('/api/cart', cartRoutes);  // Cart route
 app.use('/images', express.static("uploads"));
 
-
-
-dotenv.config(); // Load .env variables
 
 
 
