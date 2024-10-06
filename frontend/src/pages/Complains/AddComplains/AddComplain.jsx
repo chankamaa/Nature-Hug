@@ -115,48 +115,46 @@ const AddComplaints = () => {
       return;
     }
   
-    // Send the data to the backend
-    try {
-      const response = await fetch("http://localhost:5000/api/CreateComplaints", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        const pdfPath = data.pdfPath; // Get the PDF path from the response
-  
-        // Trigger the PDF download
-        const link = document.createElement("a");
-        link.href = pdfPath; // Use the path directly from the backend response
-        link.download = pdfPath.split('/').pop(); // Suggest a filename for the download
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-  
-        Swal.fire({
-          icon: "success",
-          title: "Complaint Submitted",
-          text: "Your complaint has been submitted successfully! The PDF will download now.",
-        });
-        clearForm();
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Submission Failed",
-          text: "There was an issue submitting your complaint. Please try again.",
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while submitting your complaint. Please check your network connection and try again.",
-      });
-    }
+// Send the data to the backend
+try {
+  const response = await fetch("http://localhost:4000/api/CreateComplaints", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),  // formData should include fields like nameWithInitials, phoneNo, etc.
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    const { message } = data; // Destructure to get the success message from the backend
+
+    // Show success message
+    Swal.fire({
+      icon: "success",
+      title: "Complaint Submitted",
+      text: message || "Your complaint has been submitted successfully!",
+    });
+
+    // Optionally, clear the form after submission
+    clearForm();
+  } else {
+    const errorData = await response.json();  // Read the error response
+    Swal.fire({
+      icon: "error",
+      title: "Submission Failed",
+      text: errorData.message || "There was an issue submitting your complaint. Please try again.",
+    });
+  }
+} catch (error) {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "An error occurred while submitting your complaint. Please check your network connection and try again.",
+  });
+}
+
+
   };
   
 

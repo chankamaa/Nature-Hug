@@ -124,7 +124,7 @@ const ContactUs = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/contact",
+        "http://localhost:4000/api/contact",
         formData
       );
 

@@ -15,7 +15,7 @@ const ViewComplains = () => {
     const fetchComplaints = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/GetComplaints"
+          "http://localhost:4000/api/GetComplaints"
         );
         setComplaints(data);
       } catch (error) {
@@ -51,7 +51,7 @@ const ViewComplains = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`http://localhost:5000/api/DeleteComplaints/${id}`);
+        await axios.delete(`http://localhost:4000/api/DeleteComplaints/${id}`);
         setComplaints(complaints.filter((complaint) => complaint._id !== id));
 
         Swal.fire("Deleted!", "Your complaint has been deleted.", "success");
