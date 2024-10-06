@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import jsPDF from 'jspdf'; // Import jsPDF for PDF generation
+import jsPDF from 'jspdf'; // Import jsPDF
 import 'jspdf-autotable'; // Import jspdf-autotable for table generation
 import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
+import './Instocks.css'
 
-const InStock = () => {
+const OutOfStocks = () => {
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
     fetchStocks();
   }, []);
 
-  // Fetch all stock data
   const fetchStocks = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/stocks');
@@ -23,19 +23,19 @@ const InStock = () => {
     }
   };
 
-  // Filter in-stock items (Qty > 0)
-  const inStockItems = stocks.filter(stock => stock.Qty > 0);
+  // Filter out-of-stock items
+  const outOfStockItems = stocks.filter(stock => stock.Qty === 0);
 
-  // Function to download in-stock items as a PDF
-  const downloadInStockPDF = () => {
+  // Function to download the out-of-stock list as PDF
+  const downloadOutOfStockPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('In-Stock Items', 14, 10);
+    doc.text('Out-Of-Stock Items', 14, 10);
 
     const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
     const tableRows = [];
 
-    inStockItems.forEach(stock => {
+    outOfStockItems.forEach(stock => {
       const stockData = [
         stock.Product_ID,
         stock.Product_name,
@@ -47,7 +47,7 @@ const InStock = () => {
     });
 
     doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.save('in_stock_items.pdf');
+    doc.save('out_of_stock_items.pdf');
   };
 
   return (
@@ -55,9 +55,9 @@ const InStock = () => {
       <Dashboard />
 
       <main className="main-contet">
-        {/* In-Stock Items List View */}
-        <section className="in-stock-list">
-          <h2 className='header1'>In-Stock Items List</h2>
+        {/* Out-Of-Stock Items List View */}
+        <section className="out-stock-list">
+          <h2 style={{textAlign:"center"}}>Out-Of-Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>
@@ -69,8 +69,8 @@ const InStock = () => {
               </tr>
             </thead>
             <tbody>
-              {inStockItems.length > 0 ? (
-                inStockItems.map(stock => (
+              {outOfStockItems.length > 0 ? (
+                outOfStockItems.map(stock => (
                   <tr key={stock._id}>
                     <td>{stock.Product_ID}</td>
                     <td>{stock.Product_name}</td>
@@ -82,7 +82,7 @@ const InStock = () => {
               ) : (
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center' }}>
-                    No in-stock items found
+                    No Out-Of-Stock items found
                   </td>
                 </tr>
               )}
@@ -92,8 +92,8 @@ const InStock = () => {
 
         {/* Download PDF Button */}
         <section className="cont">
-          <button className="button1" onClick={downloadInStockPDF}>
-             In-Stock List 
+          <button className="button1" onClick={downloadOutOfStockPDF}>
+            Download  PDF
           </button>
         </section>
       </main>
@@ -101,4 +101,4 @@ const InStock = () => {
   );
 };
 
-export default InStock;
+export default OutOfStocks;

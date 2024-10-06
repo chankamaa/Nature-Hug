@@ -34,6 +34,7 @@ import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
 import Terms from './pages/Terms/terms'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
+import LowStock from './pages/Inventory/LowStock';
 import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
@@ -45,7 +46,7 @@ import ManagePromotions from './components/Sales/ManagePromotions'
 import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
-
+import OutOfStocks from './pages/Inventory/outofstocks';
 
 
 const App = () => {
@@ -62,8 +63,14 @@ const App = () => {
     '/employees',
     `/employees/${location.pathname.split('/')[2]}`,
     '/finance/epf-etf-management',
-    '/finance/salary-dashboard'
+    '/finance/salary-dashboard',
+    '/Suppliers',
+    '/ADDstocks',
+    '/InventoryDashboard',
+    '/Das'
+    
   ];
+
 
  
 
@@ -116,6 +123,8 @@ const App = () => {
           <Route path="/billingaddress" element={< BillingAddress />}></Route>
           <Route path="/shippingaddress" element={< ShippingAddress />}></Route>
           <Route path="/address" element={< Address />}></Route>
+          <Route path='/OutOfStocks' element={<OutOfStocks/>} />
+          <Route path='/LowStock' element={<LowStock/>} />
 
         </Routes>
 

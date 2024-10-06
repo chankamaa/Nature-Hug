@@ -6,7 +6,7 @@ import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
 
-const InStock = () => {
+const AllStocks = () => {
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
@@ -23,19 +23,16 @@ const InStock = () => {
     }
   };
 
-  // Filter in-stock items (Qty > 0)
-  const inStockItems = stocks.filter(stock => stock.Qty > 0);
-
-  // Function to download in-stock items as a PDF
-  const downloadInStockPDF = () => {
+  // Function to download all stock items as a PDF
+  const downloadAllStockPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('In-Stock Items', 14, 10);
+    doc.text('All Stock Items', 14, 10);
 
     const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
     const tableRows = [];
 
-    inStockItems.forEach(stock => {
+    stocks.forEach(stock => {
       const stockData = [
         stock.Product_ID,
         stock.Product_name,
@@ -47,7 +44,7 @@ const InStock = () => {
     });
 
     doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.save('in_stock_items.pdf');
+    doc.save('all_stock_items.pdf');
   };
 
   return (
@@ -55,9 +52,9 @@ const InStock = () => {
       <Dashboard />
 
       <main className="main-contet">
-        {/* In-Stock Items List View */}
-        <section className="in-stock-list">
-          <h2 className='header1'>In-Stock Items List</h2>
+        {/* All Stock Items List View */}
+        <section className="all-stock-list">
+          <h2 style={{textAlign:"center"}}>All Stock Items List</h2>
           <table border="1">
             <thead>
               <tr>
@@ -69,8 +66,8 @@ const InStock = () => {
               </tr>
             </thead>
             <tbody>
-              {inStockItems.length > 0 ? (
-                inStockItems.map(stock => (
+              {stocks.length > 0 ? (
+                stocks.map(stock => (
                   <tr key={stock._id}>
                     <td>{stock.Product_ID}</td>
                     <td>{stock.Product_name}</td>
@@ -82,7 +79,7 @@ const InStock = () => {
               ) : (
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center' }}>
-                    No in-stock items found
+                    No stock items found
                   </td>
                 </tr>
               )}
@@ -92,8 +89,8 @@ const InStock = () => {
 
         {/* Download PDF Button */}
         <section className="cont">
-          <button className="button1" onClick={downloadInStockPDF}>
-             In-Stock List 
+          <button className="button1" onClick={downloadAllStockPDF}>
+            Download PDF
           </button>
         </section>
       </main>
@@ -101,4 +98,4 @@ const InStock = () => {
   );
 };
 
-export default InStock;
+export default AllStocks;
