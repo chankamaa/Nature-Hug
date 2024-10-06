@@ -1,0 +1,66 @@
+/* Custom styles for the complaint page */
+body {
+    background-color: #f8f9fa;
+    font-family: "Arial", sans-serif;
+  }
+  
+  h1 {
+    font-weight: bold;
+    color: #4c4c4c;
+    margin-left: 15px;
+    display: inline-block;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  thead th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  tbody td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .btn-info, .btn-danger {
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-info:hover {
+    background-color: #0069d9;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .search-bar {
+    margin: 20px auto;
+    width: 60%;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 100%;
+    border-radius: 25px;
+    border: 1px solid #ced4da;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  }
+  
+  .table-responsive {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  

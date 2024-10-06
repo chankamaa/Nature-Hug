@@ -1,0 +1,60 @@
+/* Global colors */
+.text-primary-custom {
+  color: #17a2b8 !important;
+}
+.add-feedback-btn {
+  background-color: #28a745;
+  border-color: #28a745;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.add-feedback-btn:hover {
+  background-color: #218838;
+  transform: translateY(-3px);
+}
+
+/* Feedback Card styles */
+.feedback-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 15px;
+}
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Feedback container styling */
+.feedback-container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+/* Card text spacing */
+.card-text {
+  line-height: 1.6;
+}
+
+/* Hover effects for stars */
+.text-warning i {
+  transition: color 0.2s ease-in-out;
+}
+
+.text-warning i:hover {
+  color: #ffc107;
+}
+
+.card p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #05281d;
+}
+
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .add-feedback-btn {
+      width: 100%;
+  }
+}
