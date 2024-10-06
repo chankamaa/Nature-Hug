@@ -21,11 +21,10 @@ const navbar = () => {
           <Link to ='/cart'><img className="cart-icon navi" src={assets.cart_icon} alt="icon1" /></Link>
 
           <img className="profile-icon navi" src={assets.profile_icon} alt="profile" />
-          
-        )}
+
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default navbar;
