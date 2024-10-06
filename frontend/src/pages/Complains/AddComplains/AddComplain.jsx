@@ -159,13 +159,13 @@ try {
   
 
   return (
-    <Container className="container my-4">
+    <Container className="container my-4"  style={{ marginTop: "6rem" }}>
       <Row className="justify-content-between align-items-center mb-4">
 
       </Row>
       <Row className="mb-3">
         <Col>
-          <h4 className="mb-2">FORM</h4>
+          <h4 className="mb-2" style={{ marginTop: "3rem" }}>FORM</h4>
           <p>Please complete this form to file your complaint.</p>
         </Col>
       </Row>

@@ -1,111 +1,168 @@
+/* Navbar Container */
 .navbar-container {
     display: flex;
     padding: 10px 13px;
-    background-color: #F5F5DC;
+    background-color: #f5f5dc;
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
     align-items: center;
     justify-content: space-between;
     flex-shrink: 0;
     width: 100%;
-    height: 50px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
-}
-
-.navbar-logo {
-    color: #556B2F;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Logo Styling */
+  .navbar-logo {
+    color: #556b2f;
     font-family: Roboto, sans-serif;
     font-size: 35px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 9px;
     letter-spacing: 2.96px;
-}
-
-.navbar-links {
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for logo */
+  .navbar-logo:hover {
+    transform: scale(1.05);
+    color: #6b8e23; /* Slightly lighter green */
+  }
+  
+  /* Navbar Links */
+  .navbar-links {
     display: flex;
     justify-content: space-between;
     width: 50%;
     align-items: center;
-    color: #556B2F;
+    color: #556b2f;
     font-family: Roboto, sans-serif;
     font-size: 18px;
-}
-
-.cart-icon {
+    transition: font-size 0.3s ease;
+  }
+  
+  /* Navbar link styling */
+  .navbar-link {
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #6b8e23;
+    transform: translateY(-2px);
+  }
+  
+  /* Underline effect on hover */
+  .navbar-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #556b2f;
+    visibility: hidden;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar-link:hover::before {
+    visibility: visible;
+    width: 100%;
+  }
+  
+  /* Icon Styling */
+  .cart-icon {
     width: 64px;
     height: 58px;
-    flex-shrink: 0;
     margin-right: 30px;
-}
-
-.profile-icon {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .cart-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .profile-icon {
     width: 50px;
     height: 50px;
-    flex-shrink: 0;
     margin-right: 28px;
-}
-
-/* Media Queries for smaller screens */
-@media screen and (max-width: 768px) {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .profile-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Media Queries for smaller screens */
+  @media screen and (max-width: 768px) {
     .navbar-container {
-        padding: 10px;
-        height: 60px; /* Slightly increase height for better touch targets */
+      padding: 10px;
+      height: 60px; /* Slightly increase height for better touch targets */
     }
-
+  
     .navbar-logo {
-        font-size: 28px;
+      font-size: 28px;
     }
-
+  
     .navbar-links {
-        width: 60%;
-        font-size: 16px;
+      width: 60%;
+      font-size: 16px;
     }
-
+  
     .cart-icon {
-        width: 50px;
-        height: 45px;
-        margin-right: 20px;
+      width: 50px;
+      height: 45px;
+      margin-right: 20px;
     }
-
+  
     .profile-icon {
-        width: 40px;
-        height: 40px;
-        margin-right: 18px;
+      width: 40px;
+      height: 40px;
+      margin-right: 18px;
     }
-}
-
-@media screen and (max-width: 480px) {
+  }
+  
+  /* Media Queries for mobile screens */
+  @media screen and (max-width: 480px) {
     .navbar-container {
-        flex-direction: column;
-        align-items: flex-start;
-        height: auto; /* Allow the navbar to expand vertically */
-        padding: 10px 15px;
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto; /* Allow the navbar to expand vertically */
+      padding: 10px 15px;
     }
-
+  
     .navbar-logo {
-        font-size: 24px;
-        margin-bottom: 10px;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
-
+  
     .navbar-links {
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-        font-size: 14px;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      font-size: 14px;
     }
-
+  
+    .navbar-link {
+      margin-bottom: 10px;
+    }
+  
     .cart-icon {
-        width: 40px;
-        height: 35px;
-        margin-right: 10px;
+      width: 40px;
+      height: 35px;
+      margin-right: 10px;
     }
-
+  
     .profile-icon {
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
     }
-}
+  }

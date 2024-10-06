@@ -155,18 +155,26 @@ const ContactUs = () => {
   return (
     <Container className="my-5">
       {/* Top Right Button */}
-      <div className="text-end mb-4">
-        <Button
-          variant="primary"
-          className="bg-green"
-          onClick={handleChatbotToggle}
-        >
-          Talk with Sales Team
-        </Button>
-      </div>
+      <div
+  style={{
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 1000, // Ensures the button stays above other content
+  }}
+>
+  <Button
+    variant="primary"
+    style={{ backgroundColor: "green", borderColor: "green" }}
+    onClick={handleChatbotToggle}
+  >
+    Talk with Sales Team
+  </Button>
+</div>
+
 
       {/* Heading */}
-      <div className="d-flex justify-content-center align-items-center text-center my-4">
+      <div className="d-flex justify-content-center align-items-center text-center mt-6"  style={{ marginTop: "6rem" }}>
         <h2 className="text-green">
           Don't be a stranger, <br />
           just say hello!
@@ -214,7 +222,8 @@ const ContactUs = () => {
               {/* Contact Form */}
               <Form onSubmit={handleSubmit} noValidate>
                 <Form.Group className="mb-3" controlId="formFullName">
-                  <Form.Label style={{ textAlign: "left", display: "block" }}>Full Name</Form.Label>
+                <Form.Label style={{ textAlign: "left", display: "block" }}>Full Name</Form.Label>
+
                   <Form.Control
                     type="text"
                     placeholder="Enter your full name"
@@ -224,7 +233,7 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.fullName && (
-                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.fullName}</small>
+                    <small className="text-danger"  style={{ textAlign: "left", display: "block" }}>{errors.fullName}</small>
                   )}
                 </Form.Group>
 
@@ -239,7 +248,7 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.phone && (
-                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.phone}</small>
+                    <small className="text-danger"  style={{ textAlign: "left", display: "block" }}>{errors.phone}</small>
                   )}
                 </Form.Group>
 
@@ -254,7 +263,7 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.email && (
-                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.email}</small>
+                    <small className="text-danger"  style={{ textAlign: "left", display: "block" }}>{errors.email}</small>
                   )}
                 </Form.Group>
 
@@ -270,7 +279,7 @@ const ContactUs = () => {
                     className="bg-light-gray"
                   />
                   {errors.message && (
-                    <small className="text-danger" style={{ textAlign: "left", display: "block" }}>{errors.message}</small>
+                    <small className="text-danger"  style={{ textAlign: "left", display: "block" }}>{errors.message}</small>
                   )}
                 </Form.Group>
 

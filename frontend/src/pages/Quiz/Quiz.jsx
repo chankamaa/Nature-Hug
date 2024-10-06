@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const styles = {
   earningWidgetContainer: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    marginTop: "50px",
+    marginTop: "100px",
     alignItems: "center", // Center the content horizontally
     fontFamily: "'Arial', sans-serif",
   },
@@ -78,28 +79,50 @@ const styles = {
 };
 
 const Quiz = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  
+
   // State to track the user's Glow Points
   const [points, setPoints] = useState(10); // Starting with 10 points by default
 
+  // Set points based on location.state when the component mounts
+  useEffect(() => {
+    if (location.state && location.state.points) {
+      setPoints(location.state.points);
+    }
+  }, [location.state]); // Only runs when location.state changes
+
+  // Function to display a success alert
+  const showSuccessAlert = (addedPoints) => {
+    Swal.fire({
+      title: 'Congratulations!',
+      text: `You earned ${addedPoints} Glow Point${addedPoints > 1 ? 's' : ''}!`,
+      icon: 'success',
+      confirmButtonText: 'OK',
+    });
+  };
+
   // Functions to handle points updates for each activity
   const handleRewards = () => {
-    navigate("/Reward");
+    navigate("/Reward", { state: { points } });
+    showSuccessAlert(points);
   };
 
   const handleQuizDemo = () => {
-    setPoints(points + 50); // Adds 50 Glow Points for the quiz
+   // Adds 50 Glow Points for the quiz // Show success alert
     navigate("/QuizDemo");
   };
 
   const handleSurvey = () => {
-    setPoints(points + 100); // Adds 100 Glow Points for completing a survey
+    const addedPoints = 100;
+    setPoints(points + addedPoints); // Adds 100 Glow Points for completing a survey
+     // Show success alert
     navigate("/Survays");
   };
 
   const handleAddPoints = (addedPoints) => {
     setPoints(points + addedPoints); // General function to add points
+    showSuccessAlert(addedPoints); // Show success alert
   };
 
   return (
@@ -111,7 +134,8 @@ const Quiz = () => {
         <h1>Earn Glow Points Easily!</h1>
         <p style={styles.description}>
           Collect Glow Points by completing various activities. Use these points
-          to unlock exciting rewards and offers! Here’s how you can start earning:
+          to unlock exciting rewards and offers! Here’s how you can start
+          earning:
         </p>
       </div>
       <div style={styles.widgetRight}>
@@ -129,7 +153,7 @@ const Quiz = () => {
                 (e.currentTarget.style.backgroundColor =
                   styles.cardButton.backgroundColor)
               }
-              onClick={() => handleAddPoints(1)} // Add 1 point for each purchase
+              onClick={() => handleAddPoints(1)} 
             >
               Shop 'Til You Drop
             </button>
@@ -229,10 +253,12 @@ const Quiz = () => {
       <button
         style={styles.rewardButton}
         onMouseOver={(e) =>
-          (e.currentTarget.style.backgroundColor = styles.rewardButtonHover.backgroundColor)
+          (e.currentTarget.style.backgroundColor =
+            styles.rewardButtonHover.backgroundColor)
         }
         onMouseOut={(e) =>
-          (e.currentTarget.style.backgroundColor = styles.rewardButton.backgroundColor)
+          (e.currentTarget.style.backgroundColor =
+            styles.rewardButton.backgroundColor)
         }
         onClick={handleRewards}
       >

@@ -4,8 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Confetti from "react-confetti";
 import "./RewardsCenter.css";
+import { useLocation } from "react-router-dom";
 
 const RewardsCenter = () => {
+  const location = useLocation();
+  const { points: initialPoints } = location.state || { points: 0 };
+  const [points, setPoints] = useState(initialPoints); // State for available points
+
   const [rewards] = useState([
     {
       id: 1,
@@ -50,16 +55,35 @@ const RewardsCenter = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const handleClaim = (reward) => {
-    toast.success(`You have successfully claimed: ${reward.name}`);
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 6000); // Hide confetti after 6 seconds
+    // Check if there are enough points to claim the reward
+    if (points >= reward.cost) {
+      // Deduct points and display success message
+      setPoints(points - reward.cost);
+      toast.success(`You have successfully claimed: ${reward.name}`);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 6000); // Hide confetti after 6 seconds
+    } else {
+      // Display error message if points are insufficient
+      toast.error("Insufficient Glow Points to claim this reward!");
+    }
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: "6rem" }}>
       {showConfetti && <Confetti />}
+      <div
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: "bold",
+          marginBottom: "20px",
+          color: "#ff9800",
+        }}
+      >
+        Available Glow Points: {points}
+      </div>
+
       <h2 className="header">Rewards Shop</h2>
-      <h3 className="header">Available Rewards</h3>
+
       <TransitionGroup className="row">
         {rewards.map((reward) => (
           <CSSTransition
@@ -86,7 +110,10 @@ const RewardsCenter = () => {
                   <h5 className="reward-title">{reward.name}</h5>
                   <p className="reward-text">{reward.description}</p>
                   <p className="reward-text">
-                    Cost: <span className="points-text">{reward.cost} Glow points</span>
+                    Cost:{" "}
+                    <span className="points-text">
+                      {reward.cost} Glow points
+                    </span>
                   </p>
                   <button
                     className="claim-button"
