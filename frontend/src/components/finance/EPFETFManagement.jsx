@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { StoreContext } from '../../context/StoreContext';
 import './EPFETFManagement.css';
+import DashboardNavbar from '../Employee/DashboardNavbar';
+
 
 const EPFETFManagement = () => {
   const { url } = useContext(StoreContext);
@@ -23,6 +25,8 @@ const EPFETFManagement = () => {
 
   return (
     <div className="epf-etf-management">
+      <DashboardNavbar />
+
       <h2>EPF & ETF Management</h2>
       <table className="contribution-table">
         <thead>
