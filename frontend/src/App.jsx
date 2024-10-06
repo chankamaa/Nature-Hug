@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart/cart';
@@ -19,14 +18,22 @@ import EmployeeAddForm from './components/finance/EmployeeAddForm';
 import Product from './pages/Product/product'
 import AdminDashboard from './pages/AdminDashboard';
 import EmployeeEditForm from './components/finance/EmployeeEditForm';
-
+import Login from './pages/Login/login'
+import Signup from './pages/Signup/signup'
+import ProfilePage from './pages/ProfilePage/profileView'
+import UpdateUser from './pages/UpdateUser/updateuser'
+import ForgotPassword from './pages/ForgotPassword/forgotpassword';
+import UserTable from './pages/UserTable/usertable';
+import SidebarUser from './components/SidebarUser/sidebaruser';
+import BillingAddress from './pages/BillingAddress/billingaddress';
+import ShippingAddress from './pages/ShippingAddress/shippingaddress';
+import Address from './pages/Address/address';
 import EmployeeList from './components/finance/EmployeeList';
 import Dashboard from './pages/Employee/Dashboard';
 import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
 import Terms from './pages/Terms/terms'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
-
 import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
@@ -99,6 +106,16 @@ const App = () => {
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
           <Route path='/terms' element={<Terms />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path="/login" element={<Login />}></Route> 
+          <Route path="/signup" element={<Signup />}></Route> 
+          <Route path="/profileView" element={<ProfilePage/>} />
+          <Route path="/update-user/:id" element={<UpdateUser />}></Route> 
+          <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+          <Route path="/usertable" element={<UserTable />}></Route>
+          <Route path="/sidebaruser" element={<SidebarUser />}></Route>
+          <Route path="/billingaddress" element={< BillingAddress />}></Route>
+          <Route path="/shippingaddress" element={< ShippingAddress />}></Route>
+          <Route path="/address" element={< Address />}></Route>
 
         </Routes>
 

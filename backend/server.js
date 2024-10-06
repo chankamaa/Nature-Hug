@@ -12,6 +12,8 @@ import emailRoutes from './routes/emailRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';  // Import cart routes
 import promotionsRoute from './routes/promotionsRoute.js';
 import campaignRoutes from './routes/campaignRoute.js';
+import userRoutes from './routes/userRoutes.js';
+import allUserDocRoutes from './routes/allUserDocRoutes.js';
 
 
 dotenv.config();
@@ -25,9 +27,17 @@ const port = process.env.PORT || 4000; // Use port from .env file if available
 app.use(express.json());
 app.use(cors());
 
+
 // Database connection
 connectDB();
 
+// Route Middlewares
+app.use('/NatureHug/user', userRoutes);        // User routes
+app.use('/NatureHug/documents', allUserDocRoutes);  // Document routes
+
+// API Routes
+app.use('/api/employees', employeeRoutes);     // Employee routes
+app.use('/api/finance', financeRoutes);        // Finance routes
 
 
 //api routes
