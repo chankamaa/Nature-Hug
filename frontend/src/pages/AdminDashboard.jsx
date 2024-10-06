@@ -1,5 +1,4 @@
 import React from 'react';
-import AddProductForm from '../components/AddProductForm/AddProductForm'; 
 import Sidebar from '../components/Admin/Sidebar'; // Import the Sidebar
 import './AdminDashboard.css'; 
 import ManagePromotions from '../components/Sales/ManagePromotions'
@@ -16,7 +15,7 @@ const AdminDashboard = () => {
         {/* Add different admin functionalities here */}
         <section className="dashboard-section">
           <h2>Add Plant</h2>
-          <AddProductForm />
+          
         </section>   {/* <section className="dashboard-section">
           <h2>Manage Promotions</h2>
           <ManagePromotions />

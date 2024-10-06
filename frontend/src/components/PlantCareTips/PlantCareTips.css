@@ -1,0 +1,47 @@
+.plant-life-blog {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .blog-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .blog-post {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    overflow: hidden;
+    text-align: left;
+  }
+  
+  .blog-image {
+    width: 100%;
+    height: 450px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .blog-content {
+    padding: 1rem;
+  }
+  
+  .blog-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .blog-content p {
+    font-size: 5rem;
+    color: #666;
+  }
+  
+  .blog-meta {
+    font-size: 2%;
+    color: #999;
+  }
+  

@@ -46,7 +46,12 @@ import ManagePromotions from './components/Sales/ManagePromotions'
 import PromoCodeList from './components/Sales/PromoCodeList';
 import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
+import ProductItem from './components/ProductItem/ProductItem';
+import AddProductForm from './components/AddProductForm/AddProductForm';
+import PlantCareTips from './components/PlantCareTips/PlantCareTips';
+import PlantLifeBlog from './components/PlantLifeBlog/PlantLifeBlog'; 
 import OutOfStocks from './pages/Inventory/outofstocks';
+
 
 
 const App = () => {
@@ -113,6 +118,10 @@ const App = () => {
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
           <Route path='/terms' element={<Terms />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/admin/product-item' element={<ProductItem />} />
+          <Route path='/admin/add-product' element={<AddProductForm />} />
+          <Route path='/PlantCareTips' element={<PlantCareTips />} />
+          <Route path='/PlantLifeBlog' element={<PlantLifeBlog />} />
           <Route path="/login" element={<Login />}></Route> 
           <Route path="/signup" element={<Signup />}></Route> 
           <Route path="/profileView" element={<ProfilePage/>} />
