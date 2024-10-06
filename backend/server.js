@@ -18,7 +18,7 @@ dotenv.config();
 // App config
 const app = express();
 //const port = 4000;
-const port = process.env.PORT || 4000; // Use port from .env file if available
+const port =  4000; // Use port from .env file if available
 
 // Middleware
 app.use(express.json());
@@ -42,7 +42,7 @@ app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
 app.use('/api/cart', cartRoutes);  // Cart route
-app.use('/images', express.static("uploads"));
+
 
 
 

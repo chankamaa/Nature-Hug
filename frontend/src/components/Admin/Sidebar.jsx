@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css'; // You will create the CSS for the sidebar
 
+
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -13,6 +14,10 @@ const Sidebar = () => {
         <li><Link to="/admin/orders">Manage Orders</Link></li>
         <li><Link to="/admin/customers">Manage Customers</Link></li>
         <li><Link to="/admin/reports">Reports</Link></li>
+        <li><Link to="/admin/add-product">add plants</Link></li>
+        <li><Link to="/admin/product-item">Product Item</Link></li>
+
+        
       </ul>
     </div>
   );
