@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';  // Import jsPDF autoTable
 import './ManageOrder.css';
 
 const ManageOrders = () => {
@@ -25,39 +27,82 @@ const ManageOrders = () => {
     fetchOrders();
   }, []);
 
-  // Handle the change in status and save it to the backend
+  // Function to update the order status
   const handleStatusChange = async (orderId) => {
     try {
-      // Send PATCH request to update cart status
-      const response = await axios.patch('http://localhost:4000/api/carts/status', {
-        userId: orderId,
-        status: newStatus,
-      });
-
-      console.log('Cart status updated:', response.data);
-      
-      // Update local state with the new status
-      setOrders(orders.map(order => (order._id === orderId ? { ...order, status: newStatus } : order)));
-      setFilteredOrders(filteredOrders.map(order => (order._id === orderId ? { ...order, status: newStatus } : order)));
-      
-      setEditingOrderId(null); // Exit edit mode after updating
+      const updatedOrder = orders.find(order => order._id === orderId);
+      if (updatedOrder) {
+        await axios.patch('http://localhost:4000/api/carts/status', {
+          userId: updatedOrder.userId,
+          status: newStatus,
+        });
+        const updatedOrders = orders.map(order =>
+          order._id === orderId ? { ...order, status: newStatus } : order
+        );
+        setOrders(updatedOrders);
+        setFilteredOrders(updatedOrders);
+        setEditingOrderId(null); // Exit editing mode
+      }
     } catch (error) {
-      console.error('Error updating cart status:', error);
+      console.error('Error updating order status:', error);
     }
   };
 
-  // Handle Edit click
-  const handleEditOrder = (orderId, currentStatus) => {
-    setEditingOrderId(orderId); // Set the orderId being edited
-    setNewStatus(currentStatus); // Set the current status as the default
+  // Function to generate the PDF with order data
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // Add a header to the PDF
+    const logoImg = '';  // Path to your logo
+    const headerText = `Nature Hug\nAddress: 54A, Ihala Vitiyala, Karagoda-Uyangoda, Matara\nEmail: handamama.pvt@gmail.com | Phone: +94 76 258 2337`;
+    const currentDate = new Date().toLocaleDateString();
+
+    doc.setFontSize(12);
+    doc.text(headerText, 10, 10);
+    doc.text(`Date: ${currentDate}`, 150, 10);
+
+    // Table column headers
+    const tableColumn = ["Order Number", "Status"];
+    const tableRows = [];
+
+    // Loop through orders and create table rows
+    filteredOrders.forEach((order, index) => {
+      const orderData = [
+        order.orderNumber || `ORD-${index + 1}`,  // Order Number
+        order.status                              // Status
+      ];
+      tableRows.push(orderData);
+    });
+
+    // Add table to the PDF
+    doc.autoTable({
+      startY: 30, // Position after header
+      head: [tableColumn],
+      body: tableRows,
+    });
+
+    // Save the PDF
+    doc.save("order_report.pdf");
   };
 
-  // Handle Delete click
+  // Handle Edit click - Enable editing mode for the selected order
+  const handleEditOrder = (orderId, currentStatus) => {
+    setEditingOrderId(orderId);
+    setNewStatus(currentStatus);
+  };
+
+  // Handle Save click (For saving the updated status)
+  const handleSave = (orderId) => {
+    handleStatusChange(orderId);
+  };
+
+  // Handle Delete click (For deleting an order)
   const handleDeleteOrder = async (orderId) => {
     try {
       await axios.delete(`http://localhost:4000/api/carts/${orderId}`);
-      setOrders(orders.filter(order => order._id !== orderId));
-      setFilteredOrders(filteredOrders.filter(order => order._id !== orderId));
+      const updatedOrders = orders.filter(order => order._id !== orderId);
+      setOrders(updatedOrders);
+      setFilteredOrders(updatedOrders);
     } catch (error) {
       console.error('Error deleting order:', error);
     }
@@ -81,23 +126,30 @@ const ManageOrders = () => {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
+
     let filtered = [...orders];
+
+    // Apply filter first, if not 'All'
     if (filter !== 'All') {
       filtered = filtered.filter(order => order.status === filter);
     }
+
+    // Apply search term filter
     if (value) {
-      filtered = filtered.filter(order =>
-        order.orderNumber?.toLowerCase().includes(value.toLowerCase())
-      );
+      filtered = filtered.filter((order, index) => {
+        const orderNum = order.orderNumber || `ORD-${index + 1}`;
+        return orderNum.toLowerCase().includes(value.toLowerCase());
+      });
     }
+
     setFilteredOrders(filtered);
   };
 
   return (
     <div className="manage-orders-container">
-        <br></br><br></br>
+      <br /><br />
       <h1>Order Tracking Management Dashboard</h1>
-<br></br>
+      <br />
       <div className="summary-cards">
         <div className="card">
           <h3>Total Orders</h3>
@@ -131,6 +183,8 @@ const ManageOrders = () => {
         />
       </div>
 
+      <button className="action-button" onClick={generatePDF}>Download PDF</button>
+
       <table className="orders-table">
         <thead>
           <tr>
@@ -142,7 +196,7 @@ const ManageOrders = () => {
         <tbody>
           {filteredOrders.map((order, index) => (
             <tr key={index}>
-              <td>{order.orderNumber}</td>
+              <td>{order.orderNumber || `ORD-${index + 1}`}</td>
               <td>
                 {editingOrderId === order._id ? (
                   <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)}>
@@ -156,11 +210,11 @@ const ManageOrders = () => {
               </td>
               <td>
                 {editingOrderId === order._id ? (
-                  <button className="action-button" onClick={() => handleStatusChange(order._id)}>Save</button>
+                  <button className="action-button" onClick={() => handleSave(order._id)}>Save</button>
                 ) : (
                   <button className="action-button" onClick={() => handleEditOrder(order._id, order.status)}>Edit</button>
                 )}
-                <button className="action-button delete" onClick={() => handleDeleteOrder(order._id)}>Delete</button>
+                <button className="action-button delete" onClick={() => handleDeleteOrder(order._id, order.status)}>Delete</button>
               </td>
             </tr>
           ))}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCart, getAllCarts, addItemToCart, updateCartStatus, removeItemFromCart } from '../controllers/cartController.js';
+import { getCart, getAllCarts, addItemToCart, updateCartStatus, removeCart } from '../controllers/cartController.js';
 
 const router = express.Router();
 
@@ -18,6 +18,10 @@ router.patch('/status', updateCartStatus);
 
 
 // Remove item from cart
-router.delete('/remove', removeItemFromCart);
+router.delete('/id', removeCart);
+
+
+
+
 
 export default router;

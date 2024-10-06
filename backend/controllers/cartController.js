@@ -1,4 +1,5 @@
 import Cart from '../models/cartModels.js';
+import nodemailer from 'nodemailer';
 
 // Get cart by user ID
 export const getCart = async (req, res) => {
@@ -10,6 +11,30 @@ export const getCart = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Example of creating a new order in the backend
+const createOrder = async (req, res) => {
+    try {
+      const { items, userId, status } = req.body;
+      // Generate a unique order number
+      const orderNumber = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+  
+      // Create new order object
+      const newOrder = new Order({
+        userId,
+        items,
+        orderNumber,  // Save order number
+        status: status || 'In Progress',
+      });
+  
+      // Save the order to the database
+      await newOrder.save();
+      res.status(201).json(newOrder);
+    } catch (error) {
+      res.status(500).json({ message: 'Error creating order', error });
+    }
+  };
+  
 
 // Add item to cart (create a new cart if it doesn't exist)
 // export const addItemToCart = async (req, res) => {
@@ -62,47 +87,47 @@ export const addItemToCart = async (req, res) => {
 
 // Update cart status
 export const updateCartStatus = async (req, res) => {
-    const { userId, status } = req.body;
-
+    const { userId, status } = req.body; // Ensure you are getting the correct data
+    
     try {
-        let cart = await Cart.findOne({ userId });
-
+        // Find the cart by userId
+        const cart = await Cart.findOne({ userId });
         if (!cart) {
             return res.status(404).json({ message: 'Cart not found' });
         }
 
-        // Update cart status
+        // Update the status field
         cart.status = status;
         await cart.save();
-
-        res.status(200).json({ message: 'Cart status updated successfully', cart });
+      
+        // Send the updated cart back as a response
+        res.status(200).json({ message: 'Status updated successfully', cart });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+  
+  
 
-// Delete item from cart
-export const removeItemFromCart = async (req, res) => {
-    const { userId, productId } = req.body;
 
+// Remove item from cart
+export const removeCart = async (req, res) => {
     try {
-        let cart = await Cart.findOne({ userId });
-
-        if (cart) {
-            // Remove item and recalculate total
-            cart.items = cart.items.filter((item) => item.productId.toString() !== productId);
-            cart.total = calculateTotal(cart.items);
-            await cart.save();
-            res.status(200).json({ message: 'Item removed from cart', cart });
-        } else {
-            res.status(404).json({ message: 'Cart not found' });
+        // Find the cart by its ID and delete it
+        const cart = await Cart.findByIdAndDelete(req.params.userid);
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
         }
+
+        // Return success response
+        res.status(200).json({ message: 'Cart deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+  
 // Get all carts (with optional pagination)
 export const getAllCarts = async (req, res) => {
     try {
@@ -122,6 +147,8 @@ export const getAllCarts = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
 
 
 

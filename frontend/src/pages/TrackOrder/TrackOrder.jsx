@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './TrackOrder.css';
-// Assume Google Maps API or another map library is imported
 
 const TrackOrder = () => {
   const { orderId } = useParams(); // Get orderId from URL params
@@ -18,6 +17,8 @@ const TrackOrder = () => {
   const [currentStatusIndex, setCurrentStatusIndex] = useState(0);
   const [gpsLocation, setGpsLocation] = useState({ latitude: null, longitude: null });
   const [eta, setEta] = useState("Calculating...");
+  const [isCancelled, setIsCancelled] = useState(false); // New state for cancelled orders
+  const [mapType, setMapType] = useState('roadmap'); // New state for toggling map type
 
   useEffect(() => {
     // Simulate fetching real-time GPS location (could be an API call)
@@ -59,9 +60,22 @@ const TrackOrder = () => {
     return ((currentStatusIndex + 1) / statuses.length) * 100;
   };
 
+  const handleMapTypeChange = (newType) => {
+    setMapType(newType);
+  };
+
+  // Handle cancel order logic
+  const handleCancelOrder = () => {
+    if (currentStatusIndex >= 3) {
+      alert("Order is already out for delivery or delivered. Cannot cancel.");
+    } else {
+      setIsCancelled(true);
+      alert("Order has been successfully cancelled.");
+    }
+  };
+
   // Render the Google Map
   const renderMap = () => {
-    // This is where you would integrate Google Maps or any mapping API
     return (
       <div className="map-container">
         <iframe
@@ -69,9 +83,10 @@ const TrackOrder = () => {
           width="100%"
           height="450"
           frameBorder="0"
-          src={`https://maps.google.com/maps?q=${gpsLocation.latitude},${gpsLocation.longitude}&z=15&output=embed`}
+          src={`https://maps.google.com/maps?q=${gpsLocation.latitude},${gpsLocation.longitude}&z=15&output=embed&t=${mapType}`}
           allowFullScreen
         ></iframe>
+       
       </div>
     );
   };
@@ -81,7 +96,7 @@ const TrackOrder = () => {
       <h1>Track Your Order</h1>
       <div className="order-details">
         <p><strong>Order ID:</strong> {orderId}</p>
-        <p><strong>Current Status:</strong> {statuses[currentStatusIndex].status}</p>
+        <p><strong>Current Status:</strong> {isCancelled ? "Cancelled" : statuses[currentStatusIndex].status}</p>
         <p><strong>ETA:</strong> {eta}</p>
       </div>
 
@@ -89,7 +104,7 @@ const TrackOrder = () => {
       <div className="timeline">
         {statuses.map((statusObj, index) => (
           <div key={index} className={`timeline-item ${index <= currentStatusIndex ? 'completed' : ''}`}>
-            <div className="status-circle"></div>
+            <div className="status-circle" title={`Status: ${statusObj.status}, Time: ${statusObj.timestamp}`}></div>
             <div className="status-details">
               <p><strong>{statusObj.status}</strong></p>
               <p>{statusObj.timestamp}</p>
@@ -100,7 +115,7 @@ const TrackOrder = () => {
 
       {/* Progress Bar */}
       <div className="progress-bar">
-        <div className="progress" style={{ width: `${getProgressPercentage()}%` }}></div>
+        <div className="progress" style={{ width: `${getProgressPercentage()}%`, transition: 'width 1s ease-in-out' }}></div>
       </div>
 
       {/* Render the map */}
@@ -109,7 +124,11 @@ const TrackOrder = () => {
 
       {/* Cancel Order / Support */}
       <div className="support-section">
-
+        {!isCancelled && currentStatusIndex < 3 && (
+          <button className="cancel-order" onClick={handleCancelOrder}>
+            Cancel Order
+          </button>
+        )}
         <button className="contact-support">Contact Support</button>
       </div>
     </div>
