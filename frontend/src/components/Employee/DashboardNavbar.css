@@ -1,11 +1,11 @@
-/* Container for the entire navbar */
+
 .dashboard-navbar-custom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
   height: 40px;
 }
 
-/* Left Section: Logo and menu button */
+
 .navbar-left-custom {
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@
   color: #333;
 }
 
-/* Center Section: Simple search bar */
+
 .navbar-search-custom {
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@
   height: 20px;
 }
 
-/* Right Section: Notifications and Profile */
+
 .navbar-right-custom {
   display: flex;
   align-items: center;
@@ -88,6 +88,10 @@
   font-size: 20px;
   color: #888;
   cursor: pointer;
+}
+.not-bell-icon{
+  width: 30px;
+  height: 30px;
 }
 
 .notification-dot-custom {
@@ -118,7 +122,6 @@
   color: #333;
 }
 
-/* Padding for content below navbar */
 body {
   padding-top: 80px;
 }

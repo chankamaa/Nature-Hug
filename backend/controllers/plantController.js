@@ -33,5 +33,53 @@ const listPlant = async (req, res) => {
         res.status(500).json({ success: false, message: "Failed to fetch plant list" });
     }
 };
+// Function to handle updating a plant
+const updatePlant = async (req, res) => {
+    const plantId = req.params.id;
+    const updatedFields = {
+      name: req.body.name,
+      scientificName: req.body.scientificName,
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      category: req.body.category,
+    };
+  
+    if (req.file) {
+      updatedFields.image = req.file.filename; // If new image is uploaded
+    }
+  
+    try {
+      const updatedPlant = await PlantModel.findByIdAndUpdate(plantId, updatedFields, { new: true });
+      if (!updatedPlant) {
+        return res.status(404).json({ success: false, message: "Plant not found" });
+      }
+      res.status(200).json({ success: true, message: "Plant Updated Successfully", data: updatedPlant });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to update plant", error: error.message });
+    }
+  };
+  
 
-export { addPlant, listPlant };
+// Function to handle deleting a plant
+const deletePlant = async (req, res) => {
+    const plantId = req.params.id;
+
+    try {
+        const plant = await PlantModel.findByIdAndDelete(plantId);
+
+        if (!plant) {
+            return res.status(404).json({ success: false, message: "Plant not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Plant deleted successfully" });
+    } catch (error) {
+        console.error('Error deleting plant:', error);
+        res.status(500).json({ success: false, message: "Failed to delete plant", error: error.message });
+    }
+};
+
+
+
+
+export { addPlant, listPlant, deletePlant, updatePlant };

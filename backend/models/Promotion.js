@@ -15,8 +15,9 @@ const promotionSchema = new mongoose.Schema({
         unique: true
     },
     startDate: {
-        type: Date,
+        type:Date,
         required: true
+
     },
     endDate: {
         type: Date,
@@ -24,7 +25,7 @@ const promotionSchema = new mongoose.Schema({
     },
     applicableProducts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product' // Assuming you have a Product model
+        ref: 'Product' 
     }]
 });
 
