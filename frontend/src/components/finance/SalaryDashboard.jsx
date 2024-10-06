@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { StoreContext } from '../../context/StoreContext';
 import './SalaryDashboard.css';
+import DashboardNavbar from '../Employee/DashboardNavbar';
+import FinanceSidebar from './FinanceSidebar';
 
 const SalaryDashboard = () => {
   const { url } = useContext(StoreContext);  // Get the backend URL from context
@@ -20,8 +22,11 @@ const SalaryDashboard = () => {
     fetchSalaries();  // Fetch salary data on component mount
   }, [url]);
 
+
   return (
     <div className="salary-dashboard">
+      <DashboardNavbar /> 
+
       <h2>Salary Dashboard</h2>
       <table className="salary-table">
         <thead>

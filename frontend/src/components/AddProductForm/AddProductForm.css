@@ -1,0 +1,49 @@
+.admin-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .admin-form input[type="text"],
+  .admin-form input[type="number"],
+  .admin-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .admin-form input[type="file"] {
+    margin-bottom: 20px;
+  }
+  
+  .admin-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .admin-form button:hover {
+    background-color: #218838;
+  }
+  
+  .admin-form p {
+    text-align: center;
+    color: #d9534f;
+    margin-top: 20px;
+  }
+  

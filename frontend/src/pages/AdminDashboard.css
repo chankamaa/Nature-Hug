@@ -1,0 +1,18 @@
+.headline{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 75px;
+    text-align: center;
+}
+.admin-dashboard {
+    display: flex;
+  }
+  
+  .admin-dashboard-content {
+    margin-left: 250px; /* Adjust based on the sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px); /* Ensure content takes up the remaining space */
+  }
+
+  

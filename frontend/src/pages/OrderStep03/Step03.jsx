@@ -1,71 +1,78 @@
-import React from 'react';
-import './Step03.css';
-import { assets } from '../../assets/assets'
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './step03.css';  // Import your CSS styles
 
-function Step03() {
-  return (
-    <div className="order-summary-container">
-      <br></br>
-      <br></br>
-      <br></br>
-      <h2>Order Summary</h2>
-      <p className="text-gray-700 mt-2 step-info">Step 3/4</p>
-      <div className="cart-items">
-        <div className="cart-item">
-          <img src={assets.Cactus} alt="Cactus" />
-          <div className="item-details">
-            <h4>Cactus and Succulents</h4>
-            <div className="quantity-control">
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
+const Step03 = () => {
+    const navigate = useNavigate();
+
+    // Load order and cart data from localStorage
+    const [orderData, setOrderData] = useState(() => {
+        const storedOrderData = localStorage.getItem('orderData');
+        return storedOrderData ? JSON.parse(storedOrderData) : {};
+    });
+
+    const [cartItems, setCartItems] = useState(() => {
+        const storedCartItems = localStorage.getItem('cartItems');
+        return storedCartItems ? JSON.parse(storedCartItems) : {};
+    });
+
+    const [deliveryFee] = useState(350);
+    const [subtotal, setSubtotal] = useState(0);
+    const [fullTotal, setFullTotal] = useState(0);
+
+    // Calculate subtotal and full total
+    useEffect(() => {
+        let tempSubtotal = 0;
+        Object.keys(cartItems).forEach((itemId) => {
+            const item = cartItems[itemId];
+            tempSubtotal += item.price * item.quantity;
+        });
+        setSubtotal(tempSubtotal);
+        setFullTotal(tempSubtotal + deliveryFee);
+    }, [cartItems, deliveryFee]);
+
+    const handleProceedToPayment = () => {
+        // Proceed to the next step (payment)
+        navigate('/Step04');
+    };
+
+    return (
+        <div className='order-summary'>
+            <br></br><br></br><br></br>
+            <h2>Order Summary</h2>
+            <div className='order-items'>
+                <div className='order-items-list'>
+                    <p>Items</p>
+                    <p>Title</p>
+                    <p>Price</p>
+                    <p>Quantity</p>
+                    <p>Total</p>
+                </div>
+                <hr />
+                {Object.keys(cartItems).map((itemId) => {
+                    const item = cartItems[itemId];
+                    return (
+                        <div key={itemId} className='order-item'>
+                            <img src={item.image} alt={item.name} className='order-item-image' />
+                            <p>{item.name}</p>
+                            <p>Rs. {item.price}</p>
+                            <p>{item.quantity}</p>
+                            <p>Rs. {item.price * item.quantity}</p>
+                        </div>
+                    );
+                })}
+                <hr />
+                <div className='order-total'>
+                    <h3>Subtotal: Rs. {subtotal}</h3>
+                    <h3>Delivery Fee: Rs. {deliveryFee}</h3>
+                    <h3>Total: Rs. {fullTotal}</h3>
+                </div>
+                <div className='proceed-payment'>
+                    <button onClick={handleProceedToPayment}>Place Order</button>
+                </div>
             </div>
-            <p className="price">Rs1150</p>
-          </div>
         </div>
-        <div className="cart-item">
-          <img src={assets.Spider} alt="Spider" />
-          <div className="item-details">
-            <h4>Spider Plant</h4>
-            <div className="quantity-control">
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
-            </div>
-            <p className="price">Rs1400</p>
-          </div>
-        </div>
-        <div className="cart-item">
-          <img src={assets.Jade} alt="Jade" />
-          <div className="item-details">
-            <h4>Jade Plant</h4>
-            <div className="quantity-control">
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
-            </div>
-            <p className="price">Rs1175</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="order-totals">
-        <p>Subtotal: <span className="subtotal">Rs3725</span></p>
-        <p>Delivery fees: <span className="delivery-fees">Rs350</span></p>
-        <p>Order Total: <span className="order-total">Rs4075</span></p>
-      </div>
-
-      <div className="billing-info">
-        <h3>Billing Information</h3>
-        <p><strong>Name:</strong> G.S.K Asini Gamage</p>
-        <p><strong>Address:</strong> No: 107/B, 1st Lane, Flower Road, Colombo 07, Western Province, Sri Lanka.</p>
-        <p><strong>Telephone No:</strong> 0123456888</p>
-        <button className="edit-button">Edit</button>
-      </div>
-
-      <button className="place-order-button">Place Order</button>
-    </div>
-  );
-}
+    );
+};
 
 export default Step03;

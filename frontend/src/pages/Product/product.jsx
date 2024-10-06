@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import ProductList from '../../components/ProductList/ProductList'; // Adjust the path to match your file structure
 
