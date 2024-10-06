@@ -80,7 +80,7 @@ const employeeSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  bithday: {
+  birthday: {
     type: Date,
     required: true,
   },

@@ -9,11 +9,13 @@ const EmployeeEditForm = () => {
   const { id } = useParams(); // Get the employee ID from the URL
   const navigate = useNavigate(); // Replaced useHistory with useNavigate
   const { url } = useContext(StoreContext);
-  
+
   const [employee, setEmployee] = useState({
     fullName: '',
     email: '',
     phoneNumber: '',
+    birthday: '',
+    NICNumber: '',
     position: '',
     department: '',
     basicSalary: '',
@@ -23,7 +25,9 @@ const EmployeeEditForm = () => {
   const [errors, setErrors] = useState({
     fullName: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    birthday: '',
+    NICNumber: ''
   });
 
   useEffect(() => {
@@ -40,62 +44,71 @@ const EmployeeEditForm = () => {
     fetchEmployee();
   }, [id, url]);
 
-  const validateFullName = (name) => {
-    const regex = /^[a-zA-Z\s]*$/;
-    return regex.test(name);
+  // Validation functions
+  const validateFullName = (name) => /^[a-zA-Z\s]*$/.test(name);
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhoneNumber = (number) => /^\d{10}$/.test(number);
+  const validateNICNumber = (nic) => /^[0-9vV]*$/.test(nic);
+  const validateAge = (birthday) => {
+    const birthDate = new Date(birthday);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1;
+    }
+    return age;
   };
-
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+  // Format the date as yyyy-mm-dd
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-CA'); // en-CA formats the date as yyyy-mm-dd
   };
-
-  const validatePhoneNumber = (number) => {
-    const regex = /^\d{10}$/;
-    return regex.test(number);
-  };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setEmployee({ ...employee, [name]: value });
+    if (name === 'fullName') {
+      const validName = value.replace(/[^a-zA-Z\s]/g, ''); // Only allow letters and spaces
+      setEmployee({ ...employee, [name]: validName });
+      setErrors({ ...errors, fullName: validName === value ? '' : 'Name can only contain letters and spaces.' });
+    } else if (name === 'phoneNumber') {
+      const validPhone = value.replace(/[^0-9]/g, ''); // Only allow numbers for phone number
+      setEmployee({ ...employee, [name]: validPhone });
+      setErrors({ ...errors, phoneNumber: validatePhoneNumber(validPhone) ? '' : 'Phone number must be exactly 10 digits.' });
+    } else if (name === 'NICNumber') {
+      const validNIC = value.replace(/[^0-9vV]/g, ''); // Only allow numbers and V/v for NIC
+      setEmployee({ ...employee, [name]: validNIC });
 
-    switch (name) {
-      case 'fullName':
-        if (!validateFullName(value)) {
-          setErrors({ ...errors, fullName: 'Name can only contain letters and spaces.' });
-        } else {
-          setErrors({ ...errors, fullName: '' });
-        }
-        break;
+      // Real-time NIC validation for 9 digits + v/V or 12 digits
+      const isNineDigitNIC = /^[0-9]{9}[vV]$/.test(validNIC); // 9 digits + v/V
+      const isTwelveDigitNIC = /^[0-9]{12}$/.test(validNIC);   // 12 digit NIC
+      const isValidNIC = isNineDigitNIC || isTwelveDigitNIC;
 
-      case 'email':
-        if (!validateEmail(value)) {
-          setErrors({ ...errors, email: 'Invalid email format.' });
-        } else {
-          setErrors({ ...errors, email: '' });
-        }
-        break;
+      setErrors({
+        ...errors,
+        NICNumber: isValidNIC ? '' : 'NIC number must be 9 digits followed by V/v or 12 digits.',
+      });
+    } else {
+      setEmployee({ ...employee, [name]: value });
+    }
 
-      case 'phoneNumber':
-        if (!validatePhoneNumber(value)) {
-          setErrors({ ...errors, phoneNumber: 'Phone number must be exactly 10 digits.' });
-        } else {
-          setErrors({ ...errors, phoneNumber: '' });
-        }
-        break;
-
-      default:
-        break;
+    if (name === 'email') {
+      setErrors({ ...errors, email: validateEmail(value) ? '' : 'Invalid email format.' });
+    } else if (name === 'birthday') {
+      const age = validateAge(value);
+      setErrors({ ...errors, birthday: age >= 18 ? '' : 'Employee must be at least 18 years old.' });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (errors.fullName || errors.email || errors.phoneNumber) {
+    if (errors.fullName || errors.email || errors.phoneNumber || errors.birthday || errors.NICNumber) {
       // alert('Please fix the errors before submitting.');
-      toast.error('Please fix the errors before submitting.'); 
+      toast.error('Please fix the errors before submitting.');
       return;
     }
 
@@ -104,7 +117,7 @@ const EmployeeEditForm = () => {
 
       if (response.status === 200) {
         toast.success('Employee updated successfully');
-        navigate('/employees'); 
+        navigate('/employees');
       } else {
         toast.error('Failed to update employee. Please try again later.');
       }
@@ -203,6 +216,34 @@ const EmployeeEditForm = () => {
           onChange={handleChange}
           required
         />
+      </label>
+
+      <label htmlFor="birthday" className="form-label">
+        Birthday:
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          className="form-input"
+          value={formatDate(employee.birthday)}
+          onChange={handleChange}
+          required
+        />
+        {errors.birthday && <span className="error">{errors.birthday}</span>}
+      </label>
+
+      <label htmlFor="NICNumber" className="form-label">
+        NIC Number:
+        <input
+          type="text"
+          id="NICNumber"
+          name="NICNumber"
+          className="form-input"
+          value={employee.NICNumber}
+          onChange={handleChange}
+          required
+        />
+        {errors.NICNumber && <span className="error">{errors.NICNumber}</span>}
       </label>
 
       <label htmlFor="joiningDate" className="form-label">

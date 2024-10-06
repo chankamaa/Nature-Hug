@@ -5,6 +5,7 @@ import { StoreContext } from '../../context/StoreContext';  // Import the contex
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DashboardNavbar from '../Employee/DashboardNavbar';
+import FinanceSidebar from './FinanceSidebar';
 
 const EmployeeAddForm = () => {
   const { url } = useContext(StoreContext);  // Access the backend URL from context
@@ -13,12 +14,12 @@ const EmployeeAddForm = () => {
     fullName: '',
     email: '',
     phoneNumber: '',
+    birthday: '', 
+    NICNumber: '',
     position: '',
     department: '',
     basicSalary: '',
-    joiningDate: '',
-    birthday: '',  // Add birthday to state
-    NICNumber: '',  // Add NIC Number
+    joiningDate: '', 
     allowances: ''
   });
 
@@ -26,7 +27,8 @@ const EmployeeAddForm = () => {
     fullName: '',
     email: '',
     phoneNumber: '',
-    birthday: ''  // Add birthday to errors
+    birthday: '',
+    NICNumber: ''
   });
 
   // Validation functions
@@ -35,6 +37,8 @@ const EmployeeAddForm = () => {
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const validatePhoneNumber = (number) => /^\d{10}$/.test(number);
+
+  const validateNICNumber = (nic) => /^[0-9vV]*$/.test(nic);
 
   const validateAge = (birthday) => {
     const birthDate = new Date(birthday);
@@ -62,6 +66,16 @@ const EmployeeAddForm = () => {
     } else if (name === 'NICNumber') {
       const validNIC = value.replace(/[^0-9vV]/g, ''); // Only allow numbers and V/v for NIC
       setEmployee({ ...employee, [name]: validNIC });
+
+      // Real-time NIC validation for 9 digits + v/V or 12 digits
+      const isNineDigitNIC = /^[0-9]{9}[vV]$/.test(validNIC); // 9 numbers + v/V
+      const isTwelveDigitNIC = /^[0-9]{12}$/.test(validNIC);   // 12 digit NIC
+      const isValidNIC = isNineDigitNIC || isTwelveDigitNIC;
+
+      setErrors({
+        ...errors,
+        NICNumber: isValidNIC ? '' : 'NIC number must be 9 digits followed by V/v or 12 digits.',
+      });
     } else {
       setEmployee({ ...employee, [name]: value });
     }
@@ -77,7 +91,7 @@ const EmployeeAddForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (errors.fullName || errors.email || errors.phoneNumber || errors.birthday) {
+    if (errors.fullName || errors.email || errors.phoneNumber || errors.birthday || errors.NICNumber) {
       alert('Please fix the errors before submitting.');
       return;
     }
@@ -93,12 +107,12 @@ const EmployeeAddForm = () => {
           fullName: '',
           email: '',
           phoneNumber: '',
+          birthday: '',
+          NICNumber: '',
           position: '',
           department: '',
           basicSalary: '',
           allowances: '',
-          NICNumber: '',
-          birthday: '',
           joiningDate: ''
         });
       } else {
@@ -111,9 +125,11 @@ const EmployeeAddForm = () => {
   };
 
   return (
+    
     <div className="employee-add-nav">
       <DashboardNavbar />
-      <div className="component">
+      <div className="side-add-emp"><FinanceSidebar /></div>
+      <div className="component-add-form">
         <form id="employee-add-form" className="employee-add-form" onSubmit={handleSubmit}>
           <h2 className="form-title">Add New Employee</h2>
 
@@ -184,6 +200,7 @@ const EmployeeAddForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.NICNumber && <span className="error">{errors.NICNumber}</span>}
           </label>
 
           <label htmlFor="position" className="form-label">

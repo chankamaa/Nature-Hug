@@ -31,6 +31,9 @@ import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EmployeeDetail from './components/Employee/EmployeeDetail';
+
+
 
 
 
@@ -38,8 +41,19 @@ const App = () => {
   const location = useLocation();
 
   // Define paths where header and footer should be hidden
-  const noHeaderFooterPaths = ['/cso/time-book','/cso/dashboard','/cso/attendance-search','/finance/dashboard','/finance/add-employee'];
+  const noHeaderFooterPaths = [
+    '/cso/time-book',
+    '/cso/dashboard',
+    '/cso/attendance-search',
+    '/finance/dashboard',
+    '/finance/add-employee',
+    '/employees',
+    `/employees/${location.pathname.split('/')[2]}`,
+    '/finance/epf-etf-management',
+    '/finance/salary-dashboard'
+  ];
 
+ 
 
   return (
     <>
@@ -72,6 +86,7 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} />
+          <Route path='/employees/:id' element={<EmployeeDetail />} /> 
 
         </Routes>
 

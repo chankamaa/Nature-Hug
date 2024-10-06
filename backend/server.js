@@ -7,7 +7,7 @@ import employeeRoutes from './routes/employeeRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import plantRoutes from './routes/plantRoute.js';
-
+import emailRoutes from './routes/emailRoutes.js'; 
 
 
 
@@ -19,7 +19,6 @@ const port = 4000;
 //middleware
 app.use(express.json())
 app.use(cors())
-
 
 
 //db connection
@@ -37,6 +36,7 @@ app.use("/api/plant",plantRoutes);
 app.use("/images", express.static("uploads"));
 app.use('/api',financeRoutes);
 app.use('/api', attendanceRoutes);
+app.use('/api', emailRoutes);
 
 
 
