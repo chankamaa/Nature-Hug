@@ -1,27 +1,38 @@
 import mongoose from 'mongoose';
 
-// Define the Cart schema
 const cartSchema = new mongoose.Schema({
-    userID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        required: true,
+        ref: 'User', 
+    },
+    items: [
+        {
+            productId: {
+                type: mongoose.Schema.Types.ObjectId, 
+                required: true,
+                ref: 'Product',
+            },
+            name: String,
+            image: String,
+            price: Number,
+            quantity: {
+                type: Number,
+                required: true,
+                min: 1,
+            },
+        },
+    ],
+    deliveryFee: {
+        type: Number,
+        default: 350,
+    },
+    total: {
+        type: Number,
         required: true,
     },
-    items: [{
-        itemID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Item', // Assuming you have an Item model
-            required: true,
-        },
-        quantity: {
-            type: Number,
-            required: true,
-            default: 1,
-        },
-    }]
 }, { timestamps: true });
 
-// Create the Cart model
 const Cart = mongoose.model('Cart', cartSchema);
 
 export default Cart;

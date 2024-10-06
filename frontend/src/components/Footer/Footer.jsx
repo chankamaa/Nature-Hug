@@ -1,6 +1,7 @@
 import React from 'react'
 import './Footer.css'
 import { assets } from '../../assets/assets';
+import { Link } from 'react-router-dom'; // Add this line
 
 const Footer = () => {
     return (
@@ -37,8 +38,9 @@ const Footer = () => {
             <hr />
             <div className="footer-bottom">
                 <div className="footer-terms">
-                    <a href="#">Terms</a>
-                    <a href="#">Privacy Policy</a>
+                    {/* Update these with Links */}
+                    <Link to="/terms">Terms</Link>
+                    <Link to="/privacy-policy">Privacy Policy</Link>
                 </div>
                 <div className="footer-social">
                     <img src={assets.fb_icon} alt="Facebook" />
@@ -51,4 +53,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default Footer;

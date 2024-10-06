@@ -6,7 +6,6 @@ import { StoreContext } from '../context/StoreContext';
 import SalaryChart from '../components/finance/SalaryChart';
 import DashboardNavbar from '../components/Employee/DashboardNavbar';
 
-
 const FinanceDashboard = () => {
   const { url } = useContext(StoreContext);
   const [totalSalaries, setTotalSalaries] = useState(0);
@@ -16,6 +15,15 @@ const FinanceDashboard = () => {
   const [endDate, setEndDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Format currency with 2 decimal points and comma as thousands separator
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-US', { 
+      style: 'currency', 
+      currency: 'LKR', // Use the currency of your choice
+      minimumFractionDigits: 2 
+    }).format(value);
+  };
 
   useEffect(() => {
     fetchFinanceData();
@@ -95,7 +103,6 @@ const FinanceDashboard = () => {
       <div className="dashboard-content">
         <h2>Finance Overview</h2>
 
-
         <div className="filter-section">
           <label htmlFor="startDate">Start Date:</label>
           <input
@@ -117,10 +124,8 @@ const FinanceDashboard = () => {
           <button onClick={clearFilter} className="btn clear-filter-btn btn-2">Clear Filter</button>
         </div>
 
-
         {loading && <p>Loading data...</p>}
         {error && <p className="error-message">{error}</p>}
-
 
         {!loading && !error && (
           <SalaryChart 
@@ -130,19 +135,18 @@ const FinanceDashboard = () => {
           />
         )}
 
-
         <div className="summary-cards">
           <div className="card-tot">
             <h3>Total Salaries</h3>
-            <p>Rs.{totalSalaries}</p>
+            <p>{formatCurrency(totalSalaries)}</p> {/* Use formatCurrency */}
           </div>
           <div className="card-tot">
             <h3>EPF Contributions</h3>
-            <p>Rs.{totalEPF}</p>
+            <p>{formatCurrency(totalEPF)}</p> {/* Use formatCurrency */}
           </div>
           <div className="card-tot">
             <h3>ETF Contributions</h3>
-            <p>Rs.{totalETF}</p>
+            <p>{formatCurrency(totalETF)}</p> {/* Use formatCurrency */}
           </div>
         </div>
       </div>
