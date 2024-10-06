@@ -125,6 +125,9 @@ const App = () => {
           <Route path="/address" element={< Address />}></Route>
           <Route path='/OutOfStocks' element={<OutOfStocks/>} />
           <Route path='/LowStock' element={<LowStock/>} />
+          <Route path='admin/add/promotions' element={<ManagePromotions />} />
+          <Route path='/add/promocode/list' element={<PromoCodeList/>} />
+          <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
 
         </Routes>
 
