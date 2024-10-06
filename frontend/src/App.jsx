@@ -54,6 +54,11 @@ import AddProductForm from './components/AddProductForm/AddProductForm';
 import PlantCareTips from './components/PlantCareTips/PlantCareTips';
 import PlantLifeBlog from './components/PlantLifeBlog/PlantLifeBlog'; 
 import OutOfStocks from './pages/Inventory/outofstocks';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
+import CardPaymentForm from './components/payments/CardPaymentForm';
+import BankTransferForm from './components/payments/BankTransferForm';
+import CashOnDeliveryForm from './components/payments/CashOnDeliveryForm';
+import PaymentSuccess from './components/payments/PaymentSuccess';
 
 
 
@@ -144,6 +149,11 @@ const App = () => {
           <Route path='admin/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          <Route path='/payment' element={<PaymentPage />} />
+          <Route path='/payment/card' element={<CardPaymentForm />} />
+          <Route path='/payment/bank-transfer' element={<BankTransferForm />} />
+          <Route path='/payment/cash-on-delivery' element={<CashOnDeliveryForm />} />
+          <Route path='/payment/success' element={<PaymentSuccess />} />
 
         </Routes>
 

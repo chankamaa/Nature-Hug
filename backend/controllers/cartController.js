@@ -1,5 +1,7 @@
+import Stripe from 'stripe';
 import Cart from '../models/cartModels.js';
 import nodemailer from 'nodemailer';
+
 
 // Get cart by user ID
 export const getCart = async (req, res) => {
@@ -35,6 +37,27 @@ const createOrder = async (req, res) => {
     }
   };
   
+
+  const stripe = new Stripe('sk_test_51PlVfIKrqxGRmUACS1TwUMdtNuQD7YNOEkZrPJTCP8c7YEpnzUXRzlDfRJzEKECZH9u9zjntEeECfWkysk32QazV00oRor9UWo');
+
+  //placing order (Chankama)
+//   const placeOrder = async (req, res) => {
+//     try {
+//         const newOrder = new cartModel({
+//             userId: req.body.userId,
+//             items: req.body.items,
+//             total: req.body.total,
+//             Address: req.body.Address,
+//         })
+//     } catch (error) {
+//         await newOrder.save();
+//         await user
+//     }
+//   }
+
+
+
+
 
 // Add item to cart (create a new cart if it doesn't exist)
 // export const addItemToCart = async (req, res) => {

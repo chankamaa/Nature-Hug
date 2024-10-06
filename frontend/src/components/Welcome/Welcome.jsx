@@ -2,8 +2,14 @@
 import React from 'react'
 import './Welcome.css'
 import { assets } from '../../assets/assets'
+import { useNavigate } from 'react-router-dom';
 
 const Welcome = () => {
+  const navigate = useNavigate();  // Initialize navigate
+
+  const goToProducts = () => {
+    navigate('/product');  // Navigate to the product page
+  };
   return (
     <div className='header'>
         
@@ -15,7 +21,7 @@ const Welcome = () => {
         <div className="main-image">
         <img src={assets.Welcome_img} alt="welcome" />
         </div>
-        <button>Shop Plants</button>
+        <button onClick={goToProducts}>Shop Plants</button>
         
     </div>
   )
