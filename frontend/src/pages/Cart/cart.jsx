@@ -35,7 +35,7 @@ const Cart = () => {
 
         try {
             // Make a POST request to the backend to save the cart and order data
-            const response = await axios.post('http://localhost:4000/api/carts/add', orderPayload);
+            const response = await axios.post('http://localhost:4000/api/cart/add', orderPayload);
 
             if (response.status === 201 || response.status === 200) {
                 // Handle successful order creation

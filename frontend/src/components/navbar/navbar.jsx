@@ -1,26 +1,40 @@
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const navbar = () => {
-    return (
-      <div className="navbar-container">
-        <div className="navbar-logo">
-          NATURE HUG
-        </div>
-        <div className="navbar-links">
-          <div className="navbar-link underline">Home</div>
-         <Link to = '/product' ><div className="navbar-link underline">Products</div></Link>
-          <Link to = '/Aboutus'><div className="navbar-link">About</div></Link>
-          <div className="navbar-link">Services</div>
-          <div className="navbar-link">Blog</div>
-          <div className="navbar-link">Contact</div>
-        </div>
-        <div className="navbar-icons">
-          <Link to ='/cart'><img className="cart-icon navi" src={assets.cart_icon} alt="icon1" /></Link>
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate('/');
+  };
+  const goToProducts = () => {
+    navigate('/product');
+  }
+  const goToCart = () => {
+    navigate('/cart');
+  }
+  const Aboutus = () => {
+    navigate('/Aboutus');
+  }
 
-          <img className="profile-icon navi" src={assets.profile_icon} alt="profile" />
+  return (
+    <div className="navbar-container">
+      <div className="navbar-logo">
+        NATURE HUG
+      </div>
+      <div className="navbar-links">
+        <div onClick={goHome} className="navbar-link underline">Home</div>
+        <div onClick={goToProducts} className="navbar-link underline">Products</div>
+        <div onClick={Aboutus} className="navbar-link underline">About</div>
+        <div className="navbar-link underline">Services</div>
+        <div className="navbar-link underline">Blog</div>
+        <div className="navbar-link underline">Contact</div>
+      </div>
+      <div className="navbar-icons">
+        <img onClick={goToCart} className="cart-icon navi" src={assets.cart_icon} alt="icon1" />
+
+        <img className="profile-icon navi" src={assets.profile_icon} alt="profile" />
 
       </div>
     </div>

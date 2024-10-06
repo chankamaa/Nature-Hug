@@ -1,0 +1,45 @@
+.bank-transfer-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.bank-transfer-form h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.bank-transfer-form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bank-transfer-form input[type="file"] {
+    margin-bottom: 15px;
+}
+
+.bank-transfer-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.bank-transfer-form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.success-message {
+    color: green;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}

@@ -1,9 +1,15 @@
 import React from 'react'
 import './Footer.css'
 import { assets } from '../../assets/assets';
-import { Link } from 'react-router-dom'; // Add this line
+import { Link, useNavigate } from 'react-router-dom'; // Add this line
 
 const Footer = () => {
+    const navigate = useNavigate(); // Initialize navigate
+
+    const about = () => {
+        navigate('/Aboutus');
+    }
+  
     return (
         <footer className="footer-container">
             <div className="footer-content">
@@ -14,7 +20,7 @@ const Footer = () => {
                 <div className="footer-company">
                     <h4>COMPANY</h4>
                     <ul>
-                        <li>About</li>
+                        <li onClick={about}>About</li>
                         <li>Careers</li>
                         <li>Reviews</li>
                         <li>Our Guarantee</li>
