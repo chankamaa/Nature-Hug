@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { StoreContext } from '../../context/StoreContext';
 import './ProductList.css';
 
 const ProductList = () => {
-  const { plants, fetchplants } = useContext(StoreContext);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const { plants, fetchplants, addToCart, increaseQuantity, decreaseQuantity, cartItems } = useContext(StoreContext); 
 
   // Local state for loading, error handling, search, filter, and sorting
   const [loading, setLoading] = useState(true);
@@ -16,12 +14,11 @@ const ProductList = () => {
   const [priceSort, setPriceSort] = useState('none'); // Sorting state for price
   const [priceRange, setPriceRange] = useState([0, 10000]); // Price range filter
 
-  // Fetch plants when component is mounted
   useEffect(() => {
     const fetchData = async () => {
       try {
         await fetchplants();
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false); 
       } catch (err) {
         setError('Failed to fetch plants');
         setLoading(false);
@@ -31,6 +28,9 @@ const ProductList = () => {
     fetchData();
   }, [fetchplants]);
 
+  const getItemQuantity = (plantId) => {
+    return cartItems[plantId] ? cartItems[plantId].quantity : 0;
+  };
   // Handle search, category filter, and price sorting
   useEffect(() => {
     let filtered = plants;
@@ -135,20 +135,25 @@ const ProductList = () => {
         {filteredPlants.length === 0 ? (
           <p>No plants found</p>
         ) : (
-          filteredPlants.map((plant) => (
-            <div
-              key={plant._id}
-              className="product-card"
-              onClick={() => handleCardClick(plant)} // Pass plant object on click
-            >
-              <img
-                src={`http://localhost:4000/images/${plant.image}`}
-                alt={plant.name}
-                className="plant-image"
-              />
+          plants.map((plant) => (
+            <div key={plant._id} className="product-card">
+              <img src={`http://localhost:4000/images/${plant.image}`} alt={plant.name} className="plant-image" />
               <h3>{plant.name}</h3>
               <p>Rs. {plant.price}</p>
-              <button>Add to Cart</button>
+
+              
+              {/* Render add/remove buttons */}
+              <div className="cart-controls">
+                {getItemQuantity(plant._id) > 0 ? (
+                  <div className="quantity-controls">
+                    <button className="decrease-btn" onClick={() => decreaseQuantity(plant._id)}>-</button>
+                    <span className="quantity-count">{getItemQuantity(plant._id)}</span>
+                    <button className="increase-btn" onClick={() => increaseQuantity(plant._id)}>+</button>
+                  </div>
+                ) : (
+                  <button className="add-to-cart-btn" onClick={() => addToCart(plant)}>+</button>
+                )}
+              </div>
             </div>
           ))
         )}

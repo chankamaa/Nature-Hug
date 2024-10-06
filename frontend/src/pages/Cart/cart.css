@@ -1,197 +1,35 @@
-/* General Layout */
-.min-h-screen {
-  min-height: 100vh;
-  background-color: #f2f1e7; /* Updated background color */
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .cart {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
   padding: 20px;
-  background-color: #fdf7e6;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* cart.css */
-.cart {
-  min-height: 100vh; /* Full viewport height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cart-items {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* For the empty cart message */
-.empty-cart-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;  /* Adjust height to cover most of the screen */
-  text-align: center;
-}
-
-.empty-cart-message {
-  font-size: 2rem;
-  color: #555;
-  font-weight: bold;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .cart h2 {
-  text-align: center;
-  color: #333;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.cart-items {
+.cart-table {
   width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-/* Header for the cart item list */
-.cart-items-list {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 10px;
+.cart-table th, .cart-table td {
   padding: 10px;
-  background-color: #fdf7e6;
-  border-radius: 4px;
-}
-
-.cart-items-list p {
-  flex: 1;
   text-align: center;
-}
-
-/* Cart item row */
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
 
-.cart-item img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.cart-item p {
-  flex: 1;
-  text-align: center;
-  color: #555;
-}
-
-/* Adjusted Remove button to minimize its length */
-.remove-button {
-  background-color: #025e02;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  font-size: 12px;
-  width: auto;  /* Allow button to adjust its width */
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-  min-width: 60px; /* Add a minimum width to make it more compact */
-  text-align: center; /* Ensure text is centered within the button */
-}
-
-.remove-button:hover {
-  background-color: #ff3b3b;
-}
-
-/* Cart total */
-.cart-total {
-  margin-top: 20px;
-  text-align: right;
-  font-size: 20px;
+.cart-table th {
   font-weight: bold;
 }
 
-.cart-total h3 {
-  color: #333;
-}
-
-/* Place Order button */
-.place-order {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-.place-order-button {
-  background-color: #025e02;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.place-order-button:hover {
-  background-color: #038a03;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-  .cart-item p {
-      font-size: 12px;
-  }
-
-  .cart-items-list p {
-      font-size: 12px;
-  }
-
-  .cart-item img {
-      width: 50px;
-      height: 50px;
-  }
-}
-
-/* Quantity controls */
-.cart-quantity-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cart-quantity-controls button {
-  background-color: #025e02;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.cart-quantity-controls button:hover {
-  background-color: #ff3b3b;
-}
-
-.cart-quantity-controls p {
-  margin: 0 10px;
-  font-size: 16px;
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 .quantity-controls {
@@ -200,22 +38,90 @@
   justify-content: center;
 }
 
-.quantity-controls button {
-  background-color: #025e02;
+.quantity-button {
+  background-color: #45a049;
+  border: none;
+  padding: 2px 6px; /* Reduced padding to make the buttons smaller */
+  cursor: pointer;
+  width: 30px; /* Set a fixed width for consistency */
+  font-size: 14px; /* Reduced font size for a smaller button */
+}
+
+.remove-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cart-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cart-totals {
+  width: 40%;
+}
+
+.cart-totals h3 {
+  margin-bottom: 10px;
+  font-size: 22px; /* Increased font size for better readability */
+}
+
+.cart-totals p {
+  margin: 5px 0;
+  font-size: 18px; /* Increased font size for the total text */
+  font-weight: bold; /* Added bold for emphasis */
+}
+
+.checkout-button {
+  background-color: #45a049;
   color: white;
   border: none;
-  padding: 5px 10px;
-  margin: 0 5px;
+  padding: 10px 20px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.quantity-controls button:hover {
-  background-color: #038a03;
-}
-
-.quantity-controls p {
-  margin: 0 10px;
   font-size: 16px;
+}
+
+.promo-code {
+  width: 40%;
+}
+
+.promo-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  background-color: #000;
+  color: #45a049;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.empty-cart-message {
+  background-color: #f9f9f9; /* Light background color */
+  color: #555; /* Softer text color */
+  font-size: 20px; /* Larger font size for readability */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center the text */
+  padding: 30px; /* Add some padding */
+  margin: 20px auto; /* Center the message within its container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 600px; /* Set a max width for responsiveness */
+}
+
+.empty-cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Take full viewport height */
+  background-color: #f3f3f3; /* Background color for the container */
 }

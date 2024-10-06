@@ -31,6 +31,7 @@ app.use(cors());
 // Database connection
 connectDB();
 
+
 // Route Middlewares
 app.use('/NatureHug/user', userRoutes);        // User routes
 app.use('/NatureHug/documents', allUserDocRoutes);  // Document routes
@@ -38,6 +39,7 @@ app.use('/NatureHug/documents', allUserDocRoutes);  // Document routes
 // API Routes
 app.use('/api/employees', employeeRoutes);     // Employee routes
 app.use('/api/finance', financeRoutes);        // Finance routes
+
 
 
 //api routes
@@ -54,6 +56,7 @@ app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
 app.use('/api/cart', cartRoutes);  // Cart route
+
 
 
 

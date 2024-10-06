@@ -1,0 +1,185 @@
+.manage-orders-container {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.card {
+    padding: 10px;  /* Reduced padding */
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    width: 15%;  /* Reduced width */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 16px;  /* Slightly smaller font size */
+    color: #077c2a;
+    margin-bottom: 5px;  /* Reduced margin */
+}
+
+.card p {
+    font-size: 18px;  /* Slightly smaller font size */
+    font-weight: bold;
+    color: #333;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-button.active {
+    background-color: #077c2a;
+    color: white;
+    
+}
+
+.filter-button:hover {
+    background-color: #ccc;
+}
+
+.search-input {
+    padding: 12px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table th {
+    padding: 15px;
+    background-color: #dfe6e1;
+    color: rgb(134, 133, 133);
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.orders-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.orders-table td:first-child {
+    font-weight: bold;
+}
+
+.status-label {
+    padding: 5px 12px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+}
+
+.status-label.in-progress {
+    background-color: orange;
+}
+
+.status-label.delivered {
+    background-color: green;
+}
+
+.status-label.cancelled {
+    background-color: red;
+}
+
+.action-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    width: 80px;
+    cursor: pointer;
+    border: none;
+    background-color: #077c2a;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.action-button.delete {
+    background-color: red;
+}
+
+.action-button:hover {
+    background-color: #066620; /* Darker green on hover */
+    transform: scale(1.05);
+}
+
+.action-button.delete:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+@media (max-width: 768px) {
+    .summary-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+    }
+
+    .filter-button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+}

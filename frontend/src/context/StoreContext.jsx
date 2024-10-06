@@ -6,7 +6,8 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
     const url = "http://localhost:4000";
 
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(() => localStorage.getItem("token") || "");
+
     const [plants, setPlants] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [cartItems, setCartItems] = useState(() => {
@@ -27,10 +28,18 @@ const StoreContextProvider = (props) => {
             state: '',
             zip: '',
             country: '',
-            phone: ''
+            phone: '',
+            userId: ''
         };
     });
 
+
+    // Add clearCart function to clear the cart after the order is placed
+    const clearCart = () => {
+        setCartItems({});  // Clear the cartItems state
+        localStorage.removeItem("cartItems");  // Remove cart data from localStorage
+    };
+    
     const addEmployee = async (employeeData) => {
         try {
             const response = await axios.post(`${url}/api/employees`, employeeData, {
@@ -61,17 +70,17 @@ const StoreContextProvider = (props) => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
             setToken(storedToken);
-            await fetchEmployees();
+            await fetchEmployees();  // Ensure employees are fetched after token is set
         }
     };
+
     const fetchplants = async () => {
         const response = await axios.get(url + "/api/plants");
         setPlants(response.data.data);
-    }
-
+    };
 
     const addToCart = (item) => {
-        const itemId = item.id;
+        const itemId = item._id;
 
         setCartItems((prevCartItems) => {
             const updatedCart = { ...prevCartItems };
@@ -82,10 +91,10 @@ const StoreContextProvider = (props) => {
                 updatedCart[itemId].quantity += 1;
             }
 
+            // Save to local storage
+            localStorage.setItem("cartItems", JSON.stringify(updatedCart));
             return updatedCart;
         });
-
-        console.log(`Added ${item.name} to cart`);
     };
 
     const removeFromCart = (itemId) => {
@@ -98,6 +107,8 @@ const StoreContextProvider = (props) => {
                 delete updatedCart[itemId];
             }
 
+            // Save to local storage
+            localStorage.setItem("cartItems", JSON.stringify(updatedCart));
             return updatedCart;
         });
     };
@@ -112,26 +123,61 @@ const StoreContextProvider = (props) => {
         return total;
     };
 
+    // Add this to StoreContext to handle quantity updates
+    const increaseQuantity = (itemId) => {
+    setCartItems((prevItems) => {
+      const updatedItems = { ...prevItems };
+      updatedItems[itemId].quantity += 1;
+      return updatedItems;
+    });
+    };
+  
+    const decreaseQuantity = (itemId) => {
+        setCartItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+        if (updatedItems[itemId].quantity > 1) {
+            updatedItems[itemId].quantity -= 1;
+        } else {
+            delete updatedItems[itemId];
+        }
+        return updatedItems;
+        });
+    };
+  
+
     // Save order data to both context and localStorage
     const saveOrderData = (data) => {
         setOrderData(data);
         localStorage.setItem("orderData", JSON.stringify(data));  // Also store in localStorage
     };
 
+    
     useEffect(() => {
-        async function loadData(){
-            await fetchplants();
-            if(localStorage.getItem('token')){
-                setToken(localStorage.getItem('token'));
-            }
-        }
-        loadData();
+        loadInitialData();  // Moved the logic to a reusable function
+        fetchplants();      // Fetch plants on load
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    }, [cartItems]);
-
+        const storedOrderData = localStorage.getItem("orderData");
+        if (storedOrderData) {
+            const parsedOrderData = JSON.parse(storedOrderData);
+            setOrderData(parsedOrderData);
+            console.log("Loaded orderData:", parsedOrderData);  // Add this to debug
+        }
+    }, []);
+    
+    const handleLogin = (loginResponse) => {
+        const userId = loginResponse.data.userId;  // Assuming this is where the userId comes from
+        setOrderData((prevOrderData) => ({
+            ...prevOrderData,
+            userId: userId,
+        }));
+        localStorage.setItem('orderData', JSON.stringify({
+            ...orderData,
+            userId: userId,
+        }));
+    };
+    
     const contextValue = {
         url,
         token,
@@ -149,9 +195,14 @@ const StoreContextProvider = (props) => {
         orderData,
         saveOrderData,  // Save order data method
         plants,
-        fetchplants
+        fetchplants,
+        increaseQuantity,
+        decreaseQuantity,
+        handleLogin,  // Add handleLogin to context
+        clearCart,  // Add clearCart to the context
+        
+        
     };
-    
 
     return (
         <StoreContext.Provider value={contextValue}>
