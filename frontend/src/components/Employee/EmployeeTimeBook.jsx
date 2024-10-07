@@ -48,16 +48,13 @@ const EmployeeTimeBook = () => {
 
   return (
     <div className="employee-time-book-page">
-      {/* Sidebar */}
       <DashboardNavbar />
       <Sidebar />
 
-      {/* Main Content */}
       <div className="employee-time-book-container">
         <h2>Employee Time-Book</h2>
 
         <div className="card-container">
-          {/* Punch In Card */}
           <div className="card punch-in-card">
             <h3>Punch In</h3>
             <input

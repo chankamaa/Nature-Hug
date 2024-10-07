@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
@@ -20,10 +19,12 @@ const navbar = () => {
         </div>
         <div className="navbar-icons">
           <Link to ='/cart'><img className="cart-icon navi" src={assets.cart_icon} alt="icon1" /></Link>
+
           <img className="profile-icon navi" src={assets.profile_icon} alt="profile" />
-        </div>
+
       </div>
-    );
+    </div>
+  );
 };
 
-export default navbar
+export default navbar;

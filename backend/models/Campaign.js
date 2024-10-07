@@ -14,7 +14,7 @@ const campaignSchema = new mongoose.Schema({
         required: true
     },
     recipients: {
-        type: [String], // Array of email addresses
+        type: [String], 
         required: true
     },
     createdAt: {
@@ -23,7 +23,7 @@ const campaignSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'sent', 'failed'], // Optional: track the status of the campaign
+        enum: ['pending', 'sent', 'failed'], 
         default: 'pending'
     }
 });

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jsPDF } from 'jspdf'; // Import jsPDF
-import 'jspdf-autotable'; // Import jspdf-autotable for table support
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 import './Instocks.css';
 import Dashboard from '../../components/Dash/Dashboard';
 
@@ -11,20 +11,20 @@ function ADDstocks() {
   const [newStock, setNewStock] = useState({
     Product_ID: '',
     Product_name: '',
-    Price: 0,
-    Qty: 0,
-    Total_Amount: 0,
+    Price: '',
+    Qty: '',
+    Total_Amount: '',
   });
   const [editStockId, setEditStockId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // State for the search term
-  const [filteredStocks, setFilteredStocks] = useState([]); // State for filtered stocks
+  const [searchTerm, setSearchTerm] = useState(''); // search term
+  const [filteredStocks, setFilteredStocks] = useState([]); // filtered stocks
 
   // Fetch all stocks
   const fetchStocks = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/stocks');
       setStocks(response.data);
-      setFilteredStocks(response.data); // Initially, filtered stocks is the same as all stocks
+      setFilteredStocks(response.data);
     } catch (error) {
       console.error('Error fetching stocks:', error);
     }
@@ -34,7 +34,7 @@ function ADDstocks() {
     fetchStocks();
   }, []);
 
-  // Handle input changes for adding/editing stock items
+  //r adding/editing stock items
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewStock({ ...newStock, [name]: value });
@@ -58,6 +58,7 @@ function ADDstocks() {
       await axios.post('http://localhost:4000/api/stocks', stockToAdd);
       fetchStocks();
       resetForm();
+      alert('Stock added successfully!'); // Show success alert
     } catch (error) {
       console.error('Error adding stock:', error);
     }
@@ -90,7 +91,7 @@ function ADDstocks() {
     }
   };
 
-  // Function to reset the form
+  // Reset the form
   const resetForm = () => {
     setNewStock({
       Product_ID: '',
@@ -125,15 +126,15 @@ function ADDstocks() {
     }
   };
 
-  // Search function to filter stocks
+  // Search and filter stocks
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchTerm(searchValue);
-    
+
     const filtered = stocks.filter((stock) =>
       stock.Product_name.toLowerCase().includes(searchValue)
     );
-    
+
     setFilteredStocks(filtered);
   };
 
@@ -150,7 +151,7 @@ function ADDstocks() {
   // Handle editing an existing stock
   const handleEdit = (stock) => {
     setNewStock(stock);
-    setEditStockId(stock._id); // Assuming stock._id is the unique identifier
+    setEditStockId(stock._id); // unique identifier
   };
 
   // Download stocks data as PDF
@@ -178,70 +179,73 @@ function ADDstocks() {
   };
 
   return (
-    <div>
+    <div className='mmm'>
       <div className="dashbard-container">
-     <Dashboard/>
+        <Dashboard />
 
-     <main className="main-contet">
-    <section>
+        <main className="main-contet">
+          <section>
+            <h1 style={{ textAlign: "center" }}>Stock Management</h1>
+            <form onSubmit={handleSubmit}>
 
-     
+              <div className='type1'>
+                <input type="text" placeholder="Search by Product Name" value={searchTerm} onChange={handleSearch} />
 
-      <form onSubmit={handleSubmit}>
-        <div className='type1'>
-          
-      <input type="text" placeholder="Search by Product Name" value={searchTerm} onChange={handleSearch} />
-        <label>Product ID:</label>
-<input type="text"name="Product_ID" value={newStock.Product_ID} placeholder='Product_ID' onChange={handleChange} required />
-<label>Product Name:</label>
-<input type="text"placeholder='Product_name' name="Product_name" value={newStock.Product_name} onChange={handleChange} required/>
+                <label>Product ID:</label>
+                <input type="text" name="Product_ID" value={newStock.Product_ID} placeholder='Product_ID' onChange={handleChange} required />
 
-<label>Price:</label>
-<input type="text"name="Price"placeholder='Price' value={newStock.Price} onChange={handlePriceChange}required/>
+                <label>Product Name:</label>
+                <input type="text" placeholder='Product_name' name="Product_name" value={newStock.Product_name} onChange={handleChange} required />
 
-<label >Stoks:</label>
-<input type="text" name="Qty"placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required/>
+                <label>Unit Price:</label>
+                <input type="text" name="Price" placeholder='Price' value={newStock.Price} onChange={handlePriceChange} required />
 
-<label >Total Amount:</label>
-<input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
+                <label>Stock:</label>
+                <input type="text" name="Qty" placeholder='Qty' value={newStock.Qty} onChange={handleQuantityChange} required />
 
-<button className='button1' type='submit'> {editStockId !== null ? 'Update Stock' : 'Add Stock'}</button>
+                <label>Total Amount:</label>
+                <input type="text" name="Total_Amount" placeholder='Total_Amount' value={newStock.Total_Amount} readOnly />
 
-<button className='button2'> Remove</button>
-
- </div>
-      </form></section></main></div>
-      <h2 style={{textAlign:'center'}}>Stocks List</h2>
-      <table  style={{width:'100%'}}border="1">
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredStocks.map((stock) => (
-            <tr key={stock._id}>
-              <td>{stock.Product_ID}</td>
-              <td>{stock.Product_name}</td>
-              <td>{stock.Price}</td>
-              <td>{stock.Qty}</td>
-              <td>{stock.Total_Amount}</td>
-              <td>
-                <button className='ed1' onClick={() => handleEdit(stock)}>Edit</button>
-                <button className='de1' onClick={() => deleteStock(stock._id)}>Delete</button>
-              </td>
+                <button className='button1' type='submit'> {editStockId !== null ? 'Update Stock' : 'Add Stock'}</button>
+                <button className='button2' type='button' onClick={() => alert('Remove button clicked!')}>Remove</button>
+              </div>
+            </form>
+          </section>
+        </main>
+      </div>
+      <h2 style={{ textAlign: 'center' }}>Stocks List</h2>
+      <main className="main-contet">
+        <table style={{ width: '100%' }} border="1">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Stocks</th>
+              <th>Total Amount</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredStocks.map((stock) => (
+              <tr key={stock._id}>
+                <td>{stock.Product_ID}</td>
+                <td>{stock.Product_name}</td>
+                <td>{stock.Price}</td>
+                <td>{stock.Qty}</td>
+                <td>{stock.Total_Amount}</td>
+                <td>
+                  <button className='ed1' onClick={() => handleEdit(stock)}>Edit</button>
+                  <button className='de1' onClick={() => deleteStock(stock._id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
       <div className='cont'>
-      <button className='button1' onClick={downloadPDF}>Download PDF</button>
-    </div>
+        <button className='button1' onClick={downloadPDF}>Download PDF</button>
+      </div>
     </div>
   );
 }

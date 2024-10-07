@@ -8,6 +8,15 @@ const FinanceSidebar = () => {
       <h2 className="sidebar-title">Finance Dashboard</h2>
       <ul className="sidebar-menu">
         <li>
+      <NavLink 
+            to="/finance/dashboard" 
+            className={({ isActive }) => (isActive ? 'active-link' : '')}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+        
+        <li>
           <NavLink 
             to="/finance/add-employee" 
             className={({ isActive }) => (isActive ? 'active-link' : '')}
@@ -37,6 +46,16 @@ const FinanceSidebar = () => {
             className={({ isActive }) => (isActive ? 'active-link' : '')}
           >
             Employee List
+          </NavLink>
+        </li>
+
+        <li>
+        
+          <NavLink 
+            to="/cso/dashboard" 
+            className={({ isActive }) => (isActive ? 'active-link' : '')}
+          >
+            Attendance Dashboard
           </NavLink>
         </li>
       </ul>
