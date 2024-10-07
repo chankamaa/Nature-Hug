@@ -34,11 +34,8 @@ import EmployeeTimeBook from './components/Employee/EmployeeTimeBook';
 import AttendanceSearch from './components/Employee/AttendanceSearch';
 import Terms from './pages/Terms/terms'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
-import LowStock from './pages/Inventory/LowStock';
-import InventoryDashboard from './pages/Inventory/InventoryDashboard'
-import Suppliers from './pages/Inventory/Suppliers'
-import Das from './pages/Inventory/Das'
-import ADDstocks from './pages/Inventory/ADDstocks'
+
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EmployeeDetail from './components/Employee/EmployeeDetail';
@@ -79,7 +76,7 @@ const App = () => {
     '/Suppliers',
     '/ADDstocks',
     '/InventoryDashboard',
-    '/Das'
+    
     
   ];
 
@@ -113,10 +110,6 @@ const App = () => {
           <Route path='/admin' element={<AdminDashboard />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/' element={<Home />} />
-          <Route path='/InventoryDashboard' element={<InventoryDashboard/>} />
-          <Route path='/Suppliers' element={<Suppliers/>} />
-          <Route path='/ADDstocks' element={<ADDstocks/>} />
-          <Route path='/Das' element={<Das/>} />
           <Route path='/employees/:id' element={<EmployeeDetail />} /> 
           <Route path='/plants/:id' element={<PlantDetail />} />
           <Route path='/add/promotions' element={<ManagePromotions />} />
@@ -143,11 +136,14 @@ const App = () => {
           <Route path="/billingaddress" element={< BillingAddress />}></Route>
           <Route path="/shippingaddress" element={< ShippingAddress />}></Route>
           <Route path="/address" element={< Address />}></Route>
-          <Route path='/OutOfStocks' element={<OutOfStocks/>} />
-          <Route path='/LowStock' element={<LowStock/>} />
+         
           <Route path='admin/add/promotions' element={<ManagePromotions />} />
           <Route path='/add/promocode/list' element={<PromoCodeList/>} />
           <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          <Route path='/careers' element={<Careers />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/supplier-order' element={<SupplierOrder />} />
+
 
         </Routes>
 
