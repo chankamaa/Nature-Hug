@@ -2,7 +2,7 @@
 import React from 'react'
 import './navbar.css'
 import { assets } from '../../assets/assets';
-
+import { Link } from 'react-router-dom';
 const navbar = () => {
     return (
       <div className="navbar-container">
@@ -13,7 +13,7 @@ const navbar = () => {
           <div className="navbar-link underline">Home</div>
           <div className="navbar-link underline">Products</div>
           <div className="navbar-link">About</div>
-          <div className="navbar-link">Services</div>
+          <Link to ='/ServicePage'><div className="navbar-link">Services</div></Link>
           <div className="navbar-link">Blog</div>
           <div className="navbar-link">Contact</div>
         </div>

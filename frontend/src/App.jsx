@@ -74,10 +74,10 @@ const App = () => {
           <Route path='/Suppliers' element={<Suppliers/>} />
           <Route path='/ADDstocks' element={<ADDstocks/>} />
           <Route path='/Das' element={<Das/>} /> 
-            
-          <Route path='admin/add/promotions' element={<ManagePromotions />} />
-          <Route path='/add/promocode/list' element={<PromoCodeList/>} />
-          <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          
+          <Route path='/promotions' element={<ManagePromotions />} />
+          <Route path='/promocode/list' element={<PromoCodeList/>} />
+          <Route path='/send-email' element={<CreateCampaignEmail />} />
         </Routes>
 
         {/* Conditionally render Footer */}
