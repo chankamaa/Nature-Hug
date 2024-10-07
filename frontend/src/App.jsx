@@ -146,14 +146,15 @@ const App = () => {
           <Route path="/address" element={< Address />}></Route>
           <Route path='/OutOfStocks' element={<OutOfStocks/>} />
           <Route path='/LowStock' element={<LowStock/>} />
-          <Route path='admin/add/promotions' element={<ManagePromotions />} />
-          <Route path='/add/promocode/list' element={<PromoCodeList/>} />
-          <Route path='/admin/campaigns/send-email' element={<CreateCampaignEmail />} />
+          <Route path='/promotions' element={<ManagePromotions />} />
+          <Route path='/promocode/list' element={<PromoCodeList/>} />
+          <Route path='/send-email' element={<CreateCampaignEmail />} />
           <Route path='/payment' element={<PaymentPage />} />
           <Route path='/payment/card' element={<CardPaymentForm />} />
           <Route path='/payment/bank-transfer' element={<BankTransferForm />} />
           <Route path='/payment/cash-on-delivery' element={<CashOnDeliveryForm />} />
           <Route path='/payment/success' element={<PaymentSuccess />} />
+
 
         </Routes>
 

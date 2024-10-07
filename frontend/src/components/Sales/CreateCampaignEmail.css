@@ -1,69 +1,114 @@
-/* Style for the form container */
+
 .main-002 {
     margin-top: 80px;
-    padding: 10px 20px;
-    margin-bottom: 150px;
+    padding: 20px;
+    margin-bottom: 100px;
+    max-width: 750px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
 }
+
 
 .manage-promotions {
-    max-width: 700px;
+    max-width: 750px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for the form group */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
-    flex-direction: column-reverse; /* This makes label go below the input */
+    flex-direction: column-reverse; 
 }
 
-/* Style for labels */
 .form-group label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 8px; /* Margin added above label to provide space */
-    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    color: #2c3e50;
 }
 
-/* Style for inputs and textarea */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="date"],
 .form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 16px;
-    color: #555;
+    color: #34495e;
     background-color: #fff;
+    transition: border-color 0.3s;
 }
 
-/* Increase height for textarea */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="date"]:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
 .form-group textarea {
-    height: 100px;
+    height: 120px;
+    resize: vertical; 
 }
 
-/* Style for the submit button */
 button[type="submit"] {
     background-color: #28a745;
-    color: white;
+    color: #fff;
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    display: block;
     width: 100%;
     margin-top: 20px;
     text-align: center;
     text-transform: uppercase;
+    transition: background-color 0.3s;
 }
 
 button[type="submit"]:hover {
     background-color: #218838;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.manage-promotions h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 40px;
+}
+
+.manage-promotions form {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .main-002 {
+        padding: 15px;
+        margin-bottom: 80px;
+    }
+
+    button[type="submit"],
+    button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
 }
