@@ -1,0 +1,51 @@
+/* Careers.css */
+
+.careers-page {
+    background-color: #f9f8f6;
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .careers-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    color: #2f5d50;
+    font-weight: bold;
+  }
+  
+  .vision, .mission {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .recruiting-logo img {
+    width: 300px; /* Increase image size to 300px */
+    margin-top: 20px;
+  }
+  
+  .recruiting-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  
+    .vision, .mission {
+      font-size: 1rem;
+    }
+  
+    .recruiting-logo img {
+      width: 250px; /* Adjust size for smaller screens */
+    }
+  }
+  

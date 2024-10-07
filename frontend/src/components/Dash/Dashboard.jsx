@@ -17,6 +17,7 @@ const Dashboard = () => {
               <li><Link to='/'><button>Dashboard</button></Link></li>
               <li><Link to='/ADDstocks'><button>Stock</button></Link></li>
               <li><Link to='/Suppliers'><button>Suppliers</button></Link></li>
+              <li><Link to='/SupplierOrder'><button>Supplier Orders</button></Link></li>
               <li><Link to='/Das'><button>Invoice</button></Link></li>
               <li><button>Reports</button></li>
               <li><button>Support</button></li>

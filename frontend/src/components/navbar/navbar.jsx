@@ -15,7 +15,7 @@ const navbar = () => {
          <Link to = '/product' ><div className="navbar-link underline">Products</div></Link>
           <Link to = '/Aboutus'><div className="navbar-link">About</div></Link>
           <div className="navbar-link">Services</div>
-          <div className="navbar-link">Blog</div>
+        <Link to ='/blog'> <div className="navbar-link">Blog</div></Link> 
           <div className="navbar-link">Contact</div>
         </div>
         <div className="navbar-icons">

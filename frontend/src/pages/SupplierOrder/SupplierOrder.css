@@ -1,0 +1,127 @@
+/* SupplierOrder.css */
+
+.supplier-order-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f8f6;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2f5d50;
+  }
+  
+  .order-list {
+    margin-bottom: 40px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #2f5d50;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+  }
+  
+  .order-table th, .order-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .order-table th {
+    background-color: #2f5d50;
+    color: white;
+  }
+  
+  .order-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .create-order {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-order form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-order label {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .create-order input, .create-order select {
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .create-order button {
+    padding: 10px;
+    background-color: #2f5d50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .create-order button:hover {
+    background-color: #245d3a;
+  }
+  
+  .edit-btn, .delete-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .edit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e60000;
+  }
+  
+  .cancel-btn {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #d3d3d3;
+    border: none;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #bbb;
+  }
+  

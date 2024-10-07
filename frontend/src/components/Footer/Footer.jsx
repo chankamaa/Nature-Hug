@@ -15,7 +15,7 @@ const Footer = () => {
                     <h4>COMPANY</h4>
                     <ul>
                         <li>About</li>
-                        <li>Careers</li>
+                        <li><Link to="/careers">Careers</Link></li> {/* Linked Careers page */}
                         <li>Reviews</li>
                         <li>Our Guarantee</li>
                     </ul>

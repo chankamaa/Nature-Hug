@@ -37,7 +37,9 @@ import CreateCampaignEmail from './components/Sales/CreateCampaignEmail';
 import PlantDetail from './components/PlantDetail/PlantDetail'
 import ManageOrders  from './components/ManageOrders/ManageOrders';
 import TrackOrder from './pages/TrackOrder/TrackOrder';
-
+import Careers from './pages/Careers/Careers';
+import Blog from './pages/Blog/blog';
+import SupplierOrder from './pages/SupplierOrder/SupplierOrder';
 
 
 
@@ -89,7 +91,17 @@ const App = () => {
           <Route path='/order' element={<Order />} />
           <Route path='/manage-orders/order' element={<ManageOrders />} />
           <Route path='/track-order/:orderId' element={<TrackOrder />} />
-         
+         <Route path='/Careers' element={<Careers />} />
+         <Route path='/Blog' element={<Blog />} />
+          <Route path='/SupplierOrder' element={<SupplierOrder />} />
+
+
+
+
+
+
+
+
         </Routes>
 
 
