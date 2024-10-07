@@ -100,7 +100,9 @@ const Order = () => {
             // Save the order data to the context and localStorage
             saveOrderData(data);
             localStorage.setItem("orderData", JSON.stringify(data));  // Save order data in localStorage
-            navigate('/Step04');  // Navigate to Step04
+
+            // Navigate to the payment page after successful order validation
+            navigate('/payment');  // Navigate to the payment page
         }
     };
 

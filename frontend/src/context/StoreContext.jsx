@@ -12,7 +12,7 @@ const StoreContextProvider = (props) => {
     const [employees, setEmployees] = useState([]);
     const [cartItems, setCartItems] = useState(() => {
         const storedCart = localStorage.getItem("cartItems");
-        return storedCart ? JSON.parse(storedCart) : {};
+        return storedCart ? JSON.parse(storedCart) : [];
     });
     const [productList, setProductList] = useState([]);
     

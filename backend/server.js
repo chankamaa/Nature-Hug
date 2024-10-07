@@ -14,6 +14,8 @@ import promotionsRoute from './routes/promotionsRoute.js';
 import campaignRoutes from './routes/campaignRoute.js';
 import userRoutes from './routes/userRoutes.js';
 import allUserDocRoutes from './routes/allUserDocRoutes.js';
+import paymentRoutes from './controllers/paymentController.js';
+
 
 
 dotenv.config();
@@ -56,6 +58,8 @@ app.use('/api', campaignRoutes);
 app.use('/api/campaigns', campaignRoutes); 
 app.use('/api/promotions', promotionsRoute);
 app.use('/api/cart', cartRoutes);  // Cart route
+app.use('/api/payment', paymentRoutes);
+
 
 
 
