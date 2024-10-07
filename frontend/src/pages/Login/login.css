@@ -3,7 +3,7 @@ body {
 }
 
 .login-container {
-  margin-bottom: 20px; /* Reduced top margin to move everything up */
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,15 +19,16 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 500px;
+  border: 2px solid #3d9970; /* Add this line for the border */
 }
 
 .login-box h2 {
-  margin-bottom: 10px; /* Reduced margin below the title */
+  margin-bottom: 10px;
   color: #333;
 }
 
 .input-group {
-  margin-bottom: 10px; /* Reduced margin between input fields */
+  margin-bottom: 10px;
   text-align: left;
 }
 
@@ -50,7 +51,7 @@ body {
 
 .forgot-password {
   text-align: right;
-  margin-bottom: 10px; /* Reduced margin below "Forgot password" */
+  margin-bottom: 10px;
 }
 
 .forgot-password a {
@@ -76,26 +77,8 @@ body {
   background-color: #2e7d57;
 }
 
-.alternative-login {
-  margin: 15px 0; /* Reduced margin around alternative login section */
-}
-
-.google-login-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #db4437;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.google-login-button:hover {
-  background-color: #c23321;
-}
-
 .register {
-  margin-top: 10px; /* Reduced margin above the register section */
+  margin-top: 10px;
 }
 
 .register span {

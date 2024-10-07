@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import './shippingaddress.css'; // Ensure you have a CSS file for styling
+import './shippingAddress.css'; // Ensure you have a CSS file for styling
 
 const ShippingAddress = () => {
     const [firstName, setFirstName] = useState('');
@@ -16,10 +16,8 @@ const ShippingAddress = () => {
     const [email, setEmail] = useState('');
 
     const countries = [
-        { code: "US", name: "United States" },
-        { code: "AF", name: "Afghanistan" },
-        { code: "AL", name: "Albania" },
-        // Add more countries as needed
+        { code: "LK", name: "Sri Lanka" },
+        { code: "IN", name: "India" },
     ];
 
     const handleSubmit = (e) => {
@@ -41,105 +39,115 @@ const ShippingAddress = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Shipping Address</h2>
+        <form onSubmit={handleSubmit} className="shipping-address-form">
+            <h2 className="shipping-header">Shipping Address</h2>
 
-            <label>First Name</label>
+            <label className="shipping-label">First Name</label>
             <input
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>Last Name</label>
+            <label className="shipping-label">Last Name</label>
             <input
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>Company Name</label>
+            <label className="shipping-label">Company Name</label>
             <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
+                className="shipping-input"
             />
 
-            <label>Country / Region</label>
-            <select value={country} onChange={(e) => setCountry(e.target.value)} required>
+            <label className="shipping-label">Country / Region</label>
+            <select className="shipping-select" value={country} onChange={(e) => setCountry(e.target.value)} required>
                 <option value="" disabled>Select your country</option>
                 {countries.map((country) => (
                     <option key={country.code} value={country.code}>{country.name}</option>
                 ))}
             </select>
 
-            <label>Street Address 1</label>
+            <label className="shipping-label">Street Address 1</label>
             <input
                 type="text"
                 value={streetAddress1}
                 onChange={(e) => setStreetAddress1(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="House number and street name"
             />
 
-            <label>Street Address 2</label>
+            <label className="shipping-label">Street Address 2</label>
             <input
                 type="text"
                 value={streetAddress2}
                 onChange={(e) => setStreetAddress2(e.target.value)}
+                className="shipping-input"
                 placeholder="Apartment, suite, unit, etc. (optional)"
             />
 
-            <label>Town / City</label>
+            <label className="shipping-label">Town / City</label>
             <input
                 type="text"
                 value={townCity}
                 onChange={(e) => setTownCity(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>State</label>
+            <label className="shipping-label">State</label>
             <input
                 type="text"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>Zip Code</label>
+            <label className="shipping-label">Zip Code</label>
             <input
                 type="text"
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>Phone</label>
+            <label className="shipping-label">Phone</label>
             <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <label>Email Address</label>
+            <label className="shipping-label">Email Address</label>
             <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="shipping-input"
                 placeholder="Please fill out this field"
             />
 
-            <button type="submit">Save Address</button>
+            <button type="submit" className="shipping-submit-button">Save Address</button>
         </form>
     );
 };

@@ -1,10 +1,13 @@
+body {
+    background-color: #f7f7de;
+  }
 .profile-container {
     max-width: 600px;
     margin:100px auto;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    box-shadow: 0 0 px rgba(0, 0, 0, 0.1);
+    background-color: #f7f7de
     
 }
 
@@ -67,12 +70,12 @@
 }
 
 .btn-danger {
-    background-color: #c62828; /* Red color for logout button */
+    background-color:  #388e3c; /* Red color for logout button */
     color: white; /* Text color */
 }
 
 .btn-danger:hover {
-    background-color: #b71c1c; /* Darker shade on hover */
+ /* Darker shade on hover */
 }
 
 .btn-primary {

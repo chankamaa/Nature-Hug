@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart/cart';
@@ -39,6 +40,7 @@ import InventoryDashboard from './pages/Inventory/InventoryDashboard'
 import Suppliers from './pages/Inventory/Suppliers'
 import Das from './pages/Inventory/Das'
 import ADDstocks from './pages/Inventory/ADDstocks'
+import OutOfStocks from './pages/Inventory/outofstocks';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EmployeeDetail from './components/Employee/EmployeeDetail';
@@ -53,12 +55,14 @@ import ProductItem from './components/ProductItem/ProductItem';
 import AddProductForm from './components/AddProductForm/AddProductForm';
 import PlantCareTips from './components/PlantCareTips/PlantCareTips';
 import PlantLifeBlog from './components/PlantLifeBlog/PlantLifeBlog'; 
+
 import OutOfStocks from './pages/Inventory/outofstocks';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import CardPaymentForm from './components/payments/CardPaymentForm';
 import BankTransferForm from './components/payments/BankTransferForm';
 import CashOnDeliveryForm from './components/payments/CashOnDeliveryForm';
 import PaymentSuccess from './components/payments/PaymentSuccess';
+
 
 
 
@@ -80,7 +84,10 @@ const App = () => {
     '/Suppliers',
     '/ADDstocks',
     '/InventoryDashboard',
-    '/Das'
+    '/Das',
+    '/outofstocks',
+    '/LowStock'
+
     
   ];
 

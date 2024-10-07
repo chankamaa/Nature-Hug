@@ -1,39 +1,28 @@
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
+.admin-sidebar {
+  /* Add your styles here */
+  width: 250px; /* Example width */
+  background-color: #f4f4f4; /* Example background color */
+  padding: 20px; /* Example padding */
 }
 
-.sidebar h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
+.admin-sidebar h2 {
+  text-align: center; /* Center the header */
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.admin-sidebar ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 10%; /* Remove padding */
 }
 
-.sidebar ul li {
-  margin: 15px 0;
+.admin-sidebar li {
+  margin: 15px 0; /* Add spacing between links */
 }
 
-.sidebar ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  display: block;
-  transition: background-color 0.3s ease;
+.admin-sidebar a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Example link color */
 }
 
-.sidebar ul li a:hover {
-  background-color: #555;
-  padding-left: 10px;
+.admin-sidebar a:hover {
+  color: #007bff; /* Change color on hover */
 }

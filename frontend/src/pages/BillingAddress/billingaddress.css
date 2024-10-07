@@ -1,48 +1,57 @@
-.billing-address {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* billingAddress.css */
+
+.billing-address-wrapper {
+    max-width: 600px; /* Maximum width of the form */
+    margin: 80px auto; /* Center the form horizontally */
+    padding: 20px; /* Padding inside the form */
+    border: 1px solid #ccc; /* Border around the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #fff; /* White background */
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #2d3e50; /* Heading color */
+.billing-header {
+    text-align: center; 
+    color: #333; 
+    margin-bottom: 20px; 
 }
 
-.form-group {
-    margin-bottom: 15px;
+.billing-form {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #2d3e50; /* Label color */
+.form-label {
+    margin-bottom: 5px; /* Space below labels */
+    font-weight: bold; /* Bold text for labels */
+    color: #555; /* Gray text color */
 }
 
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-input, .form-select {
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 1rem; 
+    transition: border-color 0.3s; 
 }
 
-.save-address {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50; /* Green color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+.form-input:focus, .form-select:focus {
+    border-color: #66afe9; /* Highlight border color on focus */
+    outline: none; /* Remove default outline */
 }
 
-.save-address:hover {
-    background-color: #224D22; /* Darker green on hover */
+.submit-button {
+    padding: 10px; /* Padding inside the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background color change */
+}
+
+.submit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }

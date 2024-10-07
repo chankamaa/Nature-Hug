@@ -38,6 +38,47 @@ const Suppliers = () => {
   // Handle form change for adding new supplier
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validation for Supplier Name (only letters and spaces)
+    if (name === 'Suppliername') {
+      const regex = /^[A-Za-z\s]*$/; // Regex to allow only alphabets and spaces
+      if (!regex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          Suppliername: 'Supplier name can only contain alphabets and spaces',
+        }));
+        return;
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          Suppliername: '',
+        }));
+      }
+    }
+
+    // Validation for Contact Info (only numbers, max 10 digits)
+    if (name === 'Contactinfor') {
+      const regex = /^[0-9]*$/; // Regex to allow only numbers
+      if (!regex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          Contactinfor: 'Contact Info can only contain numbers',
+        }));
+        return;
+      } else if (value.length > 10) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          Contactinfor: 'Contact Info cannot exceed 10 digits',
+        }));
+        return;
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          Contactinfor: '',
+        }));
+      }
+    }
+
     setNewSupplier({ ...newSupplier, [name]: value });
   };
 
@@ -167,7 +208,6 @@ const Suppliers = () => {
                   onChange={handleChange} 
                   required 
                 />
-                
                 {errors.Suppliername && <p className="error-message">{errors.Suppliername}</p>}
 
                 <label>Description:</label>
@@ -181,7 +221,7 @@ const Suppliers = () => {
                 />
                 {errors.Description && <p className="error-message">{errors.Description}</p>}
 
-                <label>Contact Infor:</label>
+                <label>Contact Info:</label>
                 <input 
                   type="text" 
                   name="Contactinfor" 
@@ -252,7 +292,6 @@ const Suppliers = () => {
       <div className='cont'>
         <button className="button1" onClick={downloadPDF}>Download PDF</button>
       </div>
-
     </div>
   );
 };

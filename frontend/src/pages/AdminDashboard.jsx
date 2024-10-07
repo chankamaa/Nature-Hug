@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Sidebar from '../components/Admin/Sidebar'; // Import the Sidebar
 import './AdminDashboard.css'; 

@@ -8,14 +8,15 @@ body {
   margin-left: 200px;
   padding: 20px;
   background-color: #f7f7f7;
-  margin-bottom: 100px;
+
+  
 }
 
 
 .stock-cards {
   display: flex;
-  justify-content: space-between;
-
+ gap: 150px;
+ width: 1800px;
 }
 
 .card {
@@ -23,14 +24,14 @@ body {
   padding: 20px;
   text-align: center;
   border-radius: 15px;
+ width: 1000px;
  
  
-  margin-top: 50px;
 }
 
 .card img {
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 220px;
   margin-bottom: 10px;
 }
 

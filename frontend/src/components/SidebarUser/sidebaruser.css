@@ -1,95 +1,64 @@
-/* Sidebar.css */
+/* sidebaruser.css */
 
-.sidebar {
-    width: 150px; /* Width of the sidebar */
-    height: 60vh; /* Full height */
-    background-color:#f7f7de;/* Sidebar background color */
-    color: #fff; /* Text color */
+.user-sidebar {
+    width: 150px; /* Updated width to match the design */
+    height: 50vh; /* Full height */
+    background-color: #4CAF50; /* Green */
+    color: #ffffff; /* Text color */
     position: fixed; /* Fixed position */
-    top: 10; /* Aligns to the top */
-    left: 5%; /* Aligns to the left */
-
-    padding: 20px; /* Padding around the content */
+    top: 20%; /* Aligns to the top */
+    left: 3%; /* Aligns to the left */
+    padding: 10px; /* Padding around the content */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
-    
+    display: flex;
     flex-direction: column; /* Stack items vertically */
-    border-radius: 5%;
-
+    border-radius: 15px;
 }
 
-.sidebar-header {
+.user-sidebar-header {
     display: flex;
     align-items: center; /* Center content vertically */
-    margin-bottom: 40px; /* Space below header */
+    justify-content: center; /* Center content horizontally */
+    margin-bottom: 20px; /* Space below header */
+    font-size: 1.2rem; /* Font size for user name */
 }
 
-.sidebar-header img {
-    border-radius: 50%; /* Circular image */
-    width: 50px; /* Size of the avatar */
-    height: 50px; /* Size of the avatar */
-    margin-right: 10px; /* Space between avatar and text */
-}
-
-.sidebar-header h2 {
-    margin: 0; /* Remove default margin */
-    font-size: 1.25rem; /* Font size for user name */
-}
-
-.sidebar-header p {
-    margin: 0; /* Remove default margin */
-    font-size: 0.875rem; /* Smaller font size for time */
-}
-
-.sidebar-menu {
+.user-sidebar-menu {
     list-style: none; /* Remove bullet points */
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margin */
     flex-grow: 1; /* Allow the menu to grow */
-    
 }
 
-.sidebar-menu li {
-    margin: 15px 0; /* Space between items */
-}
-
-.sidebar-link {
-    text-decoration: none; /* Remove underline */
-    color: #ffffff; /* Link color */
-    font-size: 1rem; /* Font size for links */
+.user-sidebar-menu li {
+    margin: 10px 0; /* Space between items */
     display: flex; /* Flexbox for alignment */
     align-items: center; /* Center items vertically */
+}
+
+.user-sidebar-link {
+    text-decoration: none; /* Remove underline */
+    color: #ffffff; /* Link color */
+    padding: 10px; /* Padding for link */
+    border-radius: 5px; /* Rounded corners */
     transition: background 0.3s; /* Smooth background transition */
-    padding: 10px 15px; /* Padding for link */
-    border-radius: 5px; /* Rounded corners */
+    width: 100%; /* Full width */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
 }
 
-.sidebar-link:hover {
-    background-color:white; /* Background on hover */
+.user-sidebar-link:hover {
+    background-color: #388e3c; /* Darker green on hover */
 }
 
-/* Badge styling for notifications */
-.badge {
-    background-color: #f39c12; /* Badge color */
-    border-radius: 12px; /* Rounded corners */
-    padding: 3px 6px; /* Padding for badge */
-    color: white; /* Text color */
-    font-size: 0.8rem; /* Font size for badge */
-    margin-left: 10px; /* Space between text and badge */
+/* Icon styling */
+.user-sidebar-link i {
+    margin-right: 10px; /* Space between icon and text */
 }
 
-/* Logout button styling */
-.logout-btn {
-    margin-top: auto; /* Push to bottom */
-    background-color: transparent; /* Transparent background */
-    color: #ffffff; /* White text */
-    border: none; /* Remove border */
-    font-size: 1rem; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    text-align: left; /* Align text to the left */
-    padding: 10px 15px; /* Padding for button */
-}
-
-.logout-btn:hover {
-    background-color: #374b59; /* Background on hover */
-    border-radius: 5px; /* Rounded corners */
+/* Optional: Additional styles for the header icon */
+.user-sidebar-header img {
+    width: 40px; /* Size of the avatar or logo */
+    height: 40px; /* Size of the avatar or logo */
+    border-radius: 50%; /* Circular image */
 }

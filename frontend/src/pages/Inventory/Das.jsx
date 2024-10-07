@@ -5,6 +5,7 @@ import 'jspdf-autotable'; // Import jspdf-autotable for table generation
 import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
+import logo from '../../assets/logo.png'; // Update the path based on your project structure
 
 const InStock = () => {
   const [stocks, setStocks] = useState([]);
@@ -30,8 +31,30 @@ const InStock = () => {
   const downloadInStockPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('In-Stock Items', 14, 10);
+    // Add logo and company details
+    doc.addImage(logo, 'PNG', 10, 10, 30, 30); // Adjust the position and size of the logo
 
+    const headerText = [
+      "Nature Hug",
+      "Address: 54A, Ihala Vitiyala, Karagoda-Uyangoda, Matara",
+      "Email: handamama.pvt@gmail.com",
+      "Phone: +94 76 258 2337"
+    ];
+
+    doc.setFontSize(12);
+    headerText.forEach((line, index) => {
+      doc.text(line, 50, 15 + (index * 5)); // Adjust position of text relative to the logo
+    });
+
+    // Add current date
+    const currentDate = new Date().toLocaleDateString();
+    doc.text(`Date: ${currentDate}`, 150, 15);
+
+    // Title for the table
+    doc.setFontSize(16);
+    doc.text('In-Stock Items Report', 14, 50);
+
+    // Define table columns and rows
     const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
     const tableRows = [];
 
@@ -46,7 +69,10 @@ const InStock = () => {
       tableRows.push(stockData);
     });
 
-    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    // AutoTable for stock data
+    doc.autoTable(tableColumn, tableRows, { startY: 60 });
+
+    // Save the PDF
     doc.save('in_stock_items.pdf');
   };
 

@@ -14,6 +14,8 @@ const getAllSuppliers = async (req, res, next) => {
   }
 };
 
+
+
 // Add a new supplier (POST method)
 const addSupplier = async (req, res, next) => {
   const { ID, Suppliername, Description, Contactinfor, Product } = req.body;
@@ -30,10 +32,14 @@ const addSupplier = async (req, res, next) => {
     await newSupplier.save();
     return res.status(201).json({ message: 'Supplier added successfully', newSupplier });
   } catch (error) {
+    if (error.code === 11000) { // Duplicate key error for unique fields (like ID)
+      return res.status(400).json({ message: 'Supplier ID already exists. Please use a unique ID.' });
+    }
     console.error('Error adding supplier:', error);
     return res.status(500).json({ message: 'Error adding supplier', error });
   }
 };
+
 
 // Get supplier by ID
 const getSupplierById = async (req, res, next) => {

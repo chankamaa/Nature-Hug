@@ -10,7 +10,13 @@ body{
   height: 100vh;
   font-family: Arial, sans-serif;
   background-color: #f7f7de;
+  
+    
+   
 }
+
+
+
 
 .signup-box {
   background-color: #c41731;
@@ -19,7 +25,8 @@ body{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 400px; /* Match the width with login box */
-  border: none; /* Remove the border to match the login form */
+  border: 2px solid #3d9970; /* Add this line for the border */; /* Remove the border to match the login form */
+  letter-spacing: 1px; /* Adjust this value to increase/decrease spacing */
 }
 
 .signup-box h2 {
@@ -124,4 +131,10 @@ body{
 
 .alternative-signup a:hover {
   text-decoration: underline;
+}
+
+.signup-up-form{
+
+  border: 2px solid #3d9970;
+  border-radius: 10px;
 }
