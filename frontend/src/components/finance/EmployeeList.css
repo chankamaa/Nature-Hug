@@ -1,40 +1,70 @@
 .employee-list {
-    padding: 20px;
-  }
-  
-  .employee-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .employee-table th, .employee-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .employee-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .employee-table td button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .employee-table td button:hover {
-    background-color: #0056b3;
-  }
-  
-  .employee-table td button:last-child {
-    background-color: #dc3545;
-  }
-  
-  .employee-table td button:last-child:hover {
-    background-color: #c82333;
-  }
-  
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-table th, .employee-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.employee-table th {
+  background-color: #f4f4f4;
+}
+
+.employee-table td button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.employee-table td button:hover {
+  background-color: #0056b3;
+}
+
+.employee-table td button:last-child {
+  background-color: #dc3545;
+}
+
+.employee-table td button:last-child:hover {
+  background-color: #c82333;
+}
+
+.employee-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-and-download {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.download-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}

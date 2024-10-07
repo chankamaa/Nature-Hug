@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jsPDF } from 'jspdf'; // Import jsPDF for PDF generation
-import 'jspdf-autotable'; // Import jspdf-autotable for table support
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 import Dashboard from '../../components/Dash/Dashboard';
 import './Instocks.css';
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
-  const [filteredSuppliers, setFilteredSuppliers] = useState([]); // For filtered suppliers based on search
+  const [filteredSuppliers, setFilteredSuppliers] = useState([]); // search
   const [newSupplier, setNewSupplier] = useState({
     ID: '',
     Suppliername: '',
@@ -17,7 +17,8 @@ const Suppliers = () => {
     Product: '',
   });
   const [editSupplierId, setEditSupplierId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // For search input
+  const [searchTerm, setSearchTerm] = useState('');
+  const [errors, setErrors] = useState({}); // Validation errors
 
   // Fetch all suppliers
   const fetchSuppliers = async () => {
@@ -40,26 +41,45 @@ const Suppliers = () => {
     setNewSupplier({ ...newSupplier, [name]: value });
   };
 
+  // Validation function for supplier form
+  const validateForm = () => {
+    const newErrors = {};
+    if (!newSupplier.ID.trim()) newErrors.ID = 'Supplier ID is required';
+    if (!newSupplier.Suppliername.trim()) newErrors.Suppliername = 'Supplier Name is required';
+    if (!newSupplier.Description.trim()) newErrors.Description = 'Description is required';
+    if (!newSupplier.Contactinfor.trim()) newErrors.Contactinfor = 'Contact Info is required';
+    if (!newSupplier.Product.trim()) newErrors.Product = 'Product is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Add a new supplier
   const addSupplier = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:4000/api/suppliers', newSupplier);
-      fetchSuppliers();
-      setNewSupplier({ ID: '', Suppliername: '', Description: '', Contactinfor: '', Product: '' });
-    } catch (error) {
-      console.error('Error adding supplier', error);
+    if (validateForm()) {
+      try {
+        await axios.post('http://localhost:4000/api/suppliers', newSupplier);
+        fetchSuppliers();
+        setNewSupplier({ ID: '', Suppliername: '', Description: '', Contactinfor: '', Product: '' });
+        alert('Supplier added successfully!'); // Alert after successful addition
+      } catch (error) {
+        console.error('Error adding supplier', error);
+      }
     }
   };
 
   // Update a supplier
   const updateSupplier = async (id) => {
-    try {
-      await axios.put(`http://localhost:4000/api/suppliers/${id}`, newSupplier);
-      fetchSuppliers();
-      setEditSupplierId(null);
-    } catch (error) {
-      console.error('Error updating supplier', error);
+    if (validateForm()) {
+      try {
+        await axios.put(`http://localhost:4000/api/suppliers/${id}`, newSupplier);
+        fetchSuppliers();
+        setEditSupplierId(null);
+        setNewSupplier({ ID: '', Suppliername: '', Description: '', Contactinfor: '', Product: '' });
+        alert('Supplier updated successfully!'); // Alert after successful update
+      } catch (error) {
+        console.error('Error updating supplier', error);
+      }
     }
   };
 
@@ -68,6 +88,7 @@ const Suppliers = () => {
     try {
       await axios.delete(`http://localhost:4000/api/suppliers/${id}`);
       fetchSuppliers();
+      alert('Supplier deleted successfully!'); // Alert after successful deletion
     } catch (error) {
       console.error('Error deleting supplier', error);
     }
@@ -110,42 +131,90 @@ const Suppliers = () => {
   };
 
   return (
-    <div>
-    <div className="dashbard-container">
-      <Dashboard />
+    <div className='mmm'>
+      <div className="dashbard-container">
+        <Dashboard />
+        <main className="main-contet">
+          <section>
+            <h1 style={{textAlign:"center"}}>Supplier Management</h1>
+            <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
+              <div className="type1">
+                <input 
+                  type="text" 
+                  placeholder="Search by Supplier Name" 
+                  value={searchTerm} 
+                  onChange={handleSearch} 
+                  className="search-bar" 
+                />
+
+                <label>Supplier ID:</label>
+                <input 
+                  type="text" 
+                  name="ID" 
+                  placeholder="Supplier ID" 
+                  value={newSupplier.ID} 
+                  onChange={handleChange} 
+                  required 
+                />
+                {errors.ID && <p className="error-message">{errors.ID}</p>}
+
+                <label>Supplier Name:</label>
+                <input 
+                  type="text" 
+                  name="Suppliername" 
+                  placeholder="Supplier Name" 
+                  value={newSupplier.Suppliername} 
+                  onChange={handleChange} 
+                  required 
+                />
+                
+                {errors.Suppliername && <p className="error-message">{errors.Suppliername}</p>}
+
+                <label>Description:</label>
+                <input 
+                  type="text" 
+                  name="Description" 
+                  placeholder="Description" 
+                  value={newSupplier.Description} 
+                  onChange={handleChange} 
+                  required 
+                />
+                {errors.Description && <p className="error-message">{errors.Description}</p>}
+
+                <label>Contact Infor:</label>
+                <input 
+                  type="text" 
+                  name="Contactinfor" 
+                  placeholder="Contact Info" 
+                  value={newSupplier.Contactinfor} 
+                  onChange={handleChange} 
+                  required 
+                />
+                {errors.Contactinfor && <p className="error-message">{errors.Contactinfor}</p>}
+
+                <label>Product:</label>
+                <input 
+                  type="text" 
+                  name="Product" 
+                  placeholder="Product" 
+                  value={newSupplier.Product} 
+                  onChange={handleChange} 
+                  required 
+                />
+                {errors.Product && <p className="error-message">{errors.Product}</p>}
+
+                <button className="button1">
+                  {editSupplierId ? 'Update Supplier' : 'Add Supplier'}
+                </button>
+              </div>
+            </form>
+          </section>
+        </main>
+      </div>
+
+      <h2 style={{ textAlign: 'center' }}>Supplier List</h2>
+
       <main className="main-contet">
-        <section>
-         
-
-          <form onSubmit={editSupplierId ? () => updateSupplier(editSupplierId) : addSupplier}>
-            <div className="type1">
-
-
-             <input type="text" placeholder="Search by Supplier Name"value={searchTerm}onChange={handleSearch} className="search-bar"/>
-
-              <label>Supplier ID:</label>
-              <input type="text"name="ID"placeholder="Supplier ID"value={newSupplier.ID}onChange={handleChange}required/>
-              <label>Supplier Name:</label>
-              <input type="text"name="Suppliername" placeholder="Supplier Name"value={newSupplier.Suppliername}onChange={handleChange}required/>
-              <label>Description:</label>
-              <input type="text"name="Description"placeholder="Description"value={newSupplier.Description}onChange={handleChange}required />
-              <label>Contact Infor:</label>
-              <input type="text"name="Contactinfor"placeholder="Contact Info"value={newSupplier.Contactinfor}onChange={handleChange}required/>
-              <label>Product:</label>
-              <input type="text"name="Product"placeholder="Product" value={newSupplier.Product}onChange={handleChange}required />
-
-              <button className="button1">
-                {editSupplierId ? 'Update Supplier' : 'Add Supplier'}
-              </button>
-            </div>
-          </form>
-        </section></main></div>
-
-        <h2 style={{textAlign:'center'}}>Supplier List</h2>
-
-      
-
-        {/* Supplier List */}
         <table style={{ width: '100%' }} border="1">
           <thead>
             <tr>
@@ -167,10 +236,9 @@ const Suppliers = () => {
                 <td>{supplier.Product}</td>
                 <td>
                   <button className='ed1' onClick={() => {
-                      setEditSupplierId(supplier.ID);
-                      setNewSupplier(supplier);
-                    }}
-                  >
+                    setEditSupplierId(supplier.ID);
+                    setNewSupplier(supplier);
+                  }}>
                     Edit
                   </button>
                   <button className='de1' onClick={() => deleteSupplier(supplier.ID)}>Delete</button>
@@ -179,11 +247,12 @@ const Suppliers = () => {
             ))}
           </tbody>
         </table>
-      
+      </main>
+
       <div className='cont'>
-      <button className="button1" onClick={downloadPDF}>Download PDF</button>
+        <button className="button1" onClick={downloadPDF}>Download PDF</button>
       </div>
-    
+
     </div>
   );
 };

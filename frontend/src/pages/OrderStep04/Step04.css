@@ -1,121 +1,183 @@
-/* CheckoutConfirmation.css */
+/* Step04.css */
 
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f2f1e7; /* Light background color */
-  }
-  
-  .min-h-screen {
-    min-height: 100vh; /* Minimum height to cover the full screen */
-    padding: 2rem;
-  }
-  .p {
-    text-align: right;
-    color: #000000;
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-  
-  .a {
-    text-align:left;
-    color: #000000;
-    font-size: 14px;
-    
+/* General Layout */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-f2f1e7 {
+  background-color: #f2f1e7;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-gray-700 {
+  color: #4a5568;
+}
+
+.text-gray-800 {
+  color: #2d3748;
+}
+
+.text-green-900 {
+  color: #22543d;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+/* Header Styling */
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.step-info {
+  font-size: 0.875rem;
+}
+
+/* Order Confirmation Section */
+.order-confirmation {
+  background-color: #f0fff4;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.barcode img {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin-top: 1rem;
+}
+
+/* Delivery Info */
+.font-bold {
+  font-weight: 700;
+}
+
+.order-info ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.order-info ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Order Status Dots */
+.order-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.green-dot {
+  background-color: #48bb78; /* Green for "Order Placed" */
+}
+
+.gray-dot {
+  background-color: #aab0b8; /* Gray for other status indicators */
+}
+
+/* Force black text on order status */
+.order-status .status-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: black !important; /* Force the color to be black */
+}
+
+/* Cart Items Summary */
+.cart-items-summary {
+  background-color: #f0fff4;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.font-bold.mb-4 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* Footer Section */
+.footer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.footer a {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+/* Buttons */
+.continue-shopping-button {
+  background-color: #48bb78; /* Green color for continue shopping */
+  color: rgb(255, 255, 255);
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.continue-shopping-button:hover {
+  background-color: #38a169;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .order-confirmation, .cart-items-summary {
+    padding: 1.5rem;
   }
 
-  
-  .text-green-900 {
-    color: #556B2F; /* Green text color */
-  }
-  
-  .text-xl {
-    font-size: 1.25rem; /* Font size equivalent to 20px */
-  }
-  
-  .font-bold {
-    font-weight: 700;
-  }
-  
-  .text-gray-800 {
-    color: #4a5568; /* Darker gray color */
-  }
-  
-  .bg-green-100 {
-    background-color: #edf2ec; /* Light green background for the confirmation box */
-  }
-  
-  .p-8 {
-    padding: 2rem; /* 32px padding */
-  }
-  
-  .rounded-lg {
-    border-radius: 8px; /* 8px rounded corners */
-  }
-  
-  .shadow-lg {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Large shadow */
-  }
-  
-  .order-confirmation {
-    background-color: #e7f5d8; /* Light green background color */
-    border-radius: 8px;
-    padding: 2rem;
-  }
-  
-  .order-info ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .barcode img {
-    width: 150px; /* Barcode image width */
-  }
-  
-  .order-status {
-    display: flex;
-    align-items: center;
-    margin-top: 2rem;
-  }
-  
-  .status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-  
-  .status-dot.bg-green-700 {
-    background-color: #556B2F; /* Green color for placed order status */
-  }
-  
-  .status-dot.bg-gray-300 {
-    background-color: #e2e8f0; /* Gray color for other statuses */
-  }
-  
-  .status-label {
-    font-size: 1rem;
-  }
-  
-  .mb-8 {
-    margin-bottom: 2rem; /* 32px margin on bottom */
-  }
-  
-  .underline {
-    text-decoration: underline;
-  }
-  
   .continue-shopping-button {
-    background-color: #556B2F;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 2rem;
+    padding: 0.5rem 1.5rem;
   }
-  
-  .continue-shopping-button:hover {
-    background-color: #6B8E23; /* Darker green on hover */
-  }
-  
+}

@@ -1,56 +1,204 @@
-/* Container for the entire product list */
+/* Basic styling for the body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading styling */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222422;
+}
+
+/* Wrapper for search bar and filters */
+.search-and-filters {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+  margin: 20px;
+}
+
+/* Search bar styling */
+.search-bar {
+  padding: 10px;
+  width: 300px; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 10px; /* Add some space from the filters */
+}
+
+/* Category filter dropdown */
+.category-filter,
+.price-sort {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 20%;
+  max-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f4f4f4;
+}
+
+/* Price range container */
+.price-range {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.price-range label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.price-range input {
+  padding: 8px;
+  margin: 0 5px;
+  width: 80px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Grid layout for the product cards */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid with min-width of 250px */
+  gap: 20px; /* Spacing between grid items */
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Product card styling */
+.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Title and description styling */
+.product-card h3 {
+  margin: 15px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.product-card p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Cart controls */
+.cart-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.add-to-cart-btn {
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Circular button */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.decrease-btn,
+.increase-btn {
+  background-color: #ff0000;
+  color: #fff;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.increase-btn {
+  background-color: #4caf50;
+}
+
+.decrease-btn:hover {
+  background-color: #e60000;
+}
+
+.increase-btn:hover {
+  background-color: #45a049;
+}
+
+.quantity-count {
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+/* Add to Cart button */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:active {
+  background-color: #3e8e41;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
-  
-  /* Styling for each product card */
-  .product-card {
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  .search-bar, .category-filter, .price-sort {
+    width: 90%;
   }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Styling for plant images */
-  .plant-image {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
-  
-  /* Styling for plant name */
-  .product-card h3 {
-    color: #28a745;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  
- 
-  
- 
-  
+}

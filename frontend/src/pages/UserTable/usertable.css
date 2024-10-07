@@ -1,0 +1,61 @@
+/* Styling for the search input */
+.input-group .form-control {
+    border-radius: 0.25rem;
+    border-color: #ced4da;
+    width: 200px; /* Adjust the width to make it smaller */
+    padding: 5px 10px; /* Adjust the padding to make the input field more compact */
+    justify-content: center;
+}
+
+/* Center the input group container */
+.input-group {
+    display: flex;
+    justify-content: center; /* This centers the search box */
+}
+
+/* Styling for the generate report button */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+/* Styling for the delete button */
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Table styling */
+.table-hover {
+    width: 98%; /* Set table width to 100% */
+    border: 2px solid #343a40;  /* Added border around the table */
+    border-radius: 5px;  /* Optional: rounded corners for the table */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Table header styling */
+.table thead th {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+}
+
+/* Center align table columns */
+.table tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Optional: Additional padding for table cells */
+.table td, .table th {
+    padding: 12px;
+}

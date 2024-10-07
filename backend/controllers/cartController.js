@@ -1,60 +1,181 @@
-import userModel from '../models/userModel.js';
+import Stripe from 'stripe';
+import Cart from '../models/cartModels.js';
+import nodemailer from 'nodemailer';
 
-//add items to user cart
 
-const addToCart = async (req, res) => {
+// Get cart by user ID
+export const getCart = async (req, res) => {
     try {
-        let userData = await userModel.findOne(req.body.userID);
-        let cartData = await userData.cartData;
-        if (!cartData[req.body.itemID]) {
-            cartData[req.body.itemID] = 1;
-        }
-        else {
-            cartData[req.body.itemID] += 1;
-        }
-        await userModel.findOneAndUpdate(req.body.userID, { cartData: cartData });
-        res.json({ success: true, message: "Added to Cart" });
-
+        const cart = await Cart.findOne({ userId: req.params.userId }).populate('items.productId');
+        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        res.status(200).json(cart);
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" })
-
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
-//remove items from user cart
-const removeFromCart = async (req, res) => {
+// Example of creating a new order in the backend
+const createOrder = async (req, res) => {
     try {
-        let userData = await userModel.findById(req.body.userID);
-        let cartData = await userData.cartData;
-        if (cartData[req.body.itemID]) {
-            cartData[req.body.itemID] -= 1;
+      const { items, userId, status } = req.body;
+      // Generate a unique order number
+      const orderNumber = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+  
+      // Create new order object
+      const newOrder = new Order({
+        userId,
+        items,
+        orderNumber,  // Save order number
+        status: status || 'In Progress',
+      });
+  
+      // Save the order to the database
+      await newOrder.save();
+      res.status(201).json(newOrder);
+    } catch (error) {
+      res.status(500).json({ message: 'Error creating order', error });
+    }
+  };
+  
 
+  const stripe = new Stripe('sk_test_51PlVfIKrqxGRmUACS1TwUMdtNuQD7YNOEkZrPJTCP8c7YEpnzUXRzlDfRJzEKECZH9u9zjntEeECfWkysk32QazV00oRor9UWo');
+
+  //placing order (Chankama)
+//   const placeOrder = async (req, res) => {
+//     try {
+//         const newOrder = new cartModel({
+//             userId: req.body.userId,
+//             items: req.body.items,
+//             total: req.body.total,
+//             Address: req.body.Address,
+//         })
+//     } catch (error) {
+//         await newOrder.save();
+//         await user
+//     }
+//   }
+
+
+
+
+
+// Add item to cart (create a new cart if it doesn't exist)
+// export const addItemToCart = async (req, res) => {
+//     const { userId, items } = req.body;
+
+//     try {
+//         let cart = await Cart.findOne({ userId });
+
+//         if (cart) {
+//             // Push the new items into the cart
+//             cart.items.push(...items);
+//             cart.total = calculateTotal(cart.items);
+//             await cart.save();
+//             res.status(200).json({ message: 'Items added to cart', cart });
+//         } else {
+//             // Create a new cart if it doesn't exist
+//             cart = new Cart({
+//                 userId,
+//                 items,
+//                 total: calculateTotal(items),
+//             });
+//             await cart.save();
+//             res.status(201).json({ message: 'New cart created', cart });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+export const addItemToCart = async (req, res) => {
+    const { userId, items } = req.body;
+
+    try {
+        // Create a new cart with the items passed in the request
+        const newCart = new Cart({
+            userId,
+            items,
+            total: calculateTotal(items),
+        });
+
+        // Save the new cart to the database
+        await newCart.save();
+
+        // Respond with a success message and the newly created cart
+        res.status(201).json({ message: 'New cart created', cart: newCart });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+// Update cart status
+export const updateCartStatus = async (req, res) => {
+    const { userId, status } = req.body; // Ensure you are getting the correct data
+    
+    try {
+        // Find the cart by userId
+        const cart = await Cart.findOne({ userId });
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
         }
-        await userModel.findByIdAndUpdate(req.body.userID, { cartData: cartData });
-        res.json({ success: true, message: "Removed from Cart" });
+
+        // Update the status field
+        cart.status = status;
+        await cart.save();
+      
+        // Send the updated cart back as a response
+        res.status(200).json({ message: 'Status updated successfully', cart });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-    catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" })
+  
+  
+
+
+// Remove item from cart
+export const removeCart = async (req, res) => {
+    try {
+        // Find the cart by its ID and delete it
+        const cart = await Cart.findByIdAndDelete(req.params.userid);
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Return success response
+        res.status(200).json({ message: 'Cart deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
+  
+// Get all carts (with optional pagination)
+export const getAllCarts = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
 
+        const carts = await Cart.find().skip(skip).limit(limit);
+        const totalCarts = await Cart.countDocuments();
 
-//feth user cart data
-const fetchCart = async (req, res) => {
-    try{
-        let userData = await userModel.findById(req.body.userID);
-        let cartData = await userData.cartData;
-        res.json({success:true, cartData:cartData});
-    }catch(error){
-        console.log(error);
-        res.json({success:false, message:"Error"})
+        res.status(200).json({
+            totalPages: Math.ceil(totalCarts / limit),
+            currentPage: page,
+            carts,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
 
-export { addToCart, removeFromCart, fetchCart }
 
+
+
+// Utility function to calculate total price in the cart
+const calculateTotal = (items) => {
+    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+};

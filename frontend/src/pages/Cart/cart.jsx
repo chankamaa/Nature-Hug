@@ -1,120 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import './cart.css';
+import { StoreContext } from '../../context/StoreContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Cart = () => {
-    const [cartItems, setCartItems] = useState([]);
+    const { cartItems, setCartItems, removeFromCart, getTotalCartAmount, orderData, clearCart } = useContext(StoreContext);
     const navigate = useNavigate();
+    const deliveryFee = 350;
 
-    useEffect(() => {
-        const items = [
-            {
-                _id: '1',
-                name: 'Cactus and Succulents',
-                price: 1150,
-                image: 'cactus-image-url',
-            },
-            {
-                _id: '2',
-                name: 'Spider Plant',
-                price: 1400,
-                image: 'spider-plant-image-url',
-            },
-            {
-                _id: '3',
-                name: 'Jade Plant',
-                price: 1175,
-                image: 'jade-plant-image-url',
-            }
-        ];
+    // Function to handle placing an order
+    const handlePlaceOrder = async () => {
+        const totalWithDelivery = getTotalCartAmount() + deliveryFee;
 
-        const itemQuantities = {
-            '1': 1,
-            '2': 2,
-            '3': 1,
+        // Validate user data before proceeding to checkout
+        if (!orderData || !orderData.firstName || !orderData.lastName || !orderData.email) {
+            console.error('User information is incomplete! Cannot proceed with checkout.');
+            alert('Please complete your information before placing the order.');
+            return;
+        }
+
+        // Prepare the payload with cart and order data to send to the backend
+        const orderPayload = {
+            items: Object.keys(cartItems).map(itemId => ({
+                productId: itemId,
+                name: cartItems[itemId].name,
+                price: cartItems[itemId].price,
+                quantity: cartItems[itemId].quantity
+            })),
+            deliveryFee: deliveryFee,
+            total: totalWithDelivery,
+            customerInfo: orderData // Include the user's order information from the context
         };
 
-        setCartItems(items.map(item => ({ ...item, quantity: itemQuantities[item._id] })));
-    }, []);
+        try {
+            // Make a POST request to the backend to save the cart and order data
+            const response = await axios.post('http://localhost:4000/api/cart/add', orderPayload);
 
-    const removeFromCart = (itemId) => {
-        setCartItems(cartItems.filter(item => item._id !== itemId));
+            if (response.status === 201 || response.status === 200) {
+                // Handle successful order creation
+                console.log('Order saved successfully:', response.data);
+                alert('Order placed successfully!');
+                // clearCart();  // Clear the cart after placing the order
+                navigate('/step01', { state: { totalWithDelivery } }); // Redirect to step01 with total
+            } else {
+                console.error('Unexpected response. Status:', response.status, 'Data:', response.data);
+                alert('Something went wrong! Please try again.');
+            }
+        } catch (error) {
+            // Handle any errors that occur during the order process
+            console.error('Error saving the order:', error.response ? error.response.data : error.message);
+            alert('Failed to place the order. Please try again later.');
+        }
     };
 
+    // Function to increase the quantity of a specific item in the cart
     const increaseQuantity = (itemId) => {
-        setCartItems(cartItems.map(item => 
-            item._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-        ));
+        setCartItems((prevItems) => {
+            const updatedItems = { ...prevItems };
+            updatedItems[itemId].quantity += 1;
+            return updatedItems;
+        });
     };
 
+    // Function to decrease the quantity of a specific item in the cart
     const decreaseQuantity = (itemId) => {
-        setCartItems(cartItems.map(item => 
-            item._id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-        ));
+        setCartItems((prevItems) => {
+            const updatedItems = { ...prevItems };
+            if (updatedItems[itemId].quantity > 1) {
+                updatedItems[itemId].quantity -= 1;
+            } else {
+                removeFromCart(itemId);
+            }
+            return updatedItems;
+        });
     };
 
-    const getTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    // Function to remove an item from the cart
+    const handleRemoveItem = (itemId) => {
+        removeFromCart(itemId);
     };
+
+    // Check if the cart is empty
+    const isCartEmpty = Object.keys(cartItems).length === 0;
 
     return (
         <div className='cart'>
-            <div className='cart-items'>
-    
-                <br></br>
-                <br></br>
-                <br></br>
-                 <br></br>
-                 <h2>My Cart</h2>
-                <div className='cart-items-title'>
-                    <p>Items</p>
-                    <p>Title</p>
-                    <p>Price</p>
-                    <p>Quantity</p>
-                    <p>Total</p>
-                    <p>Remove</p>
+            <br></br><br></br>
+            <h2>My Cart</h2>
+            {isCartEmpty ? (
+                <div className="empty-cart-container">
+                    <p className="empty-cart-message">Your cart is empty</p>
                 </div>
-                <br />
-                <hr />
-                {cartItems.map((item, index) => (
-                    <div key={item._id}>
-                        <div className='cart-items-title cart-items-item'>
-                            <img src={item.image} alt={item.name} />
-                            <p>{item.name}</p>
-                            <p>Rs {item.price}</p>
-                            <div className="quantity-controls">
-                                <button onClick={() => decreaseQuantity(item._id)}>-</button>
-                                <span>{item.quantity}</span>
-                                <button onClick={() => increaseQuantity(item._id)}>+</button>
-                            </div>
-                            <p>Rs {item.price * item.quantity}</p>
-                            <button onClick={() => removeFromCart(item._id)}>Remove</button>
+            ) : (
+                <div className="cart-content">
+                    <table className="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Items</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.keys(cartItems).map((itemId) => {
+                                const item = cartItems[itemId];
+                                return (
+                                    <tr key={itemId}>
+                                        <td>
+                                            <img src={`http://localhost:4000/images/${item.image || 'placeholder.png'}`} alt={item.name} className='cart-item-image' />
+                                        </td>
+                                        <td>{item.name}</td>
+                                        <td>Rs. {item.price}</td>
+                                        <td>
+                                            <div className="quantity-controls">
+                                                <button className="quantity-button" onClick={() => decreaseQuantity(itemId)}>-</button>
+                                                <span>{item.quantity}</span>
+                                                <button className="quantity-button" onClick={() => increaseQuantity(itemId)}>+</button>
+                                            </div>
+                                        </td>
+                                        <td>Rs. {item.price * item.quantity}</td>
+                                        <td>
+                                            <button className="remove-button" onClick={() => handleRemoveItem(itemId)}>x</button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+
+                    <div className="cart-summary">
+                        <div className="cart-totals">
+                            <p className="subtotal">Subtotal: Rs. {getTotalCartAmount()}</p>
+                            <p className="delivery-fee">Delivery Fee: Rs. {deliveryFee}</p>
+                            <h3 className="total-amount">Total: Rs. {getTotalCartAmount() + deliveryFee}</h3>
+                            <button
+                                className="checkout-button"
+                                onClick={handlePlaceOrder}
+                                disabled={isCartEmpty}  // Disable checkout button if the cart is empty
+                            >
+                                Proceed to Checkout
+                            </button>
                         </div>
-                        <hr />
+
+                        <div className="promo-code">
+                            <p>If you have a coupon code, please apply it below</p>
+                            <input type="text" className="promo-input" placeholder="Promo code" />
+                            <button className="submit-button">Submit</button>
+                        </div>
                     </div>
-                ))}
-            </div>
-            <div className="cart-bottom">
-                <div className="cart-total">
-                    <h2>Cart Total</h2>
                 </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Subtotal</p>
-                    <p>Rs {getTotal()}</p>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Delivery Fee</p>
-                    <p>Rs 350</p>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                    <p>Total</p>
-                    <p>Rs {getTotal() + 350}</p>
-                </div>
-            </div>
-            <button onClick={() => navigate('/Step01')}>Proceed to Checkout</button>
+            )}
         </div>
     );
 };

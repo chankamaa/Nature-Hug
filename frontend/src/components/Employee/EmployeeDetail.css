@@ -1,0 +1,88 @@
+/* Employee Details Container */
+.employee-detail-container {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  padding: 20px;
+}
+
+.employee-box {
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-box-header {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.employee-box-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.employee-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 500px;
+}
+
+.employee-box hr{
+    height: 1px;
+    margin-top: 1px;
+}
+
+.employee-label {
+  width: 150px;
+  font-weight: bold;
+}
+
+.deduction-css {
+  color: red;
+}
+
+.btn-emp-save,
+.btn-emp-edit {
+  padding: 8px 12px;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-emp-edit:hover,
+.btn-emp-save:hover {
+    background-color: tomato;
+    transform: scale(1.01);
+    transition: transform 0.3s ease-in-out;
+}
+.buttons-slr {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    padding: 10px;
+
+}
+
+.personal-header {
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+.salary-header {
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}

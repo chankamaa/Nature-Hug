@@ -11,6 +11,7 @@ const Sidebar = () => {
 
         {/* Add the Attendance Search Link here */}
         <li><Link to="/cso/attendance-search">Search Attendance</Link></li>
+        <li><Link to="/finance/dashboard">Finance Dashboard</Link></li>
       </ul>
     </div>
   );

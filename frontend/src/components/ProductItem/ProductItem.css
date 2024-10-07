@@ -1,0 +1,117 @@
+/* ProductItem.css */
+
+/* Container for the product list */
+.mm34 {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Product list header */
+.mm34 h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #2c3e50;
+}
+
+/* Button to download the PDF */
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Product table styles */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.product-table th, .product-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.product-table td {
+  font-size: 14px;
+  color: #333;
+}
+
+.product-table img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Action buttons for Edit and Delete */
+.edit-btn, .delete-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #195f31;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #195f31;
+}
+
+.delete-btn {
+  background-color: #195f31;
+  color: white;
+  
+}
+
+.delete-btn:hover {
+  background-color: #195f31;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mm34 {
+    padding: 15px;
+  }
+
+  .product-table, .product-table th, .product-table td {
+    font-size: 12px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .product-table img {
+    width: 40px;
+    height: 40px;
+  }
+}

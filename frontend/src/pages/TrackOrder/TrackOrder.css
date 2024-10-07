@@ -1,0 +1,91 @@
+.track-order-container {
+    margin: 50px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+  
+  .order-details {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .status-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .timeline-item.completed .status-circle {
+    background-color: green;
+  }
+  
+  .status-details {
+    font-size: 1rem;
+  }
+  
+  .progress-bar {
+    position: relative;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: green;
+    transition: width 0.5s;
+  }
+  
+  .map-container {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .support-section {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .cancel-order,
+  .contact-support {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .cancel-order {
+    background-color: red;
+    color: white;
+  }
+  
+  .contact-support {
+    background-color: #45a049;
+    color: white;
+  }
+  
