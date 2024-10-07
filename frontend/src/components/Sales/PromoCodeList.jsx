@@ -6,6 +6,7 @@ const PromoCodeList = () => {
     const [promoCodes, setPromoCodes] = useState([]);
     const [editingPromo, setEditingPromo] = useState(null); // Track the promotion being edited
     const [error, setError] = useState(null); // To track any errors
+    const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
     // Fetch all promo codes on component mount
     useEffect(() => {
@@ -30,12 +31,8 @@ const PromoCodeList = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this promotion?')) {
             try {
-                // Making the DELETE request
                 const response = await axios.delete(`http://localhost:4000/api/promotions/del/${id}`);
-                
-                // Check for success response before updating state
                 if (response.status === 200) {
-                    // Update the state after deletion only if deletion is successful
                     setPromoCodes(promoCodes.filter(promo => promo._id !== id));
                 } else {
                     setError('Failed to delete promotion');
@@ -67,14 +64,29 @@ const PromoCodeList = () => {
         }
     };
 
+    // Filter promo codes based on search term
+    const filteredPromoCodes = promoCodes.filter(promo =>
+        promo.promoCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        promo.promotionName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="promo-code-list">
             <h2>All Promo Codes</h2>
 
+            {/* Search bar */}
+            <input
+                type="text"
+                placeholder="Search by Promo Code or Name..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-bar"
+            />
+
             {/* Display any error messages */}
             {error && <p className="error-message">{error}</p>}
 
-            {promoCodes.length > 0 ? (
+            {filteredPromoCodes.length > 0 ? (
                 <table>
                     <thead>
                         <tr>
@@ -87,7 +99,7 @@ const PromoCodeList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {promoCodes.map((promo) => (
+                        {filteredPromoCodes.map((promo) => (
                             <tr key={promo._id}>
                                 <td>{promo.promoCode}</td>
                                 <td>{promo.promotionName}</td>

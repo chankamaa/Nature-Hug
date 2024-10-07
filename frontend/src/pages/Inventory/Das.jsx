@@ -1,147 +1,104 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import jsPDF from 'jspdf'; // Import jsPDF for PDF generation
+import 'jspdf-autotable'; // Import jspdf-autotable for table generation
+import './InventoryDashboard.css';
+import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
 
-function StockManagement() {
+const InStock = () => {
   const [stocks, setStocks] = useState([]);
-  const [newStock, setNewStock] = useState({
-    Product_ID: '',
-    Product_name: '',
-    Price: 0,
-    Qty: 0,
-    Total_Amount: 0,
-  });
-  const [stockLevels, setStockLevels] = useState({
-    inStock: 0,
-    lowStock: 0,
-    outOfStock: 0,
-  });
 
   useEffect(() => {
     fetchStocks();
-    fetchStockLevels();
   }, []);
 
+  // Fetch all stock data
   const fetchStocks = async () => {
-    const response = await axios.get('http://localhost:4000/api/stocks');
-    setStocks(response.data);
+    try {
+      const response = await axios.get('http://localhost:4000/api/stocks');
+      setStocks(response.data);
+    } catch (error) {
+      console.error('Error fetching stock data', error);
+    }
   };
 
-  const fetchStockLevels = async () => {
-    const response = await axios.get('http://localhost:4000/api/stocks/levels');
-    setStockLevels(response.data);
-  };
+  // Filter in-stock items (Qty > 0)
+  const inStockItems = stocks.filter(stock => stock.Qty > 0);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewStock({ ...newStock, [name]: value });
-  };
+  // Function to download in-stock items as a PDF
+  const downloadInStockPDF = () => {
+    const doc = new jsPDF();
 
-  const addStock = async (e) => {
-    e.preventDefault();
-    await axios.post('http://localhost:4000/api/stocks', newStock);
-    fetchStocks();
-    fetchStockLevels();
-    resetForm();
-  };
+    doc.text('In-Stock Items', 14, 10);
 
-  const resetForm = () => {
-    setNewStock({
-      Product_ID: '',
-      Product_name: '',
-      Price: 0,
-      Qty: 0,
-      Total_Amount: 0,
+    const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
+    const tableRows = [];
+
+    inStockItems.forEach(stock => {
+      const stockData = [
+        stock.Product_ID,
+        stock.Product_name,
+        stock.Price,
+        stock.Qty,
+        stock.Total_Amount,
+      ];
+      tableRows.push(stockData);
     });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.save('in_stock_items.pdf');
   };
 
   return (
-    <div>
-      <h2>Stock Management</h2>
+    <div className="dashboard-container">
+      <Dashboard />
 
-      <form onSubmit={addStock}>
-        <div>
-          <label>Product ID:</label>
-          <input
-            type="text"
-            name="Product_ID"
-            value={newStock.Product_ID}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <main className="main-contet">
+        {/* In-Stock Items List View */}
+        <section className="in-stock-list">
+          <h2 className='header1'>In-Stock Items List</h2>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inStockItems.length > 0 ? (
+                inStockItems.map(stock => (
+                  <tr key={stock._id}>
+                    <td>{stock.Product_ID}</td>
+                    <td>{stock.Product_name}</td>
+                    <td>{stock.Price}</td>
+                    <td>{stock.Qty}</td>
+                    <td>{stock.Total_Amount}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" style={{ textAlign: 'center' }}>
+                    No in-stock items found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </section>
 
-        <div>
-          <label>Product Name:</label>
-          <input
-            type="text"
-            name="Product_name"
-            value={newStock.Product_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Price:</label>
-          <input
-            type="number"
-            name="Price"
-            value={newStock.Price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Quantity:</label>
-          <input
-            type="number"
-            name="Qty"
-            value={newStock.Qty}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Total Amount:</label>
-          <input type="number" name="Total_Amount" value={newStock.Total_Amount} readOnly />
-        </div>
-
-        <button type="submit">Add Stock</button>
-      </form>
-
-      <h2>Stock Levels</h2>
-      <p>In Stock: {stockLevels.inStock}</p>
-      <p>Low Stock: {stockLevels.lowStock}</p>
-      <p>Out of Stock: {stockLevels.outOfStock}</p>
-
-      <h2>Stock List</h2>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {stocks.map((stock) => (
-            <tr key={stock._id}>
-              <td>{stock.Product_ID}</td>
-              <td>{stock.Product_name}</td>
-              <td>{stock.Price}</td>
-              <td>{stock.Qty}</td>
-              <td>{stock.Total_Amount}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        {/* Download PDF Button */}
+        <section className="cont">
+          <button className="button1" onClick={downloadInStockPDF}>
+             In-Stock List 
+          </button>
+        </section>
+      </main>
     </div>
   );
-}
+};
 
-export default StockManagement;
+export default InStock;
