@@ -89,10 +89,6 @@ const AddProductForm = () => {
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </label>
         <label>
-          Stock Count:
-          <input type="number" name="countInStock" value={productData.countInStock} onChange={handleChange} required />
-        </label>
-        <label>
           Category:
           <input type="text" name="category" value={productData.category} onChange={handleChange} required />
         </label>

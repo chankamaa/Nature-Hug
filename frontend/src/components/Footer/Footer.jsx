@@ -30,8 +30,8 @@ const Footer = () => {
                 <div className="footer-plant-questions">
                     <h4>PLANT QUESTIONS?</h4>
                     <ul>
-                        <li>Plant Care Tips</li>
-                        <li>Plant Life Blog</li>
+                    <li><Link to="/PlantCareTips">Plant Care Tips</Link></li>
+                    <li><Link to="/PlantLifeBlog">Plant Life Blog</Link></li>
                     </ul>
                 </div>
             </div>
