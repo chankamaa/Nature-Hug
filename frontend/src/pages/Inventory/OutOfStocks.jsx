@@ -5,7 +5,8 @@ import 'jspdf-autotable'; // Import jspdf-autotable for table generation
 import './InventoryDashboard.css';
 import Dashboard from '../../components/Dash/Dashboard';
 import axios from 'axios';
-import './Instocks.css'
+import logo from '../../assets/logo.png'; // Ensure this is the correct path to your logo image
+import './Instocks.css';
 
 const OutOfStocks = () => {
   const [stocks, setStocks] = useState([]);
@@ -30,7 +31,29 @@ const OutOfStocks = () => {
   const downloadOutOfStockPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('Out-Of-Stock Items', 14, 10);
+    // Add logo to the PDF
+    doc.addImage(logo, 'PNG', 10, 10, 30, 30); // Adjust logo position and size
+
+    // Add company details
+    const headerText = [
+      "Nature Hug",
+      "Address: 54A, Ihala Vitiyala, Karagoda-Uyangoda, Matara",
+      "Email: handamama.pvt@gmail.com",
+      "Phone: +94 76 258 2337"
+    ];
+
+    doc.setFontSize(12);
+    headerText.forEach((line, index) => {
+      doc.text(line, 50, 15 + (index * 5)); // Adjust the position of text after the logo
+    });
+
+    // Add current date
+    const currentDate = new Date().toLocaleDateString();
+    doc.text(`Date: ${currentDate}`, 150, 15);
+
+    // Title of the document
+    doc.setFontSize(16);
+    doc.text('Out-Of-Stock Items', 14, 50);
 
     const tableColumn = ['Product ID', 'Product Name', 'Price', 'Quantity', 'Total Amount'];
     const tableRows = [];
@@ -46,7 +69,10 @@ const OutOfStocks = () => {
       tableRows.push(stockData);
     });
 
-    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    // Add table to the PDF
+    doc.autoTable(tableColumn, tableRows, { startY: 60 });
+
+    // Save the PDF
     doc.save('out_of_stock_items.pdf');
   };
 

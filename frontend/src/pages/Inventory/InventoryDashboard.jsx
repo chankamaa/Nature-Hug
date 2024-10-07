@@ -54,7 +54,7 @@ const InventoryDashboard = () => {
     const { inStock, lowStock, outOfStock } = response.data;
 
     //  all stock
-    const allStock = inStock + lowStock + outOfStock;
+    const allStock = inStock + outOfStock;
 
     setStockLevels({
       inStock,
@@ -102,9 +102,10 @@ const InventoryDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-contain">
       <Dashboard />
 
+ <div className="dashboard-container">
       <main className="main-contet">
 <h1 style={{textAlign:'center'}}>Inventory Dashboard</h1>
         <section className="stock-cards">
@@ -114,19 +115,21 @@ const InventoryDashboard = () => {
             <p>{stockLevels.inStock}</p>
           </div>
           <div className="card">
-            <img src={assets.Moon_valley_plant} alt="All Stock" />
+            <img src={assets.Bamboo_plant} alt="All Stock" />
           
             <h3>All Stock</h3>
             <p>{stockLevels.allStock}</p>
           </div>
           
           <div className="card">
-            <img src={assets.Moon_valley_plant} alt="Out of Stock" />
+            <img src={assets.Ferns_plant} alt="Out of Stock" />
             <h3>Out of Stock</h3>
             <p>{stockLevels.outOfStock}</p>
           </div>
         </section>
-
+        </main>
+</div>plant
+<main className="main-contet">
         {/* Bar Chart */}
         <section className="chart">
           <h2>Stock Level Bar Chart</h2>

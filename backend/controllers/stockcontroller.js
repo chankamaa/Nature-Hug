@@ -1,4 +1,3 @@
-
 import Stoks from '../models/Stock.js';
 
 // Get all stocks
@@ -74,8 +73,8 @@ export const getStockLevels = async (req, res) => {
     const stocks = await Stoks.find();
 
     // Define thresholds for stock levels
-    const inStockThreshold = 5;
-    const lowStockThreshold = 2;
+    const inStockThreshold = 5; // Define your in-stock threshold here
+    const lowStockThreshold = 2; // Define your low-stock threshold here
 
     let inStockCount = 0;
     let lowStockCount = 0;
@@ -83,12 +82,14 @@ export const getStockLevels = async (req, res) => {
 
     // Calculate stock levels
     stocks.forEach(stock => {
-      if (stock.Qty >= inStockThreshold) {
-        inStockCount = lowStockCount+inStockCount;
-         inStockCount++;
-       
-      } else if (stock.Qty >= lowStockThreshold && stock.Qty <= inStockThreshold) {
-        lowStockCount++;
+      if (stock.Qty > 0) {
+        // If the stock quantity is greater than 0, count it as in stock
+        inStockCount++;
+
+        // Also count it as low stock if it's below the in-stock threshold
+        if (stock.Qty > 0 && stock.Qty <= inStockThreshold) {
+          lowStockCount++;
+        }
       } else {
         outOfStockCount++;
       }
@@ -96,8 +97,8 @@ export const getStockLevels = async (req, res) => {
 
     // Return stock levels summary
     res.status(200).json({
-      inStock: inStockCount,
-      lowStock: lowStockCount,
+      inStock: inStockCount,   // Includes low-stock items
+      lowStock: lowStockCount, // Counts separately
       outOfStock: outOfStockCount,
       total: stocks.length
     });
